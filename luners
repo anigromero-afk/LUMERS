@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>LUNERS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="font-family: Arial; max-width: 800px; margin: auto; padding: 40px;">
+  <h1>LUNERS</h1>
+  <h3>Logística colaborativa. Más rápida. Más humana.</h3>
+
+  <p>
+    LUNERS conecta personas que envían paquetes con personas que viajan,
+    de forma legal, segura y con trazabilidad.
+  </p>
+
+  <h2>Cómo funciona</h2>
+  <ol>
+    <li>Publicás tu envío</li>
+    <li>Un portador verificado lo transporta</li>
+    <li>Entrega confirmada con pago protegido</li>
+  </ol>
+
+  <h2>Contacto</h2>
+  <p>Email: contacto@luners.app</p>
+
+  <footer style="margin-top:40px; font-size:12px;">
+    LUNERS™ – Marca en trámite ante el INPI – Argentina
+  </footer>
+</body>
+</html>
