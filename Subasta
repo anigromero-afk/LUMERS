@@ -48,5 +48,24 @@
   firebase.initializeApp(firebaseConfig);
   const database = firebase.database();
 </script>
+<script>
+  const ofertasRef = database.ref("subastas/envio1");
+
+  ofertasRef.on("value", (snapshot) => {
+    const data = snapshot.val();
+    if (!data) return;
+
+    document.body.innerHTML = "<h1>Subasta en tiempo real</h1>";
+
+    Object.values(data).forEach(oferta => {
+      document.body.innerHTML += `
+        <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+          <strong>${oferta.nombre}</strong><br>
+          Precio: $${oferta.precio}
+        </div>
+      `;
+    });
+  });
+</script>
 </body>
 </html>
