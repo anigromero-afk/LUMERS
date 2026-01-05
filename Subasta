@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>LUMERS – Subasta en tiempo real</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="font-family:Arial; padding:30px;">
+
+<h1>Subasta en tiempo real</h1>
+<p>Transportistas ofertan por tu envío</p>
+
+<div style="border:1px solid #ccc; padding:20px;">
+  <p><strong>Oferta 1</strong> – Juan 🚚</p>
+  <p>Precio: $8.500</p>
+  <p>Reputación: ⭐⭐⭐⭐☆</p>
+</div><br>
+
+<div style="border:1px solid #ccc; padding:20px;">
+  <p><strong>Oferta 2</strong> – María ✈️</p>
+  <p>Precio: $7.900</p>
+  <p>Reputación: ⭐⭐⭐⭐⭐</p>
+</div><br>
+
+<div style="border:1px solid #ccc; padding:20px;">
+  <p><strong>Oferta 3</strong> – Carlos 🛵</p>
+  <p>Precio: $7.500</p>
+  <p>Reputación: ⭐⭐⭐⭐☆</p>
+</div>
+
+<br>
+<button style="padding:12px 20px;">Aceptar mejor oferta</button>
+<br><br>
+
+<a href="index.html">← Volver al inicio</a>
+
+</body>
+</html>
