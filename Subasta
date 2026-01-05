@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
   <style>
     body {
@@ -94,8 +94,8 @@ const app = initializeApp(firebaseConfig);
 
   // Inicializar Firebase
   firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-  const subastaRef = db.ref("subasta/actual");
+const db = firebase.database();
+const subastaRef = db.ref("subasta/actual");
 
   // Escuchar cambios en tiempo real
   subastaRef.on("value", (snapshot) => {
