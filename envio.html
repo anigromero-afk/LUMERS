@@ -23,3 +23,31 @@ async function guardarEnvio(datos) {
     console.error("Error al añadir: ", e);
   }
 }
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-storage.js";
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+async function crearEnvioConFoto() {
+    const file = document.getElementById('fotoPaquete').files[0];
+    const descripcion = document.getElementById('descripcion').value;
+    
+    // 1. Subir la foto al Bucket de Google Cloud/Firebase
+    const storageRef = ref(storage, 'paquetes/' + Date.now() + "_" + file.name);
+    const snapshot = await uploadBytes(storageRef, file);
+    const urlFoto = await getDownloadURL(snapshot.ref);
+
+    // 2. Guardar el registro en Firestore con la URL de la foto
+    await addDoc(collection(db, "envios"), {
+        descripcion: descripcion,
+        fotoUrl: urlFoto,
+        estado: "abierto", // Para que aparezca en la subasta
+        fechaCreacion: new Date(),
+        valorDeclarado: document.getElementById('valor').value
+    });
+    
+    alert("Envío publicado con éxito");
+}
