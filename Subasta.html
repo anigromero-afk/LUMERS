@@ -58,5 +58,51 @@
         // Aquí conectarías el código onSnapshot de Firebase que te pasé antes
         // para que genere estas tarjetas automáticamente.
     </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+  // Tu configuración de Firebase
+  const firebaseConfig = {
+    projectId: "lumers-web-81346186",
+    authDomain: "lumers-web-81346186.firebaseapp.com",
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const contenedor = document.getElementById('contenedorSubastas');
+
+  // "Escuchar" la base de datos en tiempo real
+  onSnapshot(collection(db, "envios"), (snapshot) => {
+    contenedor.innerHTML = ''; // Limpiamos para no repetir
+    
+    snapshot.forEach((doc) => {
+      const envio = doc.data();
+      
+      // Creamos la tarjeta moderna para cada envío
+      contenedor.innerHTML += `
+        <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:shadow-xl transition-all">
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="font-bold text-lg text-slate-800">${envio.nombre}</h3>
+                <p class="text-sm text-slate-500 italic">ID: ${doc.id.substring(0,6)}...</p>
+              </div>
+              <span class="text-blue-600 font-bold text-xl">$${envio.valor}</span>
+            </div>
+            <div class="space-y-2 mb-6 text-sm text-slate-600">
+              <p>⚖️ <b>Peso:</b> ${envio.peso} kg</p>
+              <p>📍 <b>Estado:</b> <span class="text-green-500 font-bold">${envio.estado}</span></p>
+            </div>
+            <button onclick="window.location.href='Chat.html?id=${doc.id}'" class="w-full bg-slate-900 text-white py-3 rounded-xl font-semibold hover:bg-blue-600 transition">
+              Ofertar / Chatear
+            </button>
+          </div>
+        </div>
+      `;
+    });
+  });
+</script>
+
 </body>
 </html>
