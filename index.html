@@ -127,6 +127,33 @@ const firebaseConfig = {
     }
   }
 </script>
+<script type="module">
+  import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  
+  // Suponiendo que ya tienes 'db' y 'auth' inicializados
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const campana = document.getElementById('iconoNotificacion');
+      const q = query(
+        collection(db, "notificaciones"), 
+        where("para", "==", user.uid), 
+        where("leido", "==", false)
+      );
+
+      // Escuchar si hay notificaciones sin leer
+      onSnapshot(q, (snapshot) => {
+        if (snapshot.size > 0) {
+          // Si hay mensajes, añadimos un punto rojo visual
+          campana.innerHTML += `<span class="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>`;
+        } else {
+          // Si no hay nada, quitamos el punto (limpiando el HTML extra)
+          const punto = campana.querySelector('.bg-red-500');
+          if (punto) punto.remove();
+        }
+      });
+    }
+  });
+</script>
 
       </body>
 </script>
