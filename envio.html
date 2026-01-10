@@ -60,6 +60,36 @@
             "La comunidad que conecta el mundo, una entrega a la vez".
         </p>
     </main>
+<script type="module">
+  import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  
+  // Usamos la misma configuración que ya tienes
+  const db = getFirestore();
+
+  // Función para guardar el envío
+  async function guardarEnvio(evento) {
+    evento.preventDefault(); // Evita que la página se recargue
+
+    const paquete = {
+      nombre: document.querySelector('#nombrePaquete').value,
+      peso: document.querySelector('#pesoPaquete').value,
+      valor: document.querySelector('#valorPaquete').value,
+      estado: "abierto",
+      fecha: new Date().toISOString()
+    };
+
+    try {
+      const docRef = await addDoc(collection(db, "envios"), paquete);
+      alert("¡Paquete publicado con éxito! ID: " + docRef.id);
+      window.location.href = "Subasta.html"; // Redirigir a las subastas
+    } catch (e) {
+      console.error("Error al publicar: ", e);
+    }
+  }
+
+  // Conectar el botón del formulario
+  document.querySelector('form').addEventListener('submit', guardarEnvio);
+</script>
 
 </body>
 </html>
