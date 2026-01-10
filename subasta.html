@@ -6,45 +6,48 @@
     <title>Subastas Disponibles | Lumers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .card-shadow { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+    </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-24">
+<body class="bg-slate-50 min-h-screen pb-28">
 
     <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 px-6 py-4">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">L</div>
-                <h1 class="text-xl font-extrabold text-slate-800">Subastas</h1>
+                <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">Marketplace</h1>
             </div>
-            <div id="userStatus" class="text-sm font-bold text-blue-600"></div>
+            <div id="userGreeting" class="text-sm font-bold text-blue-600 bg-blue-50 px-4 py-1.5 rounded-full"></div>
         </div>
     </nav>
 
-    <main class="max-w-7xl mx-auto px-6 pt-8">
-        <div class="mb-8">
-            <h2 class="text-3xl font-extrabold text-slate-900">Envíos disponibles</h2>
-            <p class="text-slate-500">Elige un paquete y conviértete en el viajero encargado.</p>
-        </div>
+    <main class="max-w-7xl mx-auto px-6 pt-10">
+        <header class="mb-10">
+            <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Subastas Activas</h2>
+            <p class="text-slate-500 text-lg">Encuentra paquetes para transportar y gana dinero en tu próximo viaje.</p>
+        </header>
 
-        <div id="listaSubastas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="col-span-full text-center py-20">
-                <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p class="text-slate-400">Buscando oportunidades de viaje...</p>
+        <div id="contenedorSubastas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="col-span-full flex flex-col items-center py-20">
+                <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
+                <p class="text-slate-400 font-medium">Sincronizando con la red Lumers...</p>
             </div>
         </div>
     </main>
 
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl flex gap-10 z-50 items-center">
-        <a href="index.html" class="text-xl opacity-70 hover:opacity-100">🏠</a>
-        <a href="Subasta.html" class="text-xl">🌍</a>
-        <a href="crear-envio.html" class="bg-blue-600 p-3 rounded-full -mt-2 hover:scale-110 transition">➕</a>
-        <a href="perfil.html" class="text-xl opacity-70 hover:opacity-100">👤</a>
+        <a href="index.html" class="text-xl hover:scale-110 transition">🏠</a>
+        <a href="Subasta.html" class="text-xl text-blue-400">🌍</a>
+        <a href="crear-envio.html" class="bg-blue-600 p-3 rounded-full -mt-2 hover:bg-blue-500 transition shadow-lg shadow-blue-500/20">➕</a>
+        <a href="perfil.html" class="text-xl hover:scale-110 transition">👤</a>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw",
@@ -60,64 +63,67 @@
         const db = getFirestore(app);
 
         onAuthStateChanged(auth, (user) => {
+            const greeting = document.getElementById('userGreeting');
             if (user) {
-                document.getElementById('userStatus').innerText = `Hola, ${user.displayName.split(' ')[0]}`;
-                cargarSubastas();
+                greeting.innerText = `Hola, ${user.displayName.split(' ')[0]}`;
             } else {
-                // Si no está logueado, igual mostramos las subastas pero limitamos acciones
-                cargarSubastas();
+                greeting.style.display = 'none';
             }
+            renderSubastas();
         });
 
-        function cargarSubastas() {
-            const lista = document.getElementById('listaSubastas');
-            // Consulta: Solo paquetes en estado "Abierto"
+        function renderSubastas() {
+            const contenedor = document.getElementById('contenedorSubastas');
+            // Traemos solo los envíos que NO han sido entregados aún
             const q = query(collection(db, "envios"), where("estado", "==", "Abierto"));
 
             onSnapshot(q, (snapshot) => {
                 if (snapshot.empty) {
-                    lista.innerHTML = `
-                        <div class="col-span-full bg-white p-12 rounded-3xl border border-dashed border-slate-200 text-center">
-                            <p class="text-slate-400 font-medium">No hay subastas activas en este momento.</p>
-                            <a href="crear-envio.html" class="text-blue-600 font-bold mt-2 inline-block text-sm">¡Sé el primero en publicar uno!</a>
+                    contenedor.innerHTML = `
+                        <div class="col-span-full text-center py-20 bg-white rounded-3xl border border-dashed border-slate-200">
+                            <p class="text-slate-400 text-lg">No hay envíos disponibles por ahora.</p>
+                            <a href="crear-envio.html" class="text-blue-600 font-bold hover:underline">¡Crea el primero aquí!</a>
                         </div>`;
                     return;
                 }
 
-                lista.innerHTML = '';
+                contenedor.innerHTML = '';
                 snapshot.forEach((docSnap) => {
-                    const envio = docSnap.data();
+                    const env = docSnap.data();
                     const id = docSnap.id;
 
-                    lista.innerHTML += `
-                        <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 group">
-                            <div class="relative h-48 overflow-hidden">
-                                <img src="${envio.foto || 'https://via.placeholder.com/400x200'}" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-blue-600 font-extrabold text-sm shadow-sm">
-                                    $${envio.valor}
+                    contenedor.innerHTML += `
+                        <article class="bg-white rounded-[2rem] overflow-hidden border border-slate-100 card-shadow group hover:-translate-y-1 transition-all duration-300">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="${env.foto || 'https://via.placeholder.com/400x300?text=Lumers+Envio'}" 
+                                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <div class="absolute top-4 left-4 bg-blue-600 text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-lg">
+                                    Nuevo
+                                </div>
+                                <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-4 py-2 rounded-2xl text-slate-900 font-extrabold text-lg shadow-xl">
+                                    $${env.valor}
                                 </div>
                             </div>
-                            <div class="p-6">
-                                <h3 class="font-extrabold text-xl text-slate-800 mb-2 truncate">${envio.nombre}</h3>
-                                <div class="flex items-center gap-4 text-slate-500 text-sm mb-6">
-                                    <span class="flex items-center gap-1">⚖️ ${envio.peso}kg</span>
-                                    <span class="flex items-center gap-1">📍 Disponible</span>
+                            <div class="p-8">
+                                <h3 class="text-xl font-extrabold text-slate-800 mb-2 truncate">${env.nombre}</h3>
+                                <div class="flex items-center gap-6 mb-8 text-slate-500 font-semibold text-sm">
+                                    <span class="flex items-center gap-1.5">📦 ${env.peso}kg</span>
+                                    <span class="flex items-center gap-1.5">🛣️ Disponible</span>
                                 </div>
-                                <button onclick="irAlChat('${id}')" 
-                                        class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-600 transition-colors shadow-lg shadow-slate-100">
-                                    Ofertar / Chatear
+                                <button onclick="contactarRemitente('${id}')" 
+                                        class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-200 transition-all">
+                                    Me interesa
                                 </button>
                             </div>
-                        </div>
+                        </article>
                     `;
                 });
             });
         }
 
-        window.irAlChat = (id) => {
+        window.contactarRemitente = (id) => {
             if (!auth.currentUser) {
-                alert("Debes iniciar sesión para contactar al remitente.");
+                alert("Para ofertar en una subasta, primero debes ingresar con tu cuenta.");
                 window.location.href = "index.html";
                 return;
             }
