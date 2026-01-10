@@ -126,6 +126,15 @@
     };
   });
 </script>
+// Función para generar una notificación
+async function crearNotificacion(usuarioDestinoId, mensaje) {
+  await addDoc(collection(db, "notificaciones"), {
+    para: usuarioDestinoId,
+    texto: mensaje,
+    leido: false,
+    fecha: serverTimestamp()
+  });
+}
 
 </body>
 </html>
