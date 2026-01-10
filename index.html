@@ -110,23 +110,61 @@
     }
   };
 
-  // Lógica de Notificaciones
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const campana = document.getElementById('iconoNotificacion');
-      const q = query(collection(db, "notificaciones"), where("para", "==", user.uid), where("leido", "==", false));
+  // --- LÓGICA DE NOTIFICACIONES MEJORADA ---
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    const btn = document.getElementById('notificacionesBtn');
+    const panel = document.getElementById('panelNotificaciones');
+    const lista = document.getElementById('listaNotificaciones');
+    const campana = document.getElementById('iconoNotificacion');
 
-      onSnapshot(q, (snapshot) => {
-        // Borramos puntos viejos para no duplicar
-        const puntoExistente = campana.querySelector('.bg-red-500');
-        if (puntoExistente) puntoExistente.remove();
+    // 1. Abrir/Cerrar panel al tocar la campana
+    btn.onclick = () => panel.classList.toggle('hidden');
 
-        if (snapshot.size > 0) {
-          campana.innerHTML += `<span class="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>`;
-        }
+    // 2. Escuchar notificaciones en tiempo real
+    const q = query(
+      collection(db, "notificaciones"), 
+      where("para", "==", user.uid),
+      orderBy("fecha", "desc") // Necesitas crear un índice en Firebase si falla
+    );
+
+    onSnapshot(q, (snapshot) => {
+      // Punto rojo
+      const tieneSinLeer = snapshot.docs.some(d => d.data().leido === false);
+      const punto = campana.querySelector('.bg-red-500');
+      if (punto) punto.remove();
+      if (tieneSinLeer) {
+        campana.innerHTML += `<span class="absolute top-0 right-0 block h-3 w-3 rounded-full ring-2 ring-white bg-red-500"></span>`;
+      }
+
+      // Llenar la lista
+      if (snapshot.empty) {
+        lista.innerHTML = '<p class="text-center text-slate-400 text-sm py-4">No hay notificaciones</p>';
+      } else {
+        lista.innerHTML = '';
+        snapshot.forEach((docSnap) => {
+          const noti = docSnap.data();
+          lista.innerHTML += `
+            <div class="p-3 rounded-xl ${noti.leido ? 'bg-white' : 'bg-blue-50'} border border-slate-50 transition">
+              <p class="text-sm text-slate-700">${noti.texto}</p>
+              <p class="text-[10px] text-slate-400 mt-1">${new Date(noti.fecha?.toDate()).toLocaleString()}</p>
+            </div>
+          `;
+        });
+      }
+    });
+
+    // 3. Función para marcar como leído (opcional pero recomendado)
+    window.marcarTodoComoLeido = async () => {
+      const qSinLeer = query(collection(db, "notificaciones"), where("para", "==", user.uid), where("leido", "==", false));
+      const docs = await getDocs(qSinLeer);
+      docs.forEach(async (d) => {
+        await updateDoc(d.ref, { leido: true });
       });
-    }
-  });
+    };
+  }
+});
+
 </script>
 
 </script>
