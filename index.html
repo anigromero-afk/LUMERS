@@ -40,20 +40,22 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // Esto ayuda a que en celulares no falle el popup
+        // Detectar si el usuario ya entró
         onAuthStateChanged(auth, (user) => {
-            if (user) window.location.href = "subasta.html";
+            if (user) {
+                // IMPORTANTE: Verifica si tu archivo es 'subasta.html' o 'Subasta.html'
+                window.location.href = "subasta.html"; 
+            }
         });
 
+        // Usamos Redirect en lugar de Popup para evitar el error de ventana cancelada
         document.getElementById('btnLogin').onclick = () => {
             signInWithRedirect(auth, provider);
         };
 
-        // Manejar el resultado del redireccionamiento
+        // Manejar errores silenciosamente si el usuario cancela
         getRedirectResult(auth).catch((error) => {
-            if (error.code !== 'auth/redirect-cancelled-by-user') {
-                alert("Error: " + error.message);
-            }
+            console.error("Error en redirección:", error.code);
         });
     </script>
 </body>
