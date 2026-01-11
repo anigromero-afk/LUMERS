@@ -3,34 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumers | Ingreso Premium</title>
+    <title>Lumers | Ingreso</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: radial-gradient(circle at top right, #f8fafc, #e2e8f0); }
         .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05); }
-        .btn-premium { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .btn-premium:active { transform: scale(0.95); }
+        .btn-premium { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); transition: all 0.3s ease; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-center items-center px-6">
-    
-    <main class="max-w-md w-full text-center">
+<body class="min-h-screen flex flex-col justify-center items-center px-6 text-center">
+    <main class="max-w-md w-full">
         <div class="mb-10">
-            <div class="w-24 h-24 bg-blue-600 rounded-[2.5rem] mx-auto flex items-center justify-center shadow-2xl text-5xl animate-bounce">📦</div>
+            <div class="w-24 h-24 bg-blue-600 rounded-[2.5rem] mx-auto flex items-center justify-center shadow-2xl text-5xl">📦</div>
         </div>
-
-        <div class="space-y-4 mb-12">
-            <h1 class="text-6xl font-black text-slate-900 tracking-tighter italic">LUMERS</h1>
-            <p class="text-slate-500 text-lg font-medium">Envíos colaborativos con seguridad premium.</p>
-        </div>
-
-        <div class="glass-card rounded-[3rem] p-8 space-y-6">
-            <button id="btnLogin" class="btn-premium w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-white font-bold shadow-xl shadow-slate-900/20">
+        <h1 class="text-6xl font-black text-slate-900 tracking-tighter italic mb-4">LUMERS</h1>
+        <p class="text-slate-500 text-lg mb-12">Seguridad premium en tus envíos.</p>
+        
+        <div class="glass-card rounded-[3rem] p-8">
+            <button id="btnLogin" class="btn-premium w-full py-5 rounded-2xl flex items-center justify-center gap-4 text-white font-bold shadow-xl">
                 <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/action/google.svg" class="w-6 h-6 bg-white rounded-full p-1">
                 Ingresar con Google
             </button>
-            <div id="status" class="text-[10px] text-slate-400 font-black uppercase tracking-widest">Esperando autenticación...</div>
+            <p id="status" class="mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest">Listo para ingresar</p>
         </div>
     </main>
 
@@ -38,7 +33,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // CONFIGURACIÓN OFICIAL LUMERS-D1D36
         const firebaseConfig = {
             apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw",
             authDomain: "lumers-d1d36.firebaseapp.com",
@@ -52,33 +46,26 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // 1. Manejar el regreso de la redirección
-        getRedirectResult(auth)
-            .then((result) => {
-                if (result?.user) {
-                    document.getElementById('status').innerText = "Acceso concedido...";
-                    window.location.href = "subasta.html";
-                }
-            })
-            .catch((error) => {
-                console.error("Error en redirección:", error.message);
-                if (error.code !== 'auth/redirect-cancelled-by-user') {
-                    document.getElementById('status').innerText = "Error: Verifica dominios autorizados";
-                }
-            });
-
-        // 2. Verificar estado persistente
+        // Escuchar si ya inició sesión (esto rompe el bucle de volver al inicio)
         onAuthStateChanged(auth, (user) => {
             if (user) {
+                document.getElementById('status').innerText = "Cargando subastas...";
                 window.location.href = "subasta.html";
             }
         });
 
-        // 3. Botón de ingreso con limpieza de caché de sesión
+        // Manejar el clic del botón
         document.getElementById('btnLogin').onclick = () => {
-            document.getElementById('status').innerText = "Redirigiendo a Google...";
+            document.getElementById('status').innerText = "Conectando con Google...";
             signInWithRedirect(auth, provider);
         };
+
+        // Capturar el resultado al volver de Google
+        getRedirectResult(auth).catch((error) => {
+            console.error(error);
+            document.getElementById('status').innerText = "Error: Verifica dominios en Firebase";
+        });
     </script>
 </body>
 </html>
+
