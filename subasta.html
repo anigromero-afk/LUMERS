@@ -3,83 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subastas | Lumers Premium</title>
+    <title>Subastas | Lumers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: #f8fafc;
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-        .package-card {
-            background: white;
-            border-radius: 2.5rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-        }
-        .package-card:active { transform: scale(0.98); }
-        
-        .price-tag {
-            background: linear-gradient(135deg, #2563eb, #6366f1);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 1.5rem;
-            font-weight: 800;
-        }
-        /* Barra de navegación inferior premium */
-        .bottom-nav {
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 2.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        .package-card { background: white; border-radius: 2.5rem; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; }
+        .premium-toast { background: #0f172a; color: white; padding: 16px; border-radius: 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: slideIn 0.5s ease out; }
+        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .bottom-nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); border-radius: 2.5rem; }
     </style>
 </head>
 <body class="pb-32">
 
-    <nav class="glass-nav sticky top-0 z-50 px-6 py-5">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-black text-slate-900 tracking-tighter">SUBASTAS</h1>
-            <div id="userAvatar" class="w-10 h-10 rounded-full bg-slate-200 border-2 border-white shadow-sm overflow-hidden">
-                <img id="userImg" src="" alt="" class="w-full h-full object-cover hidden">
-            </div>
+    <div id="notif-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-xs space-y-2"></div>
+
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md px-6 py-5 border-b border-slate-100 flex justify-between items-center">
+        <h1 class="text-2xl font-black text-slate-900 tracking-tighter">SUBASTAS</h1>
+        <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden border-2 border-white shadow-sm">
+            <img id="userImg" src="" class="w-full h-full object-cover hidden">
         </div>
     </nav>
 
-    <main class="max-w-md mx-auto px-6 pt-8">
-        <div id="listaEnvios" class="space-y-6">
-            <div id="loader" class="text-center py-20">
-                <div class="inline-block w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-                <p class="mt-4 text-slate-400 font-bold text-xs uppercase tracking-widest">Sincronizando red...</p>
-            </div>
-        </div>
+    <main id="listaEnvios" class="max-w-md mx-auto px-6 pt-8 space-y-6">
+        <div id="loader" class="text-center py-20 text-slate-400 font-bold text-xs tracking-widest uppercase animate-pulse">Sincronizando red premium...</div>
     </main>
 
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bottom-nav px-8 py-4 flex justify-between items-center shadow-2xl">
-        <a href="index.html" class="text-white opacity-40 hover:opacity-100 transition-opacity">🏠</a>
+        <a href="index.html" class="text-white opacity-40">🏠</a>
         <a href="Subasta.html" class="text-white text-xl">🌍</a>
-        <a href="crear-envio.html" class="bg-blue-600 p-4 rounded-2xl shadow-lg shadow-blue-500/40 -translate-y-2">
-            <span class="text-white font-bold text-2xl">+</span>
-        </a>
-        <a href="perfil.html" class="text-white opacity-40 hover:opacity-100 transition-opacity">👤</a>
+        <a href="crear-envio.html" class="bg-blue-600 p-4 rounded-2xl shadow-lg -translate-y-2 text-white font-bold text-2xl">+</a>
+        <a href="perfil.html" class="text-white opacity-40">👤</a>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, onSnapshot, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw",
             authDomain: "lumers-d1d36.firebaseapp.com",
             projectId: "lumers-d1d36",
-            storageBucket: "lumers-d1d36.firebasestorage.app", // Verificado con tus capturas
+            storageBucket: "lumers-d1d36.firebasestorage.app",
             messagingSenderId: "798769127070",
             appId: "1:798769127070:web:6b591851e4c5c62758258f"
         };
@@ -88,62 +54,50 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Control de Usuario
+        function notify(emoji, txt) {
+            const container = document.getElementById('notif-container');
+            const toast = document.createElement('div');
+            toast.className = 'premium-toast';
+            toast.innerHTML = `<span class="text-xl">${emoji}</span><span class="text-xs font-bold">${txt}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
         onAuthStateChanged(auth, (user) => {
-            if (user && user.photoURL) {
+            if (user) {
                 document.getElementById('userImg').src = user.photoURL;
                 document.getElementById('userImg').classList.remove('hidden');
             }
         });
 
-        // Escuchar Subastas en Tiempo Real
-        const q = query(collection(db, "envios"), where("estado", "==", "Abierto"), orderBy("fecha", "desc"));
-        
+        const q = query(collection(db, "envios"), orderBy("fecha", "desc"));
         onSnapshot(q, (snapshot) => {
             const lista = document.getElementById('listaEnvios');
-            const loader = document.getElementById('loader');
-            loader.style.display = 'none';
-            lista.innerHTML = '';
-
-            if (snapshot.empty) {
-                lista.innerHTML = `
-                    <div class="text-center py-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-100">
-                        <span class="text-5xl">🔭</span>
-                        <p class="mt-4 text-slate-400 font-bold uppercase text-[10px] tracking-widest">No hay envíos disponibles</p>
-                    </div>`;
-                return;
-            }
-
-            snapshot.forEach((doc) => {
-                const envio = doc.data();
-                lista.innerHTML += `
-                    <div class="package-card overflow-hidden animate-in">
-                        <div class="relative h-56">
-                            <img src="${envio.foto}" class="w-full h-full object-cover">
-                            <div class="absolute top-4 right-4 price-tag shadow-xl">
-                                $${envio.valor}
-                            </div>
-                            <div class="absolute bottom-4 left-4 bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl text-white text-xs font-bold">
-                                ⚖️ ${envio.peso} KG
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-xl font-black text-slate-800 tracking-tight">${envio.nombre}</h3>
-                                <span class="text-[10px] font-black bg-slate-100 text-slate-400 px-3 py-1 rounded-full uppercase tracking-tighter">${envio.categoria}</span>
-                            </div>
-                            <p class="text-slate-400 text-sm font-medium mb-6">Publicado por ${envio.usuarioNombre || 'Premium User'}</p>
-                            <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm hover:bg-blue-600 transition-colors">
-                                REALIZAR OFERTA
-                            </button>
-                        </div>
-                    </div>
-                `;
+            document.getElementById('loader').style.display = 'none';
+            
+            snapshot.docChanges().forEach(change => {
+                if (change.type === "added" && !snapshot.metadata.fromCache) {
+                    notify("📦", "Nuevo paquete detectado");
+                }
             });
-        }, (error) => {
-            console.error("Error en Snapshot:", error);
-            // Si sale error de índice, se mostrará en la consola del navegador
+
+            lista.innerHTML = '';
+            snapshot.forEach((doc) => {
+                const item = doc.data();
+                lista.innerHTML += `
+                    <div class="package-card animate-in">
+                        <img src="${item.foto}" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-black text-slate-800 text-xl">${item.nombre}</h3>
+                                <span class="bg-blue-600 text-white px-4 py-2 rounded-xl font-extrabold text-sm">$${item.valor}</span>
+                            </div>
+                            <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-xs uppercase tracking-widest">Ofertar Ahora</button>
+                        </div>
+                    </div>`;
+            });
         });
     </script>
 </body>
 </html>
+
