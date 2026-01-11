@@ -1,42 +1,7 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lumers | Subastas Premium</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <style>
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: #f8fafc; 
-        }
-        .header-glass {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        .card-subasta {
-            background: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #f1f5f9;
-        }
-        .card-subasta:active {
-            transform: scale(0.97);
-            background: #f8fafc;
-        }
-        .badge-ruta {
-            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-            color: #1d4ed8;
-        }
-    </style>
-</head>
 <body class="pb-20">
 
     <nav class="header-glass sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div>
-            <h2 class="text-2xl font-black italic tracking-tighter text-slate-900">LUMERS</h2>
-        </div>
+        <h2 class="text-2xl font-black italic tracking-tighter text-slate-900">LUMERS</h2>
         <div id="userInfo" class="flex items-center gap-3 bg-slate-100 px-4 py-2 rounded-2xl">
             <span class="text-xs font-extrabold text-slate-600 uppercase tracking-wider">Cargando...</span>
         </div>
@@ -47,25 +12,35 @@
             <h1 class="text-3xl font-extrabold text-slate-900">Subastas activas</h1>
             <p class="text-slate-500">Encuentra envíos cerca de tu ruta.</p>
         </header>
-
-        <div id="listaSubastas" class="grid gap-6">
-            <div class="animate-pulse space-y-4">
-                <div class="h-32 bg-slate-200 rounded-[2rem]"></div>
-                <div class="h-32 bg-slate-200 rounded-[2rem]"></div>
-            </div>
-        </div>
+        <div id="listaSubastas" class="grid gap-6"></div>
     </main>
 
+    <div id="modalForm" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-end sm:items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-[3rem] p-8 animate-in slide-in-from-bottom duration-300">
+            <h3 class="text-2xl font-extrabold mb-6">Nuevo Envío</h3>
+            <div class="space-y-4">
+                <input type="text" id="inputRuta" placeholder="Ej: BsAs -> Rosario" class="w-full p-4 bg-slate-100 rounded-2xl border-none focus:ring-2 focus:ring-blue-500">
+                <input type="text" id="inputProducto" placeholder="¿Qué envías?" class="w-full p-4 bg-slate-100 rounded-2xl border-none focus:ring-2 focus:ring-blue-500">
+                <div class="flex gap-4">
+                    <input type="number" id="inputPrecio" placeholder="Precio $" class="w-1/2 p-4 bg-slate-100 rounded-2xl border-none focus:ring-2 focus:ring-blue-500">
+                    <input type="number" id="inputPeso" placeholder="Peso kg" class="w-1/2 p-4 bg-slate-100 rounded-2xl border-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <button id="btnGuardar" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold text-lg shadow-xl shadow-blue-500/20">Publicar ahora</button>
+                <button id="btnCloseForm" class="w-full text-slate-400 font-bold py-2">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bg-slate-900 rounded-[2.5rem] p-4 flex justify-around items-center shadow-2xl z-50">
-        <button class="text-white opacity-100"><span class="text-xl">🏠</span></button>
-        <button id="btnOpenForm" class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl shadow-lg shadow-blue-500/40">+</button>
-        <button id="btnLogout" class="text-white opacity-50"><span class="text-xl">🚪</span></button>
+        <button class="text-white text-xl">🏠</button>
+        <button id="btnOpenForm" class="bg-blue-600 w-12 h-12 rounded-full flex items-center justify-center text-white text-2xl shadow-lg">+</button>
+        <button id="btnLogout" class="text-white opacity-50 text-xl">🚪</button>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw",
@@ -80,63 +55,60 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Seguridad: Verificar sesión
+        // ABRIR/CERRAR FORMULARIO
+        const modal = document.getElementById('modalForm');
+        document.getElementById('btnOpenForm').onclick = () => modal.classList.remove('hidden');
+        document.getElementById('btnCloseForm').onclick = () => modal.classList.add('hidden');
+
+        // GUARDAR EN BASE DE DATOS
+        document.getElementById('btnGuardar').onclick = async () => {
+            const ruta = document.getElementById('inputRuta').value;
+            const producto = document.getElementById('inputProducto').value;
+            const precio = document.getElementById('inputPrecio').value;
+            const peso = document.getElementById('inputPeso').value;
+
+            if(ruta && producto && precio) {
+                await addDoc(collection(db, "subastas"), {
+                    ruta, producto, precio: Number(precio), peso: Number(peso),
+                    fecha: serverTimestamp(),
+                    usuario: auth.currentUser.displayName
+                });
+                modal.classList.add('hidden'); // Cerrar al terminar
+                alert("¡Publicado con éxito!");
+            } else {
+                alert("Por favor completa los campos principales");
+            }
+        };
+
+        // ... (Aquí sigue la misma lógica de onAuthStateChanged y cargarSubastas de antes) ...
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById('userInfo').innerHTML = `
-                    <img src="${user.photoURL}" class="w-6 h-6 rounded-full border border-white shadow-sm">
-                    <span class="text-xs font-bold text-slate-700">${user.displayName.split(' ')[0]}</span>
-                `;
+                document.getElementById('userInfo').innerHTML = `<img src="${user.photoURL}" class="w-6 h-6 rounded-full"><span class="text-xs font-bold text-slate-700">${user.displayName.split(' ')[0]}</span>`;
                 cargarSubastas();
-            } else {
-                window.location.assign("index.html");
-            }
+            } else { window.location.assign("index.html"); }
         });
 
-        // Botón Salir
-        document.getElementById('btnLogout').onclick = () => signOut(auth);
-
-        // Cargar datos reales
         function cargarSubastas() {
             const q = query(collection(db, "subastas"), orderBy("fecha", "desc"));
-            
             onSnapshot(q, (snapshot) => {
                 const contenedor = document.getElementById('listaSubastas');
                 contenedor.innerHTML = "";
-
-                if (snapshot.empty) {
-                    contenedor.innerHTML = `
-                        <div class="text-center py-20">
-                            <div class="text-5xl mb-4">🔍</div>
-                            <p class="text-slate-400 font-medium">No hay envíos disponibles ahora.</p>
-                        </div>`;
-                    return;
-                }
-
                 snapshot.forEach((doc) => {
                     const d = doc.data();
                     contenedor.innerHTML += `
-                        <div class="card-subasta p-6 rounded-[2.5rem] shadow-sm flex flex-col gap-4">
+                        <div class="card-subasta p-6 rounded-[2.5rem] shadow-sm flex flex-col gap-4 bg-white mb-4">
                             <div class="flex justify-between items-start">
-                                <span class="badge-ruta px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider">
-                                    📍 ${d.ruta || 'Sin ruta'}
-                                </span>
-                                <span class="text-xl font-extrabold text-slate-900">$${d.precio || '0'}</span>
+                                <span class="badge-ruta px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-50 text-blue-600">📍 ${d.ruta}</span>
+                                <span class="text-xl font-extrabold text-slate-900">$${d.precio}</span>
                             </div>
                             <div>
-                                <h3 class="text-lg font-bold text-slate-800">${d.producto || 'Paquete'}</h3>
-                                <p class="text-sm text-slate-500">${d.peso || '0'} kg • Entrega inmediata</p>
+                                <h3 class="text-lg font-bold text-slate-800">${d.producto}</h3>
+                                <p class="text-sm text-slate-500">${d.peso} kg • Publicado por ${d.usuario || 'Anónimo'}</p>
                             </div>
-                            <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-extrabold text-sm shadow-xl shadow-slate-900/10">
-                                Enviar propuesta
-                            </button>
-                        </div>
-                    `;
+                            <button class="w-full bg-slate-900 text-white py-4 rounded-2xl font-extrabold text-sm">Enviar propuesta</button>
+                        </div>`;
                 });
             });
         }
     </script>
 </body>
-</html>
-
-
