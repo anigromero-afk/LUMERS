@@ -9,13 +9,12 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
         .package-card { background: white; border-radius: 2.5rem; border: 1px solid rgba(0,0,0,0.03); box-shadow: 0 10px 30px rgba(0,0,0,0.05); overflow: hidden; }
-        .premium-toast { background: #0f172a; color: white; padding: 16px; border-radius: 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: slideIn 0.5s ease out; }
+        .premium-toast { background: #0f172a; color: white; padding: 16px; border-radius: 20px; display: flex; align-items: center; gap: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: slideIn 0.5s ease-out; }
         @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .bottom-nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); border-radius: 2.5rem; }
     </style>
 </head>
 <body class="pb-32">
-
     <div id="notif-container" class="fixed top-6 left-1/2 -translate-x-1/2 z-[100] w-[90%] max-w-xs space-y-2"></div>
 
     <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md px-6 py-5 border-b border-slate-100 flex justify-between items-center">
@@ -85,7 +84,7 @@
             snapshot.forEach((doc) => {
                 const item = doc.data();
                 lista.innerHTML += `
-                    <div class="package-card animate-in">
+                    <div class="package-card">
                         <img src="${item.foto}" class="w-full h-56 object-cover">
                         <div class="p-6">
                             <div class="flex justify-between items-center mb-4">
@@ -100,4 +99,5 @@
     </script>
 </body>
 </html>
+
 
