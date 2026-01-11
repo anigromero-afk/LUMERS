@@ -3,78 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Publicar | Lumers</title>
+    <title>Publicar Envío | Lumers</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .btn-gradient { background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; }
+        .glass-input { background: white; border: 2px solid #e2e8f0; border-radius: 1.5rem; padding: 1rem 1.5rem; transition: all 0.3s ease; width: 100%; outline: none; }
+        .glass-input:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .bottom-nav { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); border-radius: 2.5rem; }
+        #preview { width: 100%; height: 200px; object-cover: cover; border-radius: 2rem; display: none; margin-bottom: 1rem; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen pb-32">
+<body class="pb-32">
 
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 py-5 sticky top-0 z-50">
-        <div class="max-w-md mx-auto flex items-center gap-4">
-            <a href="Subasta.html" class="text-slate-400">⬅️</a>
-            <h1 class="text-xl font-black text-slate-800 tracking-tighter uppercase">Nuevo Envío</h1>
-        </div>
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md px-6 py-5 border-b border-slate-100 flex items-center gap-4">
+        <a href="subasta.html" class="text-2xl">←</a>
+        <h1 class="text-xl font-black text-slate-900 tracking-tighter italic">NUEVO ENVÍO</h1>
     </nav>
 
     <main class="max-w-md mx-auto px-6 pt-8">
         <form id="formEnvio" class="space-y-6">
             
-            <div class="space-y-3">
-                <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Imagen del Paquete</label>
-                <div id="dropZone" class="relative w-full h-48 bg-white border-2 border-dashed border-slate-200 rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden shadow-sm">
-                    <img id="preview" class="absolute inset-0 w-full h-full object-cover hidden">
-                    <div id="placeholder" class="text-center">
-                        <span class="text-2xl">📸</span>
-                        <p class="text-[10px] font-bold text-slate-400 uppercase mt-2">Subir Foto</p>
-                    </div>
-                    <input type="file" id="inputFoto" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" required>
-                </div>
+            <div class="space-y-2">
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">Imagen del Paquete</p>
+                <img id="preview" src="">
+                <label class="block w-full bg-blue-50 border-2 border-dashed border-blue-200 p-8 rounded-[2rem] text-center cursor-pointer hover:bg-blue-100 transition-colors">
+                    <span class="text-blue-600 font-bold text-sm">📸 Tocar para subir foto</span>
+                    <input type="file" id="fotoInput" accept="image/*" class="hidden" required>
+                </label>
             </div>
 
-            <div class="bg-white rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100 space-y-5">
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">¿Qué es?</label>
-                    <input type="text" id="nombrePaquete" placeholder="Ej: Laptop, Documentos..." class="w-full bg-slate-50 border-none rounded-2xl px-5 py-4 font-bold outline-none" required>
-                </div>
-
-                <div class="space-y-1">
-                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Categoría</label>
-                    <select id="categoriaPaquete" class="w-full bg-slate-50 border-none rounded-2xl px-5 py-4 font-bold text-slate-700 outline-none appearance-none">
-                        <option value="General">📦 General</option>
-                        <option value="Tecnología">💻 Tecnología</option>
-                        <option value="Documentos">📄 Documentos</option>
-                        <option value="Ropa">👕 Ropa / Accesorios</option>
-                        <option value="Frágil">💎 Frágil</option>
-                    </select>
-                </div>
-
+            <div class="space-y-4">
+                <input type="text" id="nombre" placeholder="¿Qué envías? (Ej: Laptop, Sofa)" class="glass-input font-bold" required>
+                
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Peso (KG)</label>
-                        <input type="number" id="pesoPaquete" placeholder="0" step="0.1" class="w-full bg-slate-50 border-none rounded-2xl px-5 py-4 font-bold outline-none" required>
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Pago ($)</label>
-                        <input type="number" id="valorPaquete" placeholder="0" class="w-full bg-slate-50 border-none rounded-2xl px-5 py-4 font-bold outline-none" required>
-                    </div>
+                    <input type="number" id="valor" placeholder="Pago ($)" class="glass-input font-bold" required>
+                    <input type="text" id="peso" placeholder="Peso (kg)" class="glass-input font-bold">
                 </div>
+
+                <input type="text" id="ruta" placeholder="Ruta (Ej: Madrid -> Barcelona)" class="glass-input font-bold" required>
+                
+                <textarea id="descripcion" placeholder="Notas adicionales (fragilidad, horario...)" class="glass-input font-medium h-32"></textarea>
             </div>
 
-            <button type="submit" id="btnPublicar" class="btn-gradient w-full text-white py-5 rounded-[2rem] font-black text-lg shadow-2xl active:scale-95 transition-all">
-                PUBLICAR AHORA 🚀
+            <button type="submit" id="btnPublicar" class="w-full bg-slate-900 text-white py-5 rounded-[2rem] font-black uppercase tracking-widest shadow-2xl hover:bg-blue-600 transition-all flex justify-center items-center gap-2">
+                <span>Publicar Envío</span>
+                <span id="spin" class="hidden w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
             </button>
         </form>
     </main>
 
-    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-4 rounded-full shadow-2xl flex gap-10 z-50 items-center">
-        <a href="index.html" class="text-xl opacity-50">🏠</a>
-        <a href="Subasta.html" class="text-xl opacity-50">🌍</a>
-        <a href="crear-envio.html" class="bg-blue-600 p-3 rounded-full -mt-2">➕</a>
-        <a href="perfil.html" class="text-xl opacity-50">👤</a>
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-md bottom-nav px-8 py-4 flex justify-between items-center shadow-2xl">
+        <a href="index.html" class="text-white opacity-40 text-xl">🏠</a>
+        <a href="subasta.html" class="text-white opacity-40 text-xl">🌍</a>
+        <a href="crear-envio.html" class="bg-blue-600 p-4 rounded-2xl shadow-lg -translate-y-2 text-white font-bold text-2xl">+</a>
+        <a href="perfil.html" class="text-white opacity-40 text-xl">👤</a>
     </div>
 
     <script type="module">
@@ -97,66 +80,67 @@
         const db = getFirestore(app);
         const storage = getStorage(app);
 
-        let userActual = null;
+        let currentUser = null;
 
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userActual = user;
-            } else {
-                alert("Debes iniciar sesión primero para publicar.");
-                window.location.href = "index.html";
-            }
+            if (user) currentUser = user;
+            else window.location.href = "index.html";
         });
 
-        // Previsualización
-        const inputFoto = document.getElementById('inputFoto');
-        inputFoto.onchange = e => {
+        // Vista previa de imagen
+        document.getElementById('fotoInput').onchange = (e) => {
             const file = e.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = ev => {
-                    document.getElementById('preview').src = ev.target.result;
-                    document.getElementById('preview').classList.remove('hidden');
-                    document.getElementById('placeholder').classList.add('hidden');
+                reader.onload = (f) => {
+                    document.getElementById('preview').src = f.target.result;
+                    document.getElementById('preview').style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             }
         };
 
-        // Enviar
+        // Procesar Formulario
         document.getElementById('formEnvio').onsubmit = async (e) => {
             e.preventDefault();
-            if (!userActual) return alert("Espera a que cargue tu sesión");
-
             const btn = document.getElementById('btnPublicar');
-            btn.innerText = "SUBIENDO...";
+            const spin = document.getElementById('spin');
+            
             btn.disabled = true;
+            spin.classList.remove('hidden');
 
             try {
-                const file = inputFoto.files[0];
-                const fotoRef = ref(storage, `envios/${Date.now()}_${file.name}`);
-                await uploadBytes(fotoRef, file);
-                const url = await getDownloadURL(fotoRef);
+                const file = document.getElementById('fotoInput').files[0];
+                let fotoUrl = "";
+
+                if (file) {
+                    const storageRef = ref(storage, `envios/${Date.now()}_${file.name}`);
+                    await uploadBytes(storageRef, file);
+                    fotoUrl = await getDownloadURL(storageRef);
+                }
 
                 await addDoc(collection(db, "envios"), {
-                    nombre: document.getElementById('nombrePaquete').value,
-                    categoria: document.getElementById('categoriaPaquete').value,
-                    peso: document.getElementById('pesoPaquete').value,
-                    valor: document.getElementById('valorPaquete').value,
-                    foto: url,
-                    usuarioId: userActual.uid,
-                    usuarioNombre: userActual.displayName,
-                    estado: "Abierto",
-                    fecha: serverTimestamp()
+                    nombre: document.getElementById('nombre').value,
+                    valor: document.getElementById('valor').value,
+                    ruta: document.getElementById('ruta').value,
+                    descripcion: document.getElementById('descripcion').value,
+                    foto: fotoUrl,
+                    usuarioId: currentUser.uid,
+                    usuarioNombre: currentUser.displayName,
+                    usuarioFoto: currentUser.photoURL,
+                    estado: "Disponible",
+                    fecha: serverTimestamp(),
+                    transportistaId: "" // Se llenará cuando alguien acepte
                 });
 
-                window.location.href = "Subasta.html";
+                window.location.href = "subasta.html";
             } catch (error) {
-                alert("Error al subir el paquete.");
-                btn.innerText = "PUBLICAR AHORA 🚀";
+                alert("Error al publicar: " + error.message);
                 btn.disabled = false;
+                spin.classList.add('hidden');
             }
         };
     </script>
 </body>
 </html>
+
