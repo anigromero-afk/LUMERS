@@ -25,7 +25,7 @@
         onAuthStateChanged(auth, (u) => { if(u) window.location.href="app.html"; });
         document.getElementById('btnGoogle').onclick = async () => {
             document.getElementById('msg').innerText = "Abriendo Google...";
-            try { await signInWithPopup(auth, provider); } catch(e) { alert("Habilita los pop-ups para entrar"); }
+            try { await signInWithPopup(auth, provider); } catch(e) { alert("Habilita los pop-ups para entrar"); }.
         };
     </script>
 </body>
