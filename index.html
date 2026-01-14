@@ -8,16 +8,16 @@
     <meta name="theme-color" content="#0f172a">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-900 min-h-screen flex items-center justify-center p-6 font-sans">
+<body class="bg-slate-900 min-h-screen flex items-center justify-center p-6 font-sans text-white">
     <div class="w-full max-w-sm text-center">
-        <h1 class="text-5xl font-black italic text-white mb-2 tracking-tighter">LUMERS</h1>
+        <h1 class="text-5xl font-black italic mb-2 tracking-tighter">LUMERS</h1>
         <p class="text-blue-400 text-[10px] font-black uppercase tracking-[0.3em] mb-12">Logística de Subastas</p>
         
         <div class="bg-white/5 backdrop-blur-xl p-8 rounded-[3rem] border border-white/10 shadow-2xl">
             <button id="btnLogin" class="w-full bg-white text-slate-900 py-5 rounded-2xl font-black text-sm uppercase flex items-center justify-center gap-3 shadow-xl">
                 <img src="https://www.google.com/favicon.ico" class="w-4"> Entrar con Google
             </button>
-            <p class="text-slate-500 text-[9px] mt-6 leading-relaxed uppercase font-bold tracking-wider">Al ingresar aceptás los términos de subasta segura</p>
+            <p class="text-slate-500 text-[9px] mt-6 leading-relaxed uppercase font-bold tracking-wider">Acceso exclusivo para transportistas</p>
         </div>
     </div>
 
@@ -40,6 +40,10 @@
 
         onAuthStateChanged(auth, (user) => { if (user) window.location.href = "app.html"; });
         document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
     </script>
 </body>
 </html>
