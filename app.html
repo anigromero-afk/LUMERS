@@ -1,5 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMERS | Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen pb-24">
+    <header class="bg-white p-6 shadow-sm flex justify-between items-center">
+        <h1 class="text-2xl font-black italic text-slate-900">LUMERS</h1>
+        <button id="btnSalir" class="text-xs font-bold text-red-500 uppercase">Salir</button>
+    </header>
 
-<
+    <main class="p-6">
+        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Envíos Disponibles</h2>
+        <div id="listaViajes" class="space-y-4">
+            <p class="text-center text-slate-400 py-10">Cargando envíos...</p>
+        </div>
+    </main>
+
+    <div id="modalEnvio" class="fixed inset-0 bg-slate-900/50 hidden items-center justify-center p-6 z-50">
+        <div class="bg-white w-full max-w-sm rounded-[2rem] p-8 shadow-2xl">
+            <h3 class="text-xl font-black mb-4 text-slate-900">Nuevo Envío</h3>
+            <input id="origen" type="text" placeholder="Origen" class="w-full bg-slate-100 p-4 rounded-xl mb-3 outline-none text-slate-900">
+            <input id="destino" type="text" placeholder="Destino" class="w-full bg-slate-100 p-4 rounded-xl mb-3 outline-none text-slate-900">
+            <input id="precio" type="number" placeholder="Precio $" class="w-full bg-slate-100 p-4 rounded-xl mb-6 outline-none text-slate-900">
+            
+            <div class="flex gap-2">
+                <button id="btnCerrar" class="flex-1 py-4 font-bold text-slate-400">Cancelar</button>
+                <button id="btnPublicar" class="flex-1 bg-blue-600 text-white py-4 rounded-xl font-bold">PUBLICAR</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="btnNuevo" class="fixed bottom-8 right-8 bg-blue-600 text-white w-16 h-16 rounded-full text-4xl shadow-xl shadow-blue-200 active:scale-90 transition-all">+</button>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
         const firebaseConfig = {
             apiKey: "AIzaSyD6Uw5qK8epzRw2cZ_JHyxHXZUjuy3eC3U",
             authDomain: "lumers-d4fb3.firebaseapp.com",
@@ -13,39 +53,61 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
+        // Seguridad: Si se cierra sesión, vuelve al login
+        onAuthStateChanged(auth, (user) => {
+            if (!user) window.location.href = "index.html";
+        });
 
         const modal = document.getElementById('modalEnvio');
         document.getElementById('btnNuevo').onclick = () => modal.classList.replace('hidden', 'flex');
         document.getElementById('btnCerrar').onclick = () => modal.classList.replace('flex', 'hidden');
 
+        // Guardar viaje en Firestore
         document.getElementById('btnPublicar').onclick = async () => {
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const precio = document.getElementById('precio').value;
-            if(!origen || !destino || !precio) return alert("Completa todo");
+
+            if(!origen || !destino || !precio) return alert("Completa los datos");
 
             try {
                 await addDoc(collection(db, "viajes"), {
                     origen, destino, precio,
-                    usuario: auth.currentUser.displayName,
+                    usuario: auth.currentUser.displayName || "Usuario",
                     fecha: Date.now()
                 });
                 modal.classList.replace('flex', 'hidden');
-            } catch (e) { alert("Error al guardar"); }
+                document.getElementById('origen').value = "";
+                document.getElementById('destino').value = "";
+                document.getElementById('precio').value = "";
+            } catch (e) { 
+                alert("Error: " + e.message); 
+            }
         };
 
+        // Mostrar lista de viajes en tiempo real
         const q = query(collection(db, "viajes"), orderBy("fecha", "desc"));
         onSnapshot(q, (snapshot) => {
             const lista = document.getElementById('listaViajes');
             lista.innerHTML = "";
+            
+            if (snapshot.empty) {
+                lista.innerHTML = '<p class="text-center text-slate-400 py-10 font-bold uppercase text-[10px]">No hay envíos activos</p>';
+                return;
+            }
+
             snapshot.forEach((doc) => {
                 const v = doc.data();
-                lista.innerHTML += `<div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                    <p class="text-sm font-bold text-slate-800">${v.origen} ➔ ${v.destino}</p>
-                    <p class="font-bold text-green-600">$${v.precio}</p>
-                    <p class="text-[10px] text-slate-400 uppercase font-black mt-2">${v.usuario}</p>
-                </div>`;
+                lista.innerHTML += `
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-[9px] font-black bg-green-100 text-green-600 px-2 py-1 rounded uppercase tracking-tighter italic">LUMERS EXPRESS</span>
+                            <span class="font-black text-slate-900 italic text-xl">$${v.precio}</span>
+                        </div>
+                        <p class="text-lg font-black text-slate-800 uppercase italic">${v.origen} <span class="text-blue-600">➔</span> ${v.destino}</p>
+                        <p class="text-[9px] text-slate-400 font-bold uppercase mt-2 tracking-widest border-t pt-2 border-slate-50">${v.usuario}</p>
+                    </div>
+                `;
             });
         });
 
