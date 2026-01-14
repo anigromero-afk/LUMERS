@@ -10,31 +10,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body class="bg-slate-50 min-h-screen pb-32 font-sans text-slate-900">
-    
     <header class="bg-white p-6 shadow-sm sticky top-0 z-40">
-        <div class="flex justify-between items-center mb-4">
+        <div class="flex justify-between items-center mb-4 text-slate-900">
             <h1 class="text-2xl font-black italic tracking-tighter">LUMERS</h1>
-            <button id="btnSalir" class="text-[10px] font-black text-red-400 uppercase border border-red-50 px-2 py-1 rounded-lg">Salir</button>
+            <button id="btnSalir" class="text-[10px] font-black text-red-500 uppercase border border-red-50 px-2 py-1 rounded-lg">Salir</button>
         </div>
-        <div id="bannerPremium" class="bg-gradient-to-r from-slate-900 to-slate-700 p-4 rounded-2xl text-white flex justify-between items-center shadow-lg">
+        <div id="bannerPremium" class="bg-slate-900 p-4 rounded-2xl text-white flex justify-between items-center shadow-lg">
             <div>
                 <p class="text-[10px] font-black uppercase opacity-60">Tu Estado</p>
-                <p id="txtEstado" class="font-black italic text-blue-400">Verificando cuenta...</p>
+                <p id="txtEstado" class="font-black italic text-blue-400">Cargando...</p>
             </div>
-            <a href="https://wa.me/5493364652349?text=Hola! Quiero activar mi suscripción VIP en LUMERS" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-sm">Activar VIP</a>
+            <a href="https://wa.me/5493364652349?text=Hola! Quiero activar mi suscripción VIP en LUMERS" target="_blank" class="bg-blue-600 text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase">Activar VIP</a>
         </div>
     </header>
 
     <main class="p-4 max-w-lg mx-auto">
-        <div id="listaViajes" class="space-y-6">
-            <p class="text-center text-slate-400 py-10 font-bold uppercase text-[10px]">Cargando subastas...</p>
-        </div>
+        <div id="listaViajes" class="space-y-6 text-slate-400 text-center font-bold text-[10px] py-20">Cargando subastas...</div>
     </main>
 
     <div id="modalEnvio" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-6 z-50 backdrop-blur-sm">
         <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl">
             <h3 class="text-2xl font-black mb-6 italic">Publicar Carga</h3>
-            <div class="space-y-3">
+            <div class="space-y-3 text-slate-900">
                 <input id="origen" type="text" placeholder="Origen" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
                 <input id="destino" type="text" placeholder="Destino" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
                 <input id="precio" type="number" placeholder="Precio Base $" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
@@ -47,8 +44,8 @@
         </div>
     </div>
 
-    <button id="btnNuevo" class="fixed bottom-8 right-8 bg-slate-900 text-white w-16 h-16 rounded-full text-4xl shadow-2xl z-40 flex items-center justify-center">
-        <i class="fa-solid fa-plus text-2xl"></i>
+    <button id="btnNuevo" class="fixed bottom-8 right-8 bg-slate-900 text-white w-16 h-16 rounded-full text-2xl shadow-2xl z-40 flex items-center justify-center">
+        <i class="fa-solid fa-plus"></i>
     </button>
 
     <script type="module">
@@ -100,13 +97,13 @@
 
         const q = query(collection(db, "viajes"), orderBy("fecha", "desc"));
         onSnapshot(q, (snapshot) => {
-            const lista = document.getElementById('listaCes');
             const l = document.getElementById('listaViajes'); l.innerHTML = "";
+            if(snapshot.empty) l.innerHTML = "No hay subastas activas";
             snapshot.forEach((docSnap) => {
                 const v = docSnap.data();
                 const id = docSnap.id;
                 l.innerHTML += `
-                <div class="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 mb-6">
+                <div class="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 mb-6 text-left">
                     <div class="bg-slate-900 p-6 text-white">
                         <div class="flex justify-between items-center mb-2">
                             <span class="text-[9px] font-black uppercase tracking-[0.2em] text-blue-400">Subasta</span>
@@ -118,7 +115,7 @@
                         <div id="ofertas-${id}" class="space-y-3 mb-6"></div>
                         ${esVIP ? `
                             <div class="flex gap-2 bg-slate-50 p-2 rounded-2xl">
-                                <input id="input-${id}" type="number" placeholder="Tu oferta $" class="flex-1 bg-transparent p-3 rounded-xl font-black outline-none">
+                                <input id="input-${id}" type="number" placeholder="Tu oferta $" class="flex-1 bg-transparent p-3 rounded-xl font-black outline-none text-slate-900">
                                 <button onclick="hacerOferta('${id}', '${v.origen}', '${v.destino}', '${v.whatsapp}')" class="bg-blue-600 text-white px-6 rounded-xl font-black uppercase text-[10px]">Ofertar</button>
                             </div>
                         ` : `
@@ -160,6 +157,10 @@
         document.getElementById('btnSalir').onclick = () => signOut(auth);
         document.getElementById('btnCerrar').onclick = () => document.getElementById('modalEnvio').classList.replace('flex', 'hidden');
         document.getElementById('btnNuevo').onclick = () => document.getElementById('modalEnvio').classList.replace('hidden', 'flex');
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
     </script>
 </body>
 </html>
