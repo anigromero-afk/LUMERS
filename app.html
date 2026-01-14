@@ -3,68 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUMERS - Panel de Cargas</title>
+    <title>LUMERS - Panel</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .animate-in { animation: fadeIn 0.4s ease-out forwards; opacity: 0; }
+        .animate-in { animation: fadeIn 0.4s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
+        /* Pantalla de carga para evitar el rulo visual */
+        #loader { position: fixed; inset: 0; background: white; z-index: 100; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen pb-32">
 
-    <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200 p-4 flex justify-between items-center">
+    <div id="loader">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Verificando sesión...</p>
+        </div>
+    </div>
+
+    <header class="sticky top-0 z-40 bg-white border-b border-slate-200 p-4 flex justify-between items-center shadow-sm">
         <h1 class="text-2xl font-black text-blue-600 italic tracking-tighter">LUMERS</h1>
         <div id="user-info" class="flex items-center gap-2"></div>
     </header>
 
     <div class="px-4 mt-4">
-        <div class="bg-slate-900 rounded-[2rem] p-6 text-white shadow-xl relative overflow-hidden">
-            <h2 class="text-xl font-black italic mb-1">HOLA, <span id="display-name" class="text-blue-400">...</span></h2>
-            <p class="text-[10px] uppercase font-bold tracking-widest opacity-70 italic">Repartí en bici, moto o auto y ganá plata.</p>
-            <i class="fa-solid fa-person-cycling absolute -right-4 -bottom-4 text-7xl opacity-10 rotate-12"></i>
+        <div class="bg-blue-600 rounded-[2.5rem] p-6 text-white shadow-xl relative overflow-hidden">
+            <h2 class="text-xl font-black italic mb-1">¡HOLA, <span id="display-name" class="text-blue-200">...</span>!</h2>
+            <p class="text-[10px] uppercase font-bold tracking-widest opacity-80">Encontrá entregas para tu movilidad.</p>
+            <i class="fa-solid fa-truck-fast absolute -right-4 -bottom-4 text-7xl opacity-20 rotate-12"></i>
         </div>
     </div>
 
     <main class="max-w-xl mx-auto px-4 mt-6 space-y-4" id="lista-viajes">
-        <div class="text-center p-20 text-slate-400 font-black uppercase text-[10px] tracking-widest">
-            <i class="fa-solid fa-spinner fa-spin text-2xl mb-4 text-blue-500"></i><br>Buscando entregas...
-        </div>
-    </main>
+        </main>
 
-    <div id="modal-publicar" class="fixed inset-0 z-[60] hidden bg-slate-900/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 space-y-4 overflow-y-auto max-h-[90vh]">
-            <h2 class="text-2xl font-black italic text-center text-slate-800">PUBLICAR PEDIDO</h2>
-            
-            <input type="text" id="v_origen" placeholder="📍 Punto de Retiro" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none border-2 border-transparent focus:border-blue-500">
-            <input type="text" id="v_destino" placeholder="🏁 Punto de Entrega" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none border-2 border-transparent focus:border-blue-500">
-            
-            <label class="text-[9px] font-black text-slate-400 uppercase ml-2 tracking-widest">¿Quién puede llevarlo?</label>
-            <select id="v_tipo" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
-                <option value="Bicicleta">🚲 Bicicleta / Monopatín</option>
-                <option value="Moto">🏍️ Moto (Cadetería)</option>
-                <option value="Auto">🚗 Auto (Paquetes)</option>
-                <option value="Camioneta">🛻 Camioneta (Muebles)</option>
-                <option value="Camión">🚚 Camión (Carga)</option>
-            </select>
-
-            <input type="number" id="v_precio" placeholder="💰 Cuánto pagás ($)" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
-            <input type="number" id="v_telefono" placeholder="📱 WhatsApp (Ej: 5493364...)" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
-            
-            <button onclick="publicarViaje()" class="w-full bg-blue-600 text-white p-5 rounded-2xl font-black uppercase tracking-widest shadow-lg shadow-blue-200 active:scale-95 transition-all">Publicar Ahora</button>
-            <button onclick="cerrarModal()" class="w-full text-slate-400 font-bold text-[10px] tracking-widest">CANCELAR</button>
-        </div>
-    </div>
-
-    <button onclick="abrirModal()" class="fixed bottom-24 right-6 bg-blue-600 text-white w-16 h-16 rounded-3xl shadow-2xl flex items-center justify-center text-2xl z-50 animate-pulse">
+    <button onclick="abrirModal()" class="fixed bottom-24 right-6 bg-slate-900 text-white w-16 h-16 rounded-2xl shadow-2xl flex items-center justify-center text-2xl z-50">
         <i class="fa-solid fa-plus"></i>
     </button>
 
+    <div id="modal-publicar" class="fixed inset-0 z-[60] hidden bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-[2.5rem] p-8 space-y-4">
+            <h2 class="text-xl font-black text-center italic mb-4">¿QUÉ QUERÉS ENVIAR?</h2>
+            <input type="text" id="v_origen" placeholder="📍 Punto de salida" class="w-full p-4 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 ring-blue-500">
+            <input type="text" id="v_destino" placeholder="🏁 Punto de llegada" class="w-full p-4 bg-slate-100 rounded-2xl font-bold border-none outline-none focus:ring-2 ring-blue-500">
+            
+            <select id="v_tipo" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
+                <option value="Bicicleta">🚲 Bicicleta / Monopatín</option>
+                <option value="Moto">🏍️ Moto</option>
+                <option value="Auto">🚗 Auto</option>
+                <option value="Camioneta">🛻 Camioneta</option>
+                <option value="Camión">🚚 Camión</option>
+            </select>
+
+            <input type="number" id="v_precio" placeholder="💰 Pago ofrecido ($)" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
+            <input type="number" id="v_telefono" placeholder="📱 WhatsApp (549...)" class="w-full p-4 bg-slate-100 rounded-2xl font-bold outline-none">
+            
+            <button onclick="publicarViaje()" class="w-full bg-blue-600 text-white p-5 rounded-2xl font-black uppercase shadow-lg">Publicar Pedido</button>
+            <button onclick="cerrarModal()" class="w-full text-slate-400 font-bold text-[10px] tracking-widest uppercase">Cerrar</button>
+        </div>
+    </div>
+
     <footer class="fixed bottom-0 w-full bg-white border-t p-4 flex justify-around z-40">
-        <button onclick="location.reload()" class="text-blue-600 flex flex-col items-center"><i class="fa-solid fa-house-fire text-2xl"></i><span class="text-[8px] font-black uppercase mt-1">Inicio</span></button>
-        <button onclick="cerrarSesion()" class="text-slate-300 flex flex-col items-center"><i class="fa-solid fa-power-off text-2xl"></i><span class="text-[8px] font-black uppercase mt-1">Salir</span></button>
+        <button onclick="location.reload()" class="text-blue-600"><i class="fa-solid fa-house-chimney text-2xl"></i></button>
+        <button onclick="cerrarSesion()" class="text-slate-300"><i class="fa-solid fa-power-off text-2xl"></i></button>
     </footer>
 
     <script type="module">
@@ -86,16 +89,27 @@
         const auth = getAuth(app);
         let usuarioActual = null;
 
-        // --- SOLUCIÓN AL "ENTRA Y SALE" ---
+        // --- EL ANTI-RULO DEFINITIVO ---
         onAuthStateChanged(auth, (user) => {
+            const loader = document.getElementById('loader');
             if (user) {
+                // Si el usuario existe, cargamos la app y quitamos el loader
                 usuarioActual = user;
                 document.getElementById('display-name').innerText = user.displayName.split(" ")[0].toUpperCase();
-                document.getElementById('user-info').innerHTML = `<img src="${user.photoURL}" class="w-9 h-9 rounded-2xl border-2 border-blue-500 shadow-lg">`;
+                document.getElementById('user-info').innerHTML = `<img src="${user.photoURL}" class="w-8 h-8 rounded-full border-2 border-blue-500">`;
+                
                 escucharViajes();
+                
+                // Quitamos la pantalla de carga suavemente
+                setTimeout(() => { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }, 1000);
             } else {
-                // Pequeña espera para confirmar que realmente no está logueado
-                setTimeout(() => { if(!auth.currentUser) window.location.href = "index.html"; }, 1500);
+                // Si NO hay usuario, esperamos un poco antes de mandarlo al login
+                // Esto da tiempo a que Firebase diga "ahí está" antes de patearlo afuera
+                setTimeout(() => {
+                    if (!auth.currentUser) {
+                        window.location.href = "index.html";
+                    }
+                }, 3000); // 3 segundos de gracia
             }
         });
 
@@ -105,11 +119,14 @@
                 const lista = document.getElementById('lista-viajes');
                 lista.innerHTML = "";
                 
+                if(snapshot.empty) {
+                    lista.innerHTML = `<div class="text-center py-20 text-slate-400 font-bold uppercase text-[10px]">No hay pedidos ahora...</div>`;
+                }
+
                 snapshot.forEach((doc) => {
                     const v = doc.data();
-                    const msg = encodeURIComponent(`¡Hola! Vi tu pedido en LUMERS para ir de ${v.origen} a ${v.destino} en ${v.tipo}. Me interesa hacerlo.`);
+                    const msg = encodeURIComponent(`Hola! Me interesa el pedido de ${v.origen} a ${v.destino} en ${v.tipo}. ¿Sigue disponible?`);
                     
-                    // Iconos dinámicos
                     let icono = "fa-box";
                     if(v.tipo === "Bicicleta") icono = "fa-bicycle";
                     if(v.tipo === "Moto") icono = "fa-motorcycle";
@@ -118,16 +135,16 @@
                     if(v.tipo === "Camión") icono = "fa-truck-moving";
 
                     lista.innerHTML += `
-                        <div class="bg-white rounded-[2.5rem] p-6 shadow-sm border border-slate-100 animate-in space-y-4">
-                            <div class="flex justify-between items-center">
-                                <span class="bg-blue-50 text-blue-600 text-[9px] font-black px-3 py-1.5 rounded-full uppercase tracking-widest flex items-center gap-2">
-                                    <i class="fa-solid ${icono} text-xs"></i> ${v.tipo}
-                                00:00</span>
+                        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 animate-in mb-4">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="bg-blue-50 text-blue-600 text-[8px] font-black px-3 py-1.5 rounded-full uppercase flex items-center gap-2">
+                                    <i class="fa-solid ${icono}"></i> ${v.tipo}
+                                </span>
                                 <p class="text-2xl font-black text-slate-900 tracking-tighter">$${v.precioBase}</p>
                             </div>
-                            <h3 class="text-xl font-black text-slate-800 leading-tight tracking-tight">${v.origen} <i class="fa-solid fa-arrow-right text-blue-200 mx-1"></i> ${v.destino}</h3>
-                            <a href="https://wa.me/${v.whatsapp}?text=${msg}" target="_blank" class="w-full bg-green-500 text-white p-4 rounded-2xl font-black text-xs uppercase flex items-center justify-center gap-3 shadow-lg shadow-green-100 active:scale-95 transition-transform">
-                                <i class="fa-brands fa-whatsapp text-xl"></i> Contactar ahora
+                            <h3 class="text-lg font-black text-slate-800 leading-tight mb-4">${v.origen} → ${v.destino}</h3>
+                            <a href="https://wa.me/${v.whatsapp}?text=${msg}" target="_blank" class="w-full bg-green-500 text-white p-4 rounded-2xl font-black text-[10px] uppercase flex items-center justify-center gap-2 shadow-lg shadow-green-100">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> Contactar ahora
                             </a>
                         </div>
                     `;
@@ -139,14 +156,14 @@
             const o = document.getElementById('v_origen').value, d = document.getElementById('v_destino').value, 
                   p = document.getElementById('v_precio').value, t = document.getElementById('v_telefono').value,
                   tipo = document.getElementById('v_tipo').value;
-            if(!o || !d || !p || !t) return alert("Ani, completá todos los datos por favor.");
-            try {
-                await addDoc(collection(db, "viajes"), { origen: o, destino: d, precioBase: p, whatsapp: t, tipo: tipo, uid: usuarioActual.uid, creado: Date.now() });
-                cerrarModal();
-                // Limpiar campos
-                document.getElementById('v_origen').value = ""; document.getElementById('v_destino').value = "";
-                document.getElementById('v_precio').value = ""; document.getElementById('v_telefono').value = "";
-            } catch(e) { alert("Hubo un error al guardar. Revisá las reglas de Firebase."); }
+            
+            if(!o || !d || !p || !t) return alert("Completá todos los datos.");
+            
+            await addDoc(collection(db, "viajes"), {
+                origen: o, destino: d, precioBase: p, whatsapp: t, tipo: tipo,
+                uid: usuarioActual.uid, creado: Date.now()
+            });
+            cerrarModal();
         };
 
         window.abrirModal = () => document.getElementById('modal-publicar').classList.remove('hidden');
