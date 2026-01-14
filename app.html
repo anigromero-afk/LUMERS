@@ -3,15 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Subastas</title>
+    <title>LUMERS | Negocios</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-100 min-h-screen pb-24 font-sans text-slate-900">
+<body class="bg-slate-50 min-h-screen pb-32 font-sans text-slate-900">
     
-    <header class="bg-white p-6 shadow-sm flex justify-between items-center sticky top-0 z-40">
-        <h1 class="text-2xl font-black italic tracking-tighter">LUMERS <span class="text-blue-600 text-[10px] not-italic tracking-widest uppercase ml-2">Subastas</span></h1>
-        <button id="btnSalir" class="text-[10px] font-black text-red-500 uppercase border border-red-100 px-3 py-1 rounded-lg">Salir</button>
+    <header class="bg-white p-6 shadow-sm sticky top-0 z-40">
+        <div class="flex justify-between items-center mb-4">
+            <h1 class="text-2xl font-black italic tracking-tighter">LUMERS</h1>
+            <button id="btnSalir" class="text-[10px] font-black text-red-400 uppercase border border-red-50 px-2 py-1 rounded-lg">Salir</button>
+        </div>
+        <div id="bannerPremium" class="bg-gradient-to-r from-blue-600 to-blue-400 p-4 rounded-2xl text-white flex justify-between items-center shadow-lg shadow-blue-100">
+            <div>
+                <p class="text-[10px] font-black uppercase opacity-80">Tu Negocio</p>
+                <p class="font-black italic">Soporte Lumers</p>
+            </div>
+            <a href="https://wa.me/5493364652349?text=Hola! Quiero verificar mi cuenta en LUMERS y ser transportista VIP" target="_blank" class="bg-white text-blue-600 px-4 py-2 rounded-xl text-[10px] font-black uppercase shadow-sm">Verificarme</a>
+        </div>
     </header>
 
     <main class="p-4 max-w-lg mx-auto">
@@ -22,12 +31,12 @@
 
     <div id="modalEnvio" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-6 z-50 backdrop-blur-sm">
         <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-8 shadow-2xl">
-            <h3 class="text-2xl font-black mb-6 italic">Iniciar Subasta</h3>
+            <h3 class="text-2xl font-black mb-6 italic text-slate-900">Iniciar Subasta</h3>
             <div class="space-y-3">
                 <input id="origen" type="text" placeholder="Origen" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
                 <input id="destino" type="text" placeholder="Destino" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
-                <input id="precio" type="number" placeholder="Precio Base $" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold border-2 border-blue-50">
-                <input id="whatsapp" type="number" placeholder="Tu WhatsApp" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
+                <input id="precio" type="number" placeholder="Precio Base $" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
+                <input id="whatsapp" type="number" placeholder="Tu WhatsApp (Dueño)" class="w-full bg-slate-100 p-4 rounded-2xl outline-none font-bold">
             </div>
             <div class="flex gap-2 mt-8">
                 <button id="btnCerrar" class="flex-1 py-4 font-bold text-slate-400">Cancelar</button>
@@ -37,7 +46,7 @@
     </div>
 
     <button id="btnNuevo" class="fixed bottom-8 right-8 bg-slate-900 text-white w-16 h-16 rounded-full text-4xl shadow-2xl z-40 flex items-center justify-center">
-        <i class="fa-solid fa-plus"></i>
+        <i class="fa-solid fa-plus text-2xl"></i>
     </button>
 
     <script type="module">
@@ -60,7 +69,6 @@
 
         onAuthStateChanged(auth, (user) => { if (!user) window.location.href = "index.html"; });
 
-        // PUBLICAR VIAJE
         document.getElementById('btnPublicar').onclick = async () => {
             const v = {
                 origen: document.getElementById('origen').value,
@@ -75,7 +83,6 @@
             document.getElementById('modalEnvio').classList.replace('flex', 'hidden');
         };
 
-        // ESCUCHAR VIAJES
         const q = query(collection(db, "viajes"), orderBy("fecha", "desc"));
         onSnapshot(q, (snapshot) => {
             const lista = document.getElementById('listaViajes');
@@ -84,48 +91,40 @@
                 const v = docSnap.data();
                 const id = docSnap.id;
                 
-                let card = `
-                <div class="bg-white rounded-[2rem] shadow-xl overflow-hidden border border-slate-200">
-                    <div class="bg-slate-900 p-5 text-white">
+                lista.innerHTML += `
+                <div class="bg-white rounded-[2.5rem] shadow-xl overflow-hidden border border-slate-100 mb-6">
+                    <div class="bg-slate-900 p-6 text-white">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-[10px] font-black uppercase tracking-widest text-blue-400 italic">Subasta Activa</span>
+                            <span class="text-[9px] font-black uppercase tracking-[0.2em] text-blue-400">Subasta Activa</span>
                             <span class="text-2xl font-black italic">$${v.precio}</span>
                         </div>
-                        <h3 class="text-xl font-black uppercase italic">${v.origen} ➔ ${v.destino}</h3>
+                        <h3 class="text-xl font-black uppercase italic tracking-tight">${v.origen} ➔ ${v.destino}</h3>
                     </div>
-                    
-                    <div class="p-5">
-                        <p class="text-[10px] font-black text-slate-400 uppercase mb-4">Ofertas de transportistas:</p>
-                        <div id="ofertas-${id}" class="space-y-2 mb-4"></div>
-                        
-                        <div class="flex gap-2">
-                            <input id="input-${id}" type="number" placeholder="Tu oferta $" class="flex-1 bg-slate-100 p-3 rounded-xl font-bold outline-none border-2 border-transparent focus:border-blue-500">
-                            <button onclick="hacerOferta('${id}', '${v.origen}', '${v.destino}')" class="bg-blue-600 text-white px-4 rounded-xl font-black uppercase text-[10px]">Ofertar</button>
+                    <div class="p-6">
+                        <p class="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-widest">Ofertas de transportistas:</p>
+                        <div id="ofertas-${id}" class="space-y-3 mb-6"></div>
+                        <div class="flex gap-2 bg-slate-50 p-2 rounded-2xl">
+                            <input id="input-${id}" type="number" placeholder="Tu oferta $" class="flex-1 bg-transparent p-3 rounded-xl font-black outline-none text-slate-900">
+                            <button onclick="hacerOferta('${id}', '${v.origen}', '${v.destino}', '${v.whatsapp}')" class="bg-blue-600 text-white px-6 rounded-xl font-black uppercase text-[10px] shadow-lg shadow-blue-100">Ofertar</button>
                         </div>
                     </div>
                 </div>`;
-                
-                lista.innerHTML += card;
-                escucharOfertas(id, v.whatsapp);
+                escucharOfertas(id, v.whatsapp, v.origen, v.destino);
             });
         });
 
-        // FUNCION PARA OFERTAR
-        window.hacerOferta = async (viajeId, orig, dest) => {
+        window.hacerOferta = async (viajeId, orig, dest, waDuenio) => {
             const monto = document.getElementById(`input-${viajeId}`).value;
-            if(!monto) return alert("Poné un precio");
-            
+            if(!monto) return alert("Poné un monto");
             await addDoc(collection(db, `viajes/${viajeId}/ofertas`), {
                 monto: monto,
                 usuario: auth.currentUser.displayName,
-                whatsapp: "", // Aquí el transportista podría poner su whatsapp si quisiéramos
                 fecha: serverTimestamp()
             });
             document.getElementById(`input-${viajeId}`).value = "";
         };
 
-        // ESCUCHAR OFERTAS DE CADA VIAJE
-        function escucharOfertas(viajeId, waDuenio) {
+        function escucharOfertas(viajeId, waDuenio, orig, dest) {
             const qO = query(collection(db, `viajes/${viajeId}/ofertas`), orderBy("monto", "asc"));
             onSnapshot(qO, (snap) => {
                 const div = document.getElementById(`ofertas-${viajeId}`);
@@ -133,12 +132,14 @@
                 snap.forEach(oSnap => {
                     const o = oSnap.data();
                     div.innerHTML += `
-                        <div class="flex justify-between items-center bg-blue-50 p-3 rounded-xl border border-blue-100 animate-pulse">
+                        <div class="flex justify-between items-center bg-white p-4 rounded-2xl border-2 border-blue-50 shadow-sm transition-all">
                             <div>
-                                <p class="text-[9px] font-black text-blue-600 uppercase">${o.usuario}</p>
-                                <p class="text-lg font-black">$${o.monto}</p>
+                                <p class="text-[9px] font-black text-blue-500 uppercase flex items-center gap-1">
+                                    ${o.usuario} <i class="fa-solid fa-circle-check text-blue-400"></i>
+                                </p>
+                                <p class="text-xl font-black text-slate-800 tracking-tighter">$${o.monto}</p>
                             </div>
-                            <a href="https://wa.me/${waDuenio}?text=Hola, oferto $${o.monto} para tu viaje ${orig} a ${dest}" target="_blank" class="bg-green-500 text-white p-2 px-4 rounded-lg font-black text-[10px] uppercase">Aceptar</a>
+                            <a href="https://wa.me/${waDuenio}?text=Hola! Soy transportista verificado y oferto $${o.monto} para tu viaje ${orig} a ${dest}" target="_blank" class="bg-green-500 text-white p-3 px-5 rounded-xl font-black text-[10px] uppercase shadow-md shadow-green-100">Aceptar</a>
                         </div>`;
                 });
             });
