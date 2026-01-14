@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Next-Gen Delivery</title>
+    <title>LUMERS | Una entrega a la vez</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -11,72 +11,79 @@
         .bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); }
         .glass-card { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); }
         .btn-gradient { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); color: white; transition: all 0.3s ease; }
-        .btn-gradient:active { scale: 0.95; }
-        .glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.5); }
+        .glow-text { text-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
     </style>
 </head>
 <body class="bg-main min-h-screen flex flex-col items-center">
 
-    <div class="w-full max-w-md px-6 py-12 flex flex-col items-center">
+    <div class="w-full max-w-md px-6 py-10 flex flex-col items-center">
         
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
             <h1 class="text-7xl font-black italic tracking-tighter text-blue-500 glow-text">LUMERS</h1>
-            <p class="text-[10px] font-black uppercase tracking-[0.5em] text-blue-300/80">Smart Delivery Network</p>
+            <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-300 mt-2">No es solo un envío, es nuestro envío.</p>
+            <p class="text-[9px] font-medium uppercase tracking-[0.4em] text-white/40 mt-1 italic">Una entrega a la vez</p>
         </div>
 
-        <div class="glass-card w-full rounded-[3rem] p-10 mb-10 text-center shadow-2xl relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-blue-600/10 rounded-full blur-3xl"></div>
-            
-            <h2 class="text-2xl font-black mb-2 italic tracking-tight">Move it. Drop it.</h2>
-            <p class="text-xs text-white/40 mb-8 font-medium italic">Conectando envíos con Raiders calificados.</p>
-            
+        <div class="glass-card w-full rounded-[3rem] p-8 mb-10 text-center shadow-2xl border-white/10">
+            <h2 class="text-xl font-black mb-6 italic">¿Listo para mover la ciudad?</h2>
             <button id="btnLogin" class="w-full btn-gradient py-5 rounded-3xl font-black text-xs uppercase flex items-center justify-center gap-3 shadow-xl">
-                <i class="fa-brands fa-google"></i> Launch App
+                <i class="fa-brands fa-google"></i> Comenzar Ahora
             </button>
-            
-            <p id="status" class="text-[9px] text-white/30 uppercase mt-5 font-black tracking-widest">Secure cloud access</p>
         </div>
 
-        <div class="w-full space-y-8">
-            <div class="flex items-start gap-5">
-                <div class="w-10 h-10 glass-card rounded-2xl flex items-center justify-center text-blue-400">
-                    <i class="fa-solid fa-location-dot"></i>
+        <div class="w-full space-y-10">
+            
+            <div class="space-y-3">
+                <h3 class="text-blue-500 font-black text-xs uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-box-archive"></i> ¿Qué es un Drop?
+                </h3>
+                <p class="text-xs text-white/60 leading-relaxed italic">
+                    Un <b>Drop</b> es cualquier paquete, sobre o mercadería que necesita ser trasladada. Puede ser desde un regalo personal hasta un pedido comercial.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div class="glass-card p-5 rounded-[2rem]">
+                    <h4 class="text-[10px] font-black text-blue-400 uppercase mb-2 italic">Para Clientes</h4>
+                    <p class="text-[10px] text-white/50 leading-tight">Cualquier persona puede publicar un Drop gratis y elegir el mejor presupuesto.</p>
                 </div>
-                <div>
-                    <h4 class="font-black italic text-xs uppercase tracking-wider">Unlimited Drops</h4>
-                    <p class="text-[11px] text-white/40 leading-relaxed italic">Publicá tus pedidos de delivery sin costo operativo. Sincronización instantánea con la red.</p>
+                <div class="glass-card p-5 rounded-[2rem]">
+                    <h4 class="text-[10px] font-black text-green-400 uppercase mb-2 italic">Para Raiders</h4>
+                    <p class="text-[10px] text-white/50 leading-tight">Solo necesitás una forma de llegar a destino (bici, moto, auto o a pie) para ofertar y ganar dinero.</p>
                 </div>
             </div>
 
-            <div class="flex items-start gap-5">
-                <div class="w-10 h-10 glass-card rounded-2xl flex items-center justify-center text-blue-400">
-                    <i class="fa-solid fa-bolt"></i>
+            <div class="space-y-6">
+                <h3 class="text-blue-500 font-black text-xs uppercase tracking-widest flex items-center gap-2">
+                    <i class="fa-solid fa-route"></i> El Proceso Lumers
+                </h3>
+                
+                <div class="flex gap-4">
+                    <div class="text-white/20 text-xl font-black italic">01</div>
+                    <p class="text-xs text-white/60"><b>Publicás:</b> Cargás el punto de retiro y el de entrega.</p>
                 </div>
-                <div>
-                    <h4 class="font-black italic text-xs uppercase tracking-wider">Live Bidding</h4>
-                    <p class="text-[11px] text-white/40 leading-relaxed italic">Seguí las ofertas de los Raiders en tiempo real. Vos tenés el control del precio final.</p>
+                <div class="flex gap-4">
+                    <div class="text-white/20 text-xl font-black italic">02</div>
+                    <p class="text-xs text-white/60"><b>Subasta:</b> Los Raiders ven tu Drop y ofrecen su mejor precio.</p>
                 </div>
-            </div>
-
-            <div class="glass-card p-8 rounded-[2.5rem] border-blue-500/30 bg-blue-500/5 relative">
-                <div class="flex items-start gap-5">
-                    <div class="text-blue-400 text-2xl"><i class="fa-solid fa-id-badge"></i></div>
+                <div class="flex gap-4 border-l-2 border-blue-500 pl-4">
+                    <div class="text-blue-500 text-xl font-black italic">03</div>
                     <div>
-                        <h4 class="font-black italic text-xs uppercase text-blue-400 tracking-widest mb-1">Raider Pro Pass</h4>
-                        <p class="text-[11px] text-white/70 leading-relaxed">Suscribite por **5 USD mensuales** para aplicar a los Drops y desbloquear el contacto directo con partners.</p>
+                        <p class="text-xs text-white/80 font-bold italic uppercase tracking-wider">Raider Pro Pass</p>
+                        <p class="text-[10px] text-white/40">Suscripción de <b>5 USD mensuales</b> para que el Raider pueda ofertar y retirar el paquete.</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <footer class="mt-20 text-center">
-            <div class="flex justify-center gap-4 text-white/10 text-xs mb-4">
+        <footer class="mt-20 text-center opacity-20 italic">
+            <div class="flex justify-center gap-6 text-sm mb-4">
+                <i class="fa-solid fa-person-walking"></i>
                 <i class="fa-solid fa-bicycle"></i>
                 <i class="fa-solid fa-motorcycle"></i>
                 <i class="fa-solid fa-car"></i>
-                <i class="fa-solid fa-truck-pickup"></i>
             </div>
-            <p class="text-[8px] font-black uppercase tracking-[0.3em] text-white/20 italic">Lumers Digital Ecosystem © 2026</p>
+            <p class="text-[8px] font-black uppercase tracking-[0.3em]">Lumers Digital Ecosystem © 2026</p>
         </footer>
     </div>
 
@@ -98,17 +105,12 @@
         const provider = new GoogleAuthProvider();
 
         onAuthStateChanged(auth, (user) => {
-            if (user) {
-                window.location.replace("app.html");
-            }
+            if (user) window.location.replace("app.html");
         });
 
         document.getElementById('btnLogin').onclick = async () => {
-            try {
-                await signInWithPopup(auth, provider);
-            } catch (error) {
-                console.log("Error login");
-            }
+            try { await signInWithPopup(auth, provider); } 
+            catch (error) { console.log("Login cancelado"); }
         };
     </script>
 </body>
