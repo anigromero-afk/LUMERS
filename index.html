@@ -2,78 +2,72 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>LUMERS | Comunidad de Entrega</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; overflow-x: hidden; }
         .bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); min-height: 100vh; }
-        
-        /* LOGO HECHO CON CÓDIGO (No necesita imagen externa) */
-        .logo-comunidad {
-            width: 150px; height: 150px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Forma orgánica tipo Kandinsky */
-            display: flex; items-center: center; justify-content: center;
-            box-shadow: 0 0 40px rgba(59, 130, 246, 0.4);
-            animation: morph 8s ease-in-out infinite;
-            border: 4px solid rgba(255,255,255,0.1);
-        }
-        @keyframes morph {
-            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; }
-            50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
-        }
-
-        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(12px); }
-        .btn-gradient { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s ease; }
-        .btn-gradient:active { transform: scale(0.95); }
+        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); }
+        .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); }
+        .hidden { display: none !important; }
+        .logo-shape { width: 100px; height: 100px; background: #3b82f6; border-radius: 30%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
     </style>
 </head>
 <body class="bg-main">
 
-    <div class="w-full max-w-md mx-auto px-6 py-12 flex flex-col items-center">
+    <div id="section-login" class="min-h-screen flex flex-col items-center justify-center p-6">
+        <div class="logo-shape mb-8"><i class="fa-solid fa-paper-plane text-4xl"></i></div>
+        <h1 class="text-6xl font-black italic text-blue-500 mb-2">LUMERS</h1>
+        <p class="text-sm font-bold text-center mb-1">No es solo un envío, es nuestro envío.</p>
+        <p class="text-[10px] font-black text-blue-400 tracking-[0.4em] mb-12 italic">UNA ENTREGA A LA VEZ</p>
         
-        <div class="mb-10 relative">
-            <div class="logo-comunidad">
-                <i class="fa-solid fa-box-archive text-5xl text-white"></i>
+        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-2xl font-black text-xs uppercase flex items-center justify-center gap-3 shadow-2xl">
+            <i class="fa-brands fa-google text-lg"></i> Iniciar Comunidad
+        </button>
+        <p class="mt-6 text-[9px] text-white/20 uppercase tracking-widest italic">Listo para mover el mundo</p>
+    </div>
+
+    <div id="section-app" class="hidden min-h-screen flex flex-col">
+        <header class="p-5 glass flex justify-between items-center sticky top-0 z-50">
+            <h1 class="text-2xl font-black italic text-blue-500">LUMERS</h1>
+            <button onclick="logout()" class="text-white/30 text-xs font-bold uppercase">Salir</button>
+        </header>
+
+        <main class="p-6 space-y-6">
+            <div class="glass p-6 rounded-[2rem] border-blue-500/30">
+                <h2 class="text-xs font-black text-blue-400 uppercase tracking-widest mb-2">Pase Raider Pro</h2>
+                <p class="text-xl font-black italic mb-4">¿Listo para mover la ciudad?</p>
+                <button onclick="solicitarPase()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[10px] uppercase">Activar por 5 USD</button>
             </div>
-            <div class="absolute -top-2 -right-2 w-6 h-6 bg-yellow-400 rounded-full animate-bounce"></div>
-            <div class="absolute bottom-4 -left-6 w-10 h-2 bg-blue-300 rounded-full rotate-45"></div>
-        </div>
 
-        <div class="text-center mb-10">
-            <h1 class="text-6xl font-black italic tracking-tighter text-blue-500 uppercase">LUMERS</h1>
-            <p class="text-sm font-bold text-white/90 mt-4 px-4">No es solo un envío, es nuestro envío.</p>
-            <p class="text-[11px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Una entrega a la vez</p>
-        </div>
-
-        <div class="glass-card w-full rounded-[3rem] p-8 mb-8 text-center shadow-2xl">
-            <button id="btnLogin" class="w-full btn-gradient py-5 rounded-3xl font-black text-xs uppercase flex items-center justify-center gap-3 shadow-xl">
-                <i class="fa-brands fa-google"></i> Entrar a la Comunidad
-            </button>
-            <p class="text-[9px] text-white/30 uppercase mt-5 tracking-[0.3em] font-bold">Listos para mover la ciudad o el mundo</p>
-        </div>
-
-        <div class="w-full space-y-4">
-            <div class="glass-card p-6 rounded-[2.5rem] flex items-center gap-5 border-l-4 border-blue-500">
-                <i class="fa-solid fa-truck-fast text-blue-400"></i>
-                <p class="text-[11px] text-white/60 leading-relaxed"><b>Drops & Fletes:</b> Cualquier paquete tiene lugar en nuestra red.</p>
+            <div id="lista-drops" class="space-y-4 pt-4">
+                <p class="text-center text-xs text-white/20 italic">Buscando envíos cerca tuyo...</p>
             </div>
-            <div class="glass-card p-6 rounded-[2.5rem] flex items-center gap-5">
-                <i class="fa-solid fa-bicycle text-blue-400"></i>
-                <p class="text-[11px] text-white/60 leading-relaxed"><b>Raiders:</b> Sumate con tu bici, moto o auto. Vos elegís qué entregar.</p>
-            </div>
-        </div>
+        </main>
 
-        <footer class="mt-16 opacity-20">
-            <p class="text-[8px] font-black uppercase tracking-[0.5em]">Lumers Network © 2026</p>
-        </footer>
+        <button onclick="abrirModal()" class="fixed bottom-10 right-6 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+    </div>
+
+    <div id="modal-drop" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center p-6">
+        <div class="w-full max-w-sm space-y-4">
+            <h2 class="text-3xl font-black italic text-center mb-6 text-blue-500">Lanzar Drop</h2>
+            <input type="text" id="d-origen" placeholder="Punto de Retiro" class="w-full p-4 glass rounded-xl outline-none border-white/10 text-sm">
+            <input type="text" id="d-destino" placeholder="Punto de Entrega" class="w-full p-4 glass rounded-xl outline-none border-white/10 text-sm">
+            <input type="number" id="d-precio" placeholder="Precio Base $" class="w-full p-4 glass rounded-xl outline-none border-white/10 text-sm">
+            <input type="number" id="d-tel" placeholder="Tu WhatsApp" class="w-full p-4 glass rounded-xl outline-none border-white/10 text-sm">
+            <button onclick="lanzarDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest mt-4">¡Mover el Mundo!</button>
+            <button onclick="cerrarModal()" class="w-full text-white/20 text-[10px] font-bold uppercase tracking-widest">Cancelar</button>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
         const firebaseConfig = {
           apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw",
@@ -86,15 +80,64 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
         onAuthStateChanged(auth, (user) => {
-            if (user) window.location.replace("app.html");
+            if (user) {
+                document.getElementById('section-login').classList.add('hidden');
+                document.getElementById('section-app').classList.remove('hidden');
+                cargarDrops();
+            } else {
+                document.getElementById('section-login').classList.remove('hidden');
+                document.getElementById('section-app').classList.add('hidden');
+            }
         });
 
-        document.getElementById('btnLogin').onclick = async () => {
-            try { await signInWithPopup(auth, provider); } catch (e) { }
+        window.logout = () => signOut(auth);
+        
+        document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
+
+        window.abrirModal = () => document.getElementById('modal-drop').classList.remove('hidden');
+        window.cerrarModal = () => document.getElementById('modal-drop').classList.add('hidden');
+
+        window.solicitarPase = () => {
+            window.location.href = "https://wa.me/5493364652349?text=Hola! Quiero mi Pase Pro de Lumers";
         };
+
+        window.lanzarDrop = async () => {
+            const ori = document.getElementById('d-origen').value;
+            const des = document.getElementById('d-destino').value;
+            const pre = document.getElementById('d-precio').value;
+            const tel = document.getElementById('d-tel').value;
+            if(!ori || !des || !pre || !tel) return alert("Completa los datos");
+
+            await addDoc(collection(db, "viajes"), {
+                origen: ori, destino: des, precio: pre, whatsapp: tel, creado: Date.now()
+            });
+            cerrarModal();
+        };
+
+        function cargarDrops() {
+            const q = query(collection(db, "viajes"), orderBy("creado", "desc"));
+            onSnapshot(q, (snapshot) => {
+                const lista = document.getElementById('lista-drops');
+                lista.innerHTML = "";
+                snapshot.forEach((doc) => {
+                    const d = doc.data();
+                    lista.innerHTML += `
+                        <div class="glass p-6 rounded-[2rem]">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="bg-blue-500 text-[8px] font-black px-3 py-1 rounded-full uppercase italic tracking-widest">Drop Activo</span>
+                                <p class="text-2xl font-black italic">$${d.precio}</p>
+                            </div>
+                            <h3 class="text-lg font-black italic uppercase leading-tight mb-4">${d.origen} <i class="fa-solid fa-arrow-right text-blue-500 mx-1"></i> ${d.destino}</h3>
+                            <button onclick="solicitarPase()" class="w-full bg-white/5 border border-white/10 py-3 rounded-xl font-bold text-[10px] uppercase tracking-widest">Ver contacto</button>
+                        </div>
+                    `;
+                });
+            });
+        }
     </script>
 </body>
 </html>
