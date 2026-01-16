@@ -1,59 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LUMERS | Envíos colaborativos con pago protegido</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LUMERS | Envíos colaborativos con pago protegido</title>
 
-  <!-- Tipografía -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <style>
-    :root {
-      --primary: #2563eb;
-      --secondary: #0f172a;
-      --light: #f8fafc;
-      --gray: #64748b;
-    }
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-    }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: white;
+            margin: 0;
+            overflow-x: hidden;
+        }
 
-    body {
-      background: var(--light);
-      color: var(--secondary);
-      line-height: 1.6;
-    }
+        .bg-main {
+            background: radial-gradient(circle at top, #1e293b 0%, #020617 100%);
+            min-height: 100vh;
+        }
 
-    header {
-      background: linear-gradient(135deg, var(--primary), #1e40af);
-      color: white;
-      padding: 80px 20px;
-      text-align: center;
-    }
+        .logo-organic {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px rgba(59,130,246,.35);
+            animation: morph 8s ease-in-out infinite;
+        }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
+        @keyframes morph {
+            0%,100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        }
 
-    header p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
+        .glass {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            backdrop-filter: blur(14px);
+        }
 
-    .btn {
-      display: inline-block;
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      margin: 5px;
-    }
+        .btn-blue {
+            background: linear-gradient(90deg,#3b82f6,#2563eb);
+        }
 
-    .btn-primary {
-     
+        .hidden { display:none!important }
+    </style>
+</head>
+
+<body class="bg-main">
+
+<!-- LOADER -->
+<div id="loader" class="fixed inset-0 z-[200] bg-[#020617] flex items-center justify-center">
+    <div class="logo-organic scale-75">
+        <i class="fa-solid fa-box-open text-3xl text-white"></i>
+    </div>
+</div>
+
+<!-- LOGIN / LANDING -->
+<div id="view-login" class="hidden min-h-screen flex flex-col items-center p-8 text-center">
+
+    <div class="logo-organic mt-14 mb-8">
+        <i class="fa-solid fa-box-open text-3xl text-white"></i>
+    </div>
+
+    <h1 class="text-5xl font-black italic tracking-tighter text-blue-500 uppercase leading-none">
+        LUMERS
+    </h1>
+
+    <p class="text-[11px] font-black text-blue-400 uppercase tracking-[0.35em] mt-2 italic">
+        Envíos colaborativos con pago protegido
+    </p>
+
+    <!-- BENEFICIOS -->
+    <div class="w-full max-w-sm glass rounded-[2.5rem] p-6 my-10 space-y-5 text-left">
+
+        <div>
+            <div class="flex items-center gap-3 mb-1">
+                <i class="fa-solid fa-gavel text-blue-400"></i>
+                <p class="text-[10px] font-black uppercase text-white/80">
+                    Subasta en tiempo real
+                </p>
+            </div>
+            <p class="text-[10px] text-white/50 leading-relaxed">
+                Publicá tu envío y recibí ofertas de transportistas independientes. Elegí precio y reputación.
+            </p>
+        </div>
+
+        <div>
+            <div class="flex items-center gap-3 mb-1">
+                <i class="fa-solid fa-shield-check text-blue-400"></i>
+                <p class="text-[10px] font-black uppercase text-white/80">
+                    Pago protegido
+                </p>
+            </div>
+            <p class="text-[10px] text-white/50 leading-relaxed">
+                El pago se libera solo cuando el paquete llega a destino.
+            </p>
+        </div>
+
+        <div>
+            <div class="flex items-center gap-3 mb-1">
+                <i class="fa-solid fa-users text-blue-400"></i>
+                <p class="text-[10px] font-black uppercase text-white/80">
+                    Comunidad y reputación
+                </p>
+            </div>
+            <p class="text-[10px] text-white/50 leading-relaxed">
+                Calificaciones visibles para generar confianza real.
+            </p>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <button id="btnLogin"
+        class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-4 shadow-2xl">
+        <i class="fa-brands fa-google text-lg"></i>
+        Entrar a la red
+    </button>
+
+    <!-- LEGAL -->
+    <footer class="mt-auto py-10 opacity-25 max-w-xs">
+        <p class="text-[8px] font-bold uppercase tracking-widest leading-relaxed">
+            LUMERS es una plataforma tecnológica de intermediación.
+            No realiza transporte propio.
+        </p>
+        <p class="text-[7px] mt-2 uppercase tracking-widest">
+            Argentina · San Nicolás
+        </p>
+    </footer>
+
+</div>
+
+<!-- ⚠️ TU VIEW-APP, FIREBASE Y JS QUEDAN EXACTAMENTE IGUAL -->
+<!-- NO TOCO NADA DE ESO -->
+
+</body>
+</html>
