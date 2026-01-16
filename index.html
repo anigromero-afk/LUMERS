@@ -26,23 +26,31 @@
         <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Una entrega a la vez</p>
 
         <div class="w-full max-w-sm glass rounded-[2rem] p-6 my-6 text-left border-t border-blue-500/20">
-            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center italic">Protocolo de Seguridad</h2>
+            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center italic">Garantía de Confianza</h2>
             <div class="space-y-4 text-[11px] italic text-white/80">
-                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Garantía de Pago:</b> Lumers custodia el dinero. Si el paquete no llega a destino, el pago <b>NO se libera</b> y vuelve al cliente.</p>
-                <p><i class="fa-solid fa-circle-exclamation text-blue-400 mr-2"></i><b>Responsabilidad:</b> No somos responsables por el contenido o estado del paquete. Nuestra función es asegurar la transacción económica entre partes.</p>
-                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Puja Abierta:</b> El mejor precio gana la logística. Local o Internacional.</p>
+                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Pago Seguro:</b> Lumers custodia el dinero. Si el paquete no llega, el pago **NO se libera**.</p>
+                <p><i class="fa-solid fa-circle-exclamation text-blue-400 mr-2"></i><b>Responsabilidad:</b> No somos responsables por el contenido. Aseguramos que el pago solo se concrete tras la entrega confirmada.</p>
             </div>
         </div>
 
-        <div class="w-full max-w-sm space-y-2 mb-8 text-left">
+        <div class="w-full max-w-sm space-y-3 mb-8 text-left">
+            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Lo que podés pedir:</p>
+            
             <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <p class="text-[10px] text-white/90 leading-tight italic">
-                    "Busco hamburguesa local. Pago $3.000."
+                <p class="text-[11px] text-white/90 leading-tight italic">
+                    "¿Quién me busca una <b>hamburguesa</b> y me la trae ahora? Pago $3.000."
                 </p>
             </div>
+
             <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4">
-                <p class="text-[10px] text-white/90 leading-tight italic">
-                    "¿Alguien viaja de EEUU? Traer tablet. Pago $60.000."
+                <p class="text-[11px] text-white/90 leading-tight italic">
+                    "¿Alguno viaja de <b>EEUU o España</b> y me trae una tablet? Pago $60.000."
+                </p>
+            </div>
+
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
+                <p class="text-[11px] text-white/90 leading-tight italic">
+                    "¿Quién viaja a <b>Europa</b> y me puede llevar unos documentos? Pago $30.000."
                 </p>
             </div>
         </div>
@@ -69,7 +77,7 @@
         </main>
 
         <footer class="p-6 text-center mt-auto opacity-30 text-[8px] italic font-black">
-            <p>© LUMERS | NIC & INTI | LA GARANTÍA ES LA ENTREGA CORROBORADA</p>
+            <p>© LUMERS | NIC & INTI | UNA ENTREGA A LA VEZ</p>
         </footer>
 
         <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
@@ -78,17 +86,16 @@
     </div>
 
     <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
-        <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4 border border-blue-500/20">
+        <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
             <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Nuevo Pedido</h2>
             <div class="space-y-3">
                 <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Burger / Madrid / EEUU)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Entrega (Ciudad/Dirección)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 Pago en Pesos $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-des" placeholder="🏁 Entrega (Dirección / Ciudad)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás en Pesos? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="number" id="in-tel" placeholder="📱 WhatsApp (con prefijo)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             </div>
-            <p class="text-[8px] text-white/40 italic text-center px-4">Al lanzar el pedido, aceptás que Lumers custodia el pago para garantizar la entrega.</p>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar al Mercado</button>
-            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Volver</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja</button>
+            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
 
@@ -125,14 +132,14 @@
         });
 
         window.ofertar = (ori, des, pre) => {
-            const txt = `¡Hola Lumers! 👋 Me interesa el envío:\n📍 Retiro: ${ori}\n🏁 Entrega: ${des}\n💰 Ofrece: $${pre} pesos\n¿Cómo coordinamos la puja y la garantía?`;
+            const txt = `¡Hola Lumers! 👋 Me interesa el envío:\n📍 Retiro: ${ori}\n🏁 Entrega: ${des}\n💰 Pago: $${pre} pesos\n¿Cómo coordinamos la puja y la garantía?`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(txt)}`;
         };
 
         window.adminHack = () => {
             clickCount++;
             if(clickCount >= 5) {
-                const pass = prompt("Acceso:");
+                const pass = prompt("Gestión:");
                 if(pass === "lumers2026") { isAdmin = true; alert("Gestión ON"); cargarDrops(); }
                 clickCount = 0;
             }
@@ -170,7 +177,7 @@
                                 </div>
                             </div>
                             <div class="space-y-1 mb-6">
-                                <p class="text-[9px] font-black text-blue-500 uppercase italic leading-none">🏁 Entrega</p>
+                                <p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Entrega</p>
                                 <p class="text-[13px] font-bold uppercase">${d.destino}</p>
                             </div>
                             <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Pujar ahora</button>
