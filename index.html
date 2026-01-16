@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUMERS | Subastas y Envíos</title>
+    <title>LUMERS | Logística Global Colaborativa</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -20,63 +20,78 @@
 <body class="bg-main">
 
     <div id="loader" class="fixed inset-0 z-[200] bg-[#020617] flex items-center justify-center">
-        <div class="logo-organic scale-75"><i class="fa-solid fa-box-open text-3xl text-white"></i></div>
+        <div class="logo-organic scale-75"><i class="fa-solid fa-earth-americas text-3xl text-white"></i></div>
     </div>
 
     <div id="view-login" class="hidden min-h-screen flex flex-col items-center p-8 text-center">
-        <div class="logo-organic mt-12 mb-8"><i class="fa-solid fa-box-open text-3xl text-white"></i></div>
+        <div class="logo-organic mt-12 mb-8"><i class="fa-solid fa-link text-3xl text-white"></i></div>
         <h1 class="text-5xl font-black italic tracking-tighter text-blue-500 uppercase leading-none">LUMERS</h1>
-        <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mt-2 italic">El Uber de las Encomiendas</p>
+        <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mt-2 italic">Conectamos Envíos a Nivel Mundial</p>
 
-        <div class="w-full max-w-sm glass rounded-[2.5rem] p-6 my-8 space-y-4 text-left">
-            <div class="flex items-center gap-3">
-                <i class="fa-solid fa-percent text-blue-400"></i>
-                <p class="text-[10px] text-white/80 font-bold uppercase">Comisión por Servicio</p>
+        <div class="w-full max-w-sm glass rounded-[2.5rem] p-7 my-8 space-y-5 text-left">
+            <div>
+                <h4 class="text-[11px] font-black uppercase text-blue-400 flex items-center gap-2">
+                    <i class="fa-solid fa-gavel"></i> Subastas Abiertas
+                </h4>
+                <p class="text-[10px] text-white/60 leading-relaxed mt-1">Cualquier persona o empresa puede publicar su envío. Los Raiders ofertan su mejor precio para concretar la entrega.</p>
             </div>
-            <p class="text-[10px] text-white/50 leading-relaxed italic">Los Raiders abonan un 10% de comisión sobre el valor del envío concretado. Esto financia nuestra tecnología y expansión global.</p>
+
+            <div>
+                <h4 class="text-[11px] font-black uppercase text-blue-400 flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved"></i> Garantía de Pago
+                </h4>
+                <p class="text-[10px] text-white/60 leading-relaxed mt-1">LUMERS protege los fondos. El pago se libera al Raider recién cuando el paquete llega a destino.</p>
+            </div>
+
+            <div class="bg-blue-500/10 p-4 rounded-2xl border border-blue-500/20">
+                <h4 class="text-[11px] font-black uppercase text-blue-300 flex items-center gap-2">
+                    <i class="fa-solid fa-percent"></i> Comisión por Servicio
+                </h4>
+                <p class="text-[10px] text-blue-200/70 leading-relaxed mt-1 italic">
+                    LUMERS percibe el <b>10% del valor total de cada envío</b> exitoso en concepto de comisión por conexión y seguridad tecnológica.
+                </p>
+            </div>
         </div>
 
         <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest flex items-center justify-center gap-4 shadow-2xl">
-            <i class="fa-brands fa-google text-lg"></i> Entrar a la red
+            <i class="fa-brands fa-google text-lg"></i> Acceder a la Red
         </button>
     </div>
 
     <div id="view-app" class="hidden min-h-screen flex flex-col">
         <header class="p-6 glass flex justify-between items-center sticky top-0 z-50">
-            <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase cursor-pointer">LUMERS</h1>
-            <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase tracking-widest">Salir</button>
+            <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase">LUMERS</h1>
+            <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase italic">Cerrar Sesión</button>
         </header>
 
         <main class="p-6 pb-32 space-y-6">
-            <div class="glass p-6 rounded-[2rem] border-l-4 border-blue-500 bg-blue-500/5 text-center">
-                <h3 class="text-[11px] font-black text-blue-400 uppercase tracking-widest mb-1">Aviso al Raider</h3>
-                <p class="text-[10px] text-white/60 leading-tight">Al aceptar un envío, aceptás abonar el <b>10% de comisión</b> a LUMERS sobre el total pactado.</p>
-                <button onclick="verPase()" class="mt-4 w-full bg-white text-black py-3 rounded-xl font-black text-[9px] uppercase italic">Pase Pro + Comisión 10%</button>
+            <div class="glass p-6 rounded-[2.5rem] border-l-4 border-blue-500 bg-blue-500/5">
+                <h3 class="text-[11px] font-black text-blue-400 uppercase mb-1">Activación Raider Pro</h3>
+                <p class="text-[10px] text-white/60 mb-4 leading-tight italic">Acceso ilimitado a subastas por <b>5 USD mensuales</b>. Comisión por éxito: <b>10%</b>.</p>
+                <button onclick="verPase()" class="w-full bg-white text-black py-3 rounded-xl font-black text-[9px] uppercase italic">Pagar Suscripción</button>
             </div>
 
             <div id="lista-drops" class="space-y-4"></div>
         </main>
 
-        <button onclick="toggleModal(true)" class="fixed bottom-8 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
+        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50 animate-bounce">
             <i class="fa-solid fa-plus text-white"></i>
         </button>
     </div>
 
     <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
         <div class="w-full max-w-sm glass p-8 rounded-[2.5rem] space-y-4">
-            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center">Nueva Subasta</h2>
+            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Publicar Envío</h2>
             
-            <input type="text" id="in-ori" placeholder="📍 Retiro" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-            <input type="text" id="in-des" placeholder="🏁 Destino" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-            <input type="number" id="in-pre" placeholder="💰 Pago Total $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+            <input type="text" id="in-ori" placeholder="📍 Lugar de Retiro" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+            <input type="text" id="in-des" placeholder="🏁 Destino Final" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+            <input type="number" id="in-pre" placeholder="💰 Valor del envío $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             <input type="number" id="in-tel" placeholder="📱 WhatsApp" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             
-            <div class="bg-blue-500/10 p-4 rounded-xl text-center border border-blue-500/20">
-                <p class="text-[8px] text-blue-300 font-black uppercase italic">🛡️ Retenemos el 10% de comisión del Raider para garantizar la operación.</p>
-            </div>
+            <p class="text-[8px] text-white/40 text-center uppercase font-bold italic">LUMERS descontará el 10% de comisión al Raider una vez completado.</p>
 
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest mt-4">Iniciar Subasta</button>
-            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase">Cerrar</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic">Lanzar Subasta</button>
+            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
 
@@ -116,7 +131,7 @@
         window.adminHack = () => {
             clickCount++;
             if(clickCount >= 5) {
-                const pass = prompt("Admin:");
+                const pass = prompt("Acceso Administrador:");
                 if(pass === "lumers2026") { isAdmin = true; alert("Modo Admin"); cargarDrops(); }
                 clickCount = 0;
             }
@@ -126,10 +141,9 @@
         window.toggleModal = (val) => document.getElementById('modal-drop').classList.toggle('hidden', !val);
 
         window.verPase = () => {
-            const ok = confirm("Suscripción Raider Pro + 10% Comisión.\n\nAceptás que LUMERS descuente o cobre el 10% del valor de cada envío concretado. ¿Aceptar?");
+            const ok = confirm("MEMBRESÍA RAIDER PRO\n\nAcceso a subastas globales + 10% de comisión por envío. El pago se libera al llegar a destino. ¿Aceptar?");
             if(ok) {
-                // MAÑANA AQUÍ PEGAS TU LINK
-                window.location.href = "https://wa.me/3364652349?text=Quiero ser Raider Pro (Entiendo la comisión del 10%)";
+                window.location.href = "https://wa.me/3364652349?text=Hola! Quiero mi Pase Pro (Comisión 10%)";
             }
         };
 
@@ -138,45 +152,51 @@
         window.crearDrop = async () => {
             const ori = document.getElementById('in-ori').value, des = document.getElementById('in-des').value, pre = document.getElementById('in-pre').value, tel = document.getElementById('in-tel').value;
             if(!ori || !des || !pre || !tel) return alert("Faltan datos");
-            await addDoc(collection(db, "viajes"), { origen: ori, destino: des, precio: pre, whatsapp: tel, creado: Date.now() });
+            await addDoc(collection(db, "viajes"), { origen: ori, destino: des, precio: parseFloat(pre), whatsapp: tel, creado: Date.now() });
             toggleModal(false);
         };
 
         window.borrarDrop = async (id) => {
-            if(confirm("¿Eliminar?")) await deleteDoc(doc(db, "viajes", id));
+            if(confirm("¿Eliminar subasta?")) await deleteDoc(doc(db, "viajes", id));
         };
 
         function cargarDrops() {
             const q = query(collection(db, "viajes"), orderBy("creado", "desc"));
             onSnapshot(q, (snap) => {
                 const lista = document.getElementById('lista-drops');
-                lista.innerHTML = snap.empty ? '<p class="text-center opacity-20 text-[10px] py-20 italic">No hay subastas...</p>' : '';
+                lista.innerHTML = snap.empty ? '<p class="text-center opacity-20 text-[10px] py-20 italic">No hay subastas activas...</p>' : '';
                 snap.forEach((documento) => {
                     const d = documento.data(), id = documento.id;
                     const comision = (d.precio * 0.10).toFixed(0);
-                    const netoRaider = (d.precio * 0.90).toFixed(0);
+                    const ganancia = (d.precio * 0.90).toFixed(0);
                     lista.innerHTML += `
-                        <div class="glass p-6 rounded-[2rem] relative border-b-2 border-blue-500/20">
-                            ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/30"><i class="fa-solid fa-trash text-xs"></i></button>` : ''}
-                            <div class="flex justify-between items-start mb-4">
+                        <div class="glass p-6 rounded-[2.5rem] relative border-b-2 border-blue-500/20">
+                            ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/20"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            <div class="flex justify-between items-start mb-5">
                                 <div class="space-y-1">
-                                    <p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Origen</p>
-                                    <p class="text-sm font-bold uppercase">${d.origen}</p>
+                                    <p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Retiro</p>
+                                    <p class="text-sm font-bold uppercase tracking-tight">${d.origen}</p>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-[9px] font-black text-white/40 uppercase italic text-[7px]">Lo que paga el cliente</p>
-                                    <p class="text-xl font-black italic text-blue-400">$${d.precio}</p>
+                                    <p class="text-[9px] font-black text-white/40 uppercase italic tracking-tighter">Valor Envío</p>
+                                    <p class="text-2xl font-black italic text-blue-400">$${d.precio}</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 mb-4">
+                            <div class="space-y-1 mb-6">
                                 <p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Destino</p>
-                                <p class="text-sm font-bold uppercase">${d.destino}</p>
+                                <p class="text-sm font-bold uppercase tracking-tight">${d.destino}</p>
                             </div>
-                            <div class="bg-white/5 p-3 rounded-xl mb-4 flex justify-between items-center border border-white/5">
-                                <span class="text-[8px] font-black uppercase text-white/40 italic">Tu ganancia neta estimada:</span>
-                                <span class="text-[11px] font-black text-green-400">$${netoRaider}</span>
+                            <div class="flex gap-2 mb-6">
+                                <div class="flex-1 bg-white/5 p-3 rounded-xl border border-white/5">
+                                    <p class="text-[7px] font-black text-white/40 uppercase mb-1 italic">Neto Raider (-10%)</p>
+                                    <p class="text-sm font-black text-green-400">$${ganancia}</p>
+                                </div>
+                                <div class="flex-1 bg-blue-500/5 p-3 rounded-xl border border-blue-500/10">
+                                    <p class="text-[7px] font-black text-blue-400/50 uppercase mb-1 italic text-right">Fee Lumers (10%)</p>
+                                    <p class="text-sm font-black text-blue-400 text-right italic">$${comision}</p>
+                                </div>
                             </div>
-                            <button onclick="verPase()" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400">Ofertar mi precio</button>
+                            <button onclick="verPase()" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Participar en Subasta</button>
                         </div>
                     `;
                 });
