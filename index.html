@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl mb-8">INGRESAR AHORA</button>
+        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl mb-8 text-white">INGRESAR AHORA</button>
 
         <footer class="mt-auto pb-6">
             <p>© 2026 LUMERS - TODOS LOS DERECHOS RESERVADOS</p>
@@ -68,8 +68,8 @@
             <p>© LUMERS | NIC & INTI | UNA ENTREGA A LA VEZ</p>
         </footer>
 
-        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
-            <i class="fa-solid fa-plus text-white"></i>
+        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50 text-white">
+            <i class="fa-solid fa-plus"></i>
         </button>
     </div>
 
@@ -79,7 +79,7 @@
             <div class="space-y-3">
                 <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Burger / Madrid)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="text" id="in-des" placeholder="🏁 Entrega (Ciudad / País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 Pago en Pesos $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="number" id="in-tel" placeholder="📱 WhatsApp (con prefijo)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             </div>
             <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja</button>
@@ -119,9 +119,9 @@
             }
         });
 
-        // WHATSAPP AUTOMATIZADO PARA TI
+        // WHATSAPP CON CONTRAOFERTA
         window.ofertar = (ori, des, pre) => {
-            const ticket = `📦 *NUEVA PUJA LUMERS*\n--------------------------\n📍 *RETIRO:* ${ori}\n🏁 *ENTREGA:* ${des}\n💰 *OFERTA:* $${pre} pesos\n--------------------------\n_Hola! Me gustaría encargarme de esta entrega. ¿Me explican cómo funciona la garantía?_`;
+            const ticket = `🔨 *OFERTA EN SUBASTA LUMERS*\n--------------------------\n📍 *RETIRO:* ${ori}\n🏁 *ENTREGA:* ${des}\n💰 *PRECIO BASE:* $${pre} pesos\n--------------------------\n_Hola! Me interesa el viaje. ¿Aceptás el precio o buscás una contraoferta?_`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(ticket)}`;
         };
 
@@ -157,7 +157,7 @@
                             ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/20"><i class="fa-solid fa-trash"></i></button>` : ''}
                             <div class="flex justify-between items-start mb-5">
                                 <div class="space-y-1">
-                                    <p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Retiro</p>
+                                    <p class="text-[9px] font-black text-blue-500 uppercase italic leading-none">📍 Retiro</p>
                                     <p class="text-[13px] font-bold uppercase">${d.origen}</p>
                                 </div>
                                 <div class="text-right">
