@@ -20,39 +20,43 @@
 <body class="bg-main">
 
     <div id="view-login" class="hidden min-h-screen flex flex-col items-center p-6 text-center">
-        <div class="logo-organic mt-6 mb-4"><i class="fa-solid fa-earth-americas text-3xl text-white"></i></div>
+        <div class="logo-organic mt-6 mb-4"><i class="fa-solid fa-plane-up text-3xl text-white"></i></div>
         <h1 class="text-5xl font-black italic text-blue-500 uppercase leading-none tracking-tighter">LUMERS</h1>
-        <p class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Sin fronteras, una entrega a la vez</p>
+        <p class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Global Logistics & Puja</p>
 
         <div class="w-full max-w-sm glass rounded-[2rem] p-6 my-6 text-left">
-            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 italic text-center">Subasta de Envíos Global</h2>
+            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 italic text-center">Subasta de Envíos sin fronteras</h2>
             <div class="space-y-4 text-[11px] italic text-white/80">
-                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Puja de Precios:</b> Quien ofrezca el mejor precio o acepte las condiciones gana el viaje.</p>
-                <p><i class="fa-solid fa-shield-check text-blue-400 mr-2"></i><b>Garantía Lumers:</b> Retenemos el pago en custodia para tu seguridad.</p>
-                <p><i class="fa-solid fa-check-double text-blue-400 mr-2"></i><b>Pago Liberado:</b> Al corroborar la entrega en destino, liberamos el dinero al Raider.</p>
+                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Gana la Puja:</b> Quien tenga el viaje y ofrezca el mejor precio se queda con el envío.</p>
+                <p><i class="fa-solid fa-shield-check text-blue-400 mr-2"></i><b>Custodia Segura:</b> Pagás en Pesos a Lumers. Retenemos el dinero hasta que el paquete llega.</p>
+                <p><i class="fa-solid fa-money-bill-transfer text-blue-400 mr-2"></i><b>Pago al Raider:</b> Al confirmar la recepción, liberamos el pago al viajero.</p>
             </div>
         </div>
 
-        <div class="w-full max-w-sm bg-blue-500/10 border border-blue-500/20 rounded-2xl p-5 mb-6 text-left relative overflow-hidden">
-            <div class="absolute top-0 right-0 bg-blue-600 text-[7px] font-black px-3 py-1 uppercase italic tracking-widest">Ejemplo de Subasta</div>
-            <p class="text-[9px] font-black text-blue-400 uppercase mb-2">💡 ¿Cómo funciona?</p>
-            <p class="text-[11px] text-white/90 leading-tight italic mb-3">
-                "¿Quién me <b>busca</b> un paquete en Rosario y lo <b>trae</b>? Pago $8.000"
-            </p>
-            <div class="flex items-center gap-2 border-t border-white/10 pt-3">
-                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <p class="text-[9px] font-black text-white/60 uppercase">Los Raiders pujan por el envío...</p>
+        <div class="w-full max-w-sm space-y-3 mb-8 text-left">
+            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Ejemplos de lo que podés pedir:</p>
+            
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 relative overflow-hidden">
+                <p class="text-[11px] text-white/90 leading-tight italic">
+                    "¿Alguno viene de <b>EEUU o España</b>? Necesito que me <b>traigan</b> una tablet. Pago $50.000 pesos."
+                </p>
+            </div>
+
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 relative overflow-hidden">
+                <p class="text-[11px] text-white/90 leading-tight italic">
+                    "¿Alguno viaja a <b>Europa</b>? Necesito <b>llevar</b> unos documentos urgentes. Pago $30.000 pesos."
+                </p>
             </div>
         </div>
 
-        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl">INGRESAR AL MERCADO GLOBAL</button>
+        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl">INGRESAR A LA RED GLOBAL</button>
     </div>
 
     <div id="view-app" class="hidden min-h-screen flex flex-col">
         <header class="p-6 glass flex justify-between items-center sticky top-0 z-50">
             <div>
                 <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase cursor-pointer leading-none">LUMERS</h1>
-                <p class="text-[7px] font-bold text-blue-400 uppercase tracking-widest italic mt-1">Global Logistics</p>
+                <p class="text-[7px] font-bold text-blue-400 uppercase tracking-widest italic mt-1 italic">Una entrega a la vez</p>
             </div>
             <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase italic">Salir</button>
         </header>
@@ -70,13 +74,13 @@
         <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
             <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic text-blue-500">Nuevo Pedido</h2>
             <div class="space-y-3">
-                <input type="text" id="in-ori" placeholder="📍 Punto de Retiro (Ciudad/País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Punto de Entrega (Ciudad/País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 Presupuesto Ofrecido $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Madrid / Miami / SN)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-des" placeholder="🏁 Entrega (Ciudad/País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás en Pesos? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="number" id="in-tel" placeholder="📱 WhatsApp (con prefijo)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             </div>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja al Mundo</button>
-            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Volver</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja Global</button>
+            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
 
@@ -113,14 +117,14 @@
         });
 
         window.ofertar = (ori, des, pre) => {
-            const txt = `¡Hola Lumers! 🌍 Me interesa el pedido:\n📍 Retiro: ${ori}\n🏁 Entrega: ${des}\n💰 Presupuesto: $${pre}\n¿Puedo ofertar mi precio por este viaje?`;
+            const txt = `¡Hola Lumers! 🌍 Me interesa el pedido:\n📍 Origen: ${ori}\n🏁 Destino: ${des}\n💰 Pago: $${pre} pesos\n¿Cómo coordinamos el pago en garantía y la entrega?`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(txt)}`;
         };
 
         window.adminHack = () => {
             clickCount++;
             if(clickCount >= 5) {
-                const pass = prompt("Gestión Global:");
+                const pass = prompt("Acceso Gestión:");
                 if(pass === "lumers2026") { isAdmin = true; alert("Modo Gestión ON"); cargarDrops(); }
                 clickCount = 0;
             }
@@ -149,19 +153,19 @@
                             ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/20"><i class="fa-solid fa-trash"></i></button>` : ''}
                             <div class="flex justify-between items-start mb-5">
                                 <div class="space-y-1">
-                                    <p class="text-[9px] font-black text-blue-500 uppercase italic leading-none">📍 Retiro</p>
+                                    <p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Origen</p>
                                     <p class="text-[13px] font-bold uppercase">${d.origen}</p>
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[11px] font-black text-blue-400 italic leading-none">$${d.precio}</p>
-                                    <p class="text-[6px] font-bold text-white/30 uppercase mt-1 tracking-widest italic">Ofrecido</p>
+                                    <p class="text-[6px] font-bold text-white/30 uppercase mt-1 tracking-widest italic">Pesos</p>
                                 </div>
                             </div>
                             <div class="space-y-1 mb-6">
-                                <p class="text-[9px] font-black text-blue-500 uppercase italic leading-none">🏁 Entrega</p>
+                                <p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Destino</p>
                                 <p class="text-[13px] font-bold uppercase">${d.destino}</p>
                             </div>
-                            <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Pujar por el envío</button>
+                            <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Entrar a la puja</button>
                         </div>
                     `;
                 });
