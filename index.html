@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUMERS | Puja de Envíos</title>
+    <title>LUMERS | Envíos y Retiros</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,70 +15,36 @@
         .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); }
         .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s; }
         .hidden { display: none !important; }
-        .step-dot { width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; position: relative; }
-        .step-dot::after { content: ''; position: absolute; width: 2px; height: 25px; background: rgba(59, 130, 246, 0.2); left: 3px; top: 10px; }
-        .step-dot:last-child::after { display: none; }
     </style>
 </head>
 <body class="bg-main">
 
     <div id="view-login" class="hidden min-h-screen flex flex-col items-center p-6 text-center">
-        <div class="logo-organic mt-6 mb-4"><i class="fa-solid fa-gavel text-3xl text-white"></i></div>
+        <div class="logo-organic mt-6 mb-4"><i class="fa-solid fa-boxes-packing text-3xl text-white"></i></div>
         <h1 class="text-5xl font-black italic text-blue-500 uppercase leading-none tracking-tighter">LUMERS</h1>
         <p class="text-[9px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Una entrega a la vez</p>
 
         <div class="w-full max-w-sm glass rounded-[2rem] p-6 my-6 text-left">
-            <h2 class="text-[12px] font-black italic text-white uppercase mb-5 border-b border-white/10 pb-2">
-                <i class="fa-solid fa-circle-question text-blue-400 mr-2"></i> ¿Cómo funciona Lumers?
-            </h2>
-            
-            <div class="space-y-5">
-                <div class="flex gap-4">
-                    <div class="step-dot mt-1"></div>
-                    <div>
-                        <p class="text-[10px] font-black text-blue-400 uppercase leading-none mb-1">1. Publicás tu necesidad</p>
-                        <p class="text-[11px] text-white/80 italic leading-tight italic">"¿Quién me lleva este paquete a Rosario? Pago $5.000".</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="step-dot mt-1"></div>
-                    <div>
-                        <p class="text-[10px] font-black text-blue-400 uppercase leading-none mb-1">2. Los Raiders pujan</p>
-                        <p class="text-[11px] text-white/80 italic leading-tight">Varios transportistas ofertan para quedarse con tu envío.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="step-dot mt-1"></div>
-                    <div>
-                        <p class="text-[10px] font-black text-blue-400 uppercase leading-none mb-1">3. Seguridad Lumers</p>
-                        <p class="text-[11px] text-white/80 italic leading-tight">Pagás el envío a Lumers. Nosotros lo retenemos para tu tranquilidad.</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="step-dot mt-1"></div>
-                    <div>
-                        <p class="text-[10px] font-black text-blue-400 uppercase leading-none mb-1">4. Entrega confirmada</p>
-                        <p class="text-[11px] text-white/80 italic leading-tight">El paquete llega, nos das el OK y ahí recién le pagamos al Raider.</p>
-                    </div>
-                </div>
+            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2">¿Cómo funciona Lumers?</h2>
+            <div class="space-y-4 text-[11px] italic text-white/80">
+                <p><i class="fa-solid fa-bullhorn text-blue-400 mr-2"></i><b>Publicás:</b> "¿Quién me busca un paquete en Rosario y me lo trae? Pago $5000".</p>
+                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Puja:</b> Los Raiders pujan para ver quién se queda con el viaje.</p>
+                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Seguridad:</b> Pagás a Lumers. Retenemos el dinero hasta que recibís lo que pediste.</p>
             </div>
         </div>
 
-        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl">
-            INGRESAR A LA RED
-        </button>
+        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl">EMPEZAR AHORA</button>
     </div>
 
     <div id="view-app" class="hidden min-h-screen flex flex-col">
         <header class="p-6 glass flex justify-between items-center sticky top-0 z-50">
             <div>
                 <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase cursor-pointer leading-none">LUMERS</h1>
-                <p class="text-[7px] font-bold text-blue-400 uppercase tracking-widest italic mt-1">Una entrega a la vez</p>
             </div>
             <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase italic">Salir</button>
         </header>
 
-        <main class="p-6 pb-32 space-y-6">
+        <main class="p-6 pb-32">
             <div id="lista-drops" class="space-y-4"></div>
         </main>
 
@@ -89,14 +55,14 @@
 
     <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
         <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
-            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Nuevo Envío</h2>
+            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Nuevo Pedido</h2>
             <div class="space-y-3">
-                <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Centro SN)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Destino (Ej: Rosario)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás por el viaje? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-tel" placeholder="📱 Tu WhatsApp de contacto" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-ori" placeholder="📍 ¿Dónde se retira? (Dirección/Local)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-des" placeholder="🏁 ¿Dónde se entrega? (Dirección/Barrio)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás por esto? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="number" id="in-tel" placeholder="📱 Tu WhatsApp" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             </div>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2">Lanzar Puja</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja</button>
             <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
@@ -134,14 +100,14 @@
         });
 
         window.ofertar = (ori, des, pre) => {
-            const txt = `¡Hola Ani! 👋 Vi un pedido en Lumers:\n📍 ${ori} a ${des}\n💰 Ofrecen pagar: $${pre}\n¿Puedo ofertar mi precio para este viaje?`;
+            const txt = `¡Hola Ani! 👋 Me interesa el pedido de Lumers:\n📍 Retira en: ${ori}\n🏁 Entrega en: ${des}\n💰 Pago ofrecido: $${pre}\n¿Puedo tomarlo o mejorar el precio?`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(txt)}`;
         };
 
         window.adminHack = () => {
             clickCount++;
             if(clickCount >= 5) {
-                const pass = prompt("Acceso:");
+                const pass = prompt("Clave:");
                 if(pass === "lumers2026") { isAdmin = true; alert("Admin OK"); cargarDrops(); }
                 clickCount = 0;
             }
@@ -175,14 +141,14 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="text-[11px] font-black text-blue-400 italic leading-none">$${d.precio}</p>
-                                    <p class="text-[6px] font-bold text-white/30 uppercase mt-1 tracking-widest italic">Ofrecido</p>
+                                    <p class="text-[6px] font-bold text-white/30 uppercase mt-1 italic tracking-widest">Presupuesto</p>
                                 </div>
                             </div>
                             <div class="space-y-1 mb-6">
                                 <p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Entrega</p>
                                 <p class="text-[13px] font-bold uppercase">${d.destino}</p>
                             </div>
-                            <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Pujar por este envío</button>
+                            <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Entrar a la Puja</button>
                         </div>
                     `;
                 });
