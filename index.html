@@ -10,8 +10,17 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; overflow-x: hidden; }
         .bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); min-height: 100vh; }
-        .logo-organic { width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(59, 130, 246, 0.4); animation: morph 10s ease-in-out infinite; }
+        
+        .logo-organic { 
+            width: 90px; height: 90px; 
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 0 50px rgba(59, 130, 246, 0.4); 
+            animation: morph 10s ease-in-out infinite; 
+        }
         @keyframes morph { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; } 50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; } }
+        
         .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); }
         .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s; }
         .hidden { display: none !important; }
@@ -29,27 +38,24 @@
             <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center">Nexo de Seguridad</h2>
             <div class="space-y-4 text-[11px] italic text-white/80">
                 <p><i class="fa-solid fa-handshake-simple text-blue-400 mr-2"></i><b>El Nexo:</b> Somos el puente entre tu necesidad y la logística de otro para bajar costos.</p>
-                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Pago Seguro:</b> Custodiamos el dinero. Si el paquete no llega, el pago **NO se libera**.</p>
+                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Pago Seguro:</b> Custodiamos el dinero. Si el paquete no llega, el pago NO se libera.</p>
             </div>
         </div>
 
         <div class="w-full max-w-sm space-y-3 mb-8 text-left">
-            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Cualquier tamaño, mejor precio:</p>
-            
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <p class="text-[11px] text-white/90 leading-tight italic">"¿Quién me busca una <b>hamburguesa</b>? Pago $3.000."</p>
+            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Subastas:</p>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90">
+                "¿Quién me busca una <b>hamburguesa</b>? Pago $3.000."
             </div>
-
-            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4">
-                <p class="text-[11px] text-white/90 leading-tight italic">"¿Alguien con flete me trae una <b>heladera de Buenos Aires</b>? Pago $45.000."</p>
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 italic text-[11px] text-white/90">
+                "¿Alguien con flete me trae una <b>heladera</b>? Pago $45.000."
             </div>
-
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <p class="text-[11px] text-white/90 leading-tight italic">"¿Vienen de <b>China o EEUU</b>? Traer una tablet. Pago $60.000."</p>
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90">
+                "¿Vienen de <b>China o EEUU</b>? Traer una tablet. Pago $60.000."
             </div>
         </div>
 
-        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl mb-8 text-white">INGRESAR A LA RED</button>
+        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl mb-8">INGRESAR AHORA</button>
 
         <footer class="mt-auto pb-6">
             <p>© 2026 LUMERS - TODOS LOS DERECHOS RESERVADOS</p>
@@ -74,21 +80,22 @@
             <p>© LUMERS | REGISTRO NIC & INTI | UNA ENTREGA A LA VEZ</p>
         </footer>
 
-        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50 text-white">
+        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
             <i class="fa-solid fa-plus"></i>
         </button>
     </div>
 
     <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
         <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
-            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Nuevo Pedido</h2>
+            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Lanzar Puja</h2>
             <div class="space-y-3">
-                <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Burger / Buenos Aires)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Entrega (Dirección / Ciudad)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-det" placeholder="📦 ¿Qué enviamos? (Ej: Heladera / Burger)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Palermo / Madrid)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-des" placeholder="🏁 Entrega (Ciudad / País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
                 <input type="number" id="in-tel" placeholder="📱 WhatsApp (con prefijo)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
             </div>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Lanzar Puja</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Publicar Subasta</button>
             <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
@@ -125,8 +132,8 @@
             }
         });
 
-        window.ofertar = (ori, des, pre) => {
-            const ticket = `🔨 *OFERTA EN SUBASTA LUMERS*\n--------------------------\n📍 *RETIRO:* ${ori}\n🏁 *ENTREGA:* ${des}\n💰 *PRECIO BASE:* $${pre} pesos\n--------------------------\n_Hola! Me interesa el viaje. ¿Aceptás el precio o buscás una contraoferta?_`;
+        window.ofertar = (det, ori, des, pre) => {
+            const ticket = `🔨 *OFERTA LUMERS EN VIVO*\n--------------------------\n📦 *ARTÍCULO:* ${det}\n📍 *DESDE:* ${ori}\n🏁 *HASTA:* ${des}\n💰 *PAGO:* $${pre} pesos\n--------------------------\n_Hola! Estoy listo para el viaje. ¿Me pasás foto del paquete y coordinamos la custodia?_`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(ticket)}`;
         };
 
@@ -144,9 +151,13 @@
         document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
 
         window.crearDrop = async () => {
-            const ori = document.getElementById('in-ori').value, des = document.getElementById('in-des').value, pre = document.getElementById('in-pre').value, tel = document.getElementById('in-tel').value;
-            if(!ori || !des || !pre || !tel) return alert("Faltan datos");
-            await addDoc(collection(db, "viajes"), { origen: ori, destino: des, precio: parseFloat(pre), whatsapp: tel, creado: Date.now() });
+            const det = document.getElementById('in-det').value;
+            const ori = document.getElementById('in-ori').value;
+            const des = document.getElementById('in-des').value;
+            const pre = document.getElementById('in-pre').value;
+            const tel = document.getElementById('in-tel').value;
+            if(!det || !ori || !des || !pre || !tel) return alert("Faltan datos");
+            await addDoc(collection(db, "viajes"), { detalle: det, origen: ori, destino: des, precio: parseFloat(pre), whatsapp: tel, creado: Date.now() });
             toggleModal(false);
         };
 
@@ -160,21 +171,21 @@
                     lista.innerHTML += `
                         <div class="glass p-7 rounded-[2.5rem] relative border-b-2 border-blue-500/20">
                             ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/20"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            <div class="mb-4">
+                                <p class="text-[10px] font-black text-blue-400 uppercase italic leading-none mb-1">📦 Envío de:</p>
+                                <p class="text-[16px] font-black uppercase text-white">${d.detalle}</p>
+                            </div>
                             <div class="flex justify-between items-start mb-5">
-                                <div class="space-y-1">
-                                    <p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Retiro</p>
-                                    <p class="text-[13px] font-bold uppercase">${d.origen}</p>
+                                <div class="space-y-3">
+                                    <div><p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Retiro</p><p class="text-[12px] font-bold uppercase">${d.origen}</p></div>
+                                    <div><p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Entrega</p><p class="text-[12px] font-bold uppercase">${d.destino}</p></div>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-[11px] font-black text-blue-400 italic">$${d.precio}</p>
-                                    <p class="text-[6px] font-bold text-white/30 uppercase mt-1 tracking-widest italic">Pesos</p>
+                                    <p class="text-[18px] font-black text-blue-400">$${d.precio}</p>
+                                    <p class="text-[7px] font-bold text-white/30 uppercase italic">Pesos</p>
                                 </div>
                             </div>
-                            <div class="space-y-1 mb-6">
-                                <p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Entrega</p>
-                                <p class="text-[13px] font-bold uppercase">${d.destino}</p>
-                            </div>
-                            <button onclick="ofertar('${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[9px] uppercase tracking-widest text-blue-400 italic">Pujar ahora</button>
+                            <button onclick="ofertar('${d.detalle}', '${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest text-blue-400 italic">PUJAR AHORA</button>
                         </div>
                     `;
                 });
