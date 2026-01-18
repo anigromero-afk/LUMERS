@@ -10,19 +10,10 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
         body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; overflow-x: hidden; }
         .bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); min-height: 100vh; }
-        
-        .logo-organic { 
-            width: 90px; height: 90px; 
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; 
-            display: flex; align-items: center; justify-content: center; 
-            box-shadow: 0 0 50px rgba(59, 130, 246, 0.4); 
-            animation: morph 10s ease-in-out infinite; 
-        }
+        .logo-organic { width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(59, 130, 246, 0.4); animation: morph 10s ease-in-out infinite; }
         @keyframes morph { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; } 50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; } }
-        
         .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); }
-        .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s; }
+        .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s; color: white; }
         .hidden { display: none !important; }
         footer { font-size: 8px; font-weight: 900; letter-spacing: 0.1em; color: rgba(255,255,255,0.2); text-transform: uppercase; font-style: italic; }
     </style>
@@ -35,23 +26,23 @@
         <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Una entrega a la vez</p>
 
         <div class="w-full max-w-sm glass rounded-[2rem] p-6 my-6 text-left border-t border-blue-500/20">
-            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center">Nexo de Seguridad</h2>
+            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center">Mercado de Logística</h2>
             <div class="space-y-4 text-[11px] italic text-white/80">
-                <p><i class="fa-solid fa-handshake-simple text-blue-400 mr-2"></i><b>El Nexo:</b> Somos el puente entre tu necesidad y la logística de otro para bajar costos.</p>
-                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Pago Seguro:</b> Custodiamos el dinero. Si el paquete no llega, el pago NO se libera.</p>
+                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Subasta y Oferta:</b> Publicá lo que necesitás enviar o el espacio disponible en tu viaje.</p>
+                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Garantía Lumers:</b> Custodiamos el pago. El dinero se libera solo cuando confirmás la recepción.</p>
             </div>
         </div>
 
         <div class="w-full max-w-sm space-y-3 mb-8 text-left">
-            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Subastas:</p>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90">
-                "¿Quién me busca una <b>hamburguesa</b>? Pago $3.000."
+            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Opciones de la red:</p>
+            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 italic text-[11px] text-white/90 leading-tight">
+                "<b>Viajo a Buenos Aires:</b> Llevo hasta 10 paquetes. $5.000 c/u."
             </div>
-            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 italic text-[11px] text-white/90">
-                "¿Alguien con flete me trae una <b>heladera</b>? Pago $45.000."
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90 leading-tight">
+                "¿Algún flete trae una <b>heladera</b>? Pago $45.000."
             </div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90">
-                "¿Vienen de <b>China o EEUU</b>? Traer una tablet. Pago $60.000."
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-[11px] text-white/90 leading-tight">
+                "Busco <b>Hamburguesa</b> de zona centro. Pago $3.000."
             </div>
         </div>
 
@@ -67,7 +58,7 @@
         <header class="p-6 glass flex justify-between items-center sticky top-0 z-50">
             <div>
                 <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase cursor-pointer leading-none">LUMERS</h1>
-                <p class="text-[8px] font-bold text-blue-400 uppercase tracking-widest italic mt-1">Una entrega a la vez</p>
+                <p class="text-[8px] font-bold text-blue-400 uppercase tracking-widest italic mt-1">Nexo de Subasta Logística</p>
             </div>
             <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase italic">Salir</button>
         </header>
@@ -81,21 +72,21 @@
         </footer>
 
         <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50">
-            <i class="fa-solid fa-plus"></i>
+            <i class="fa-solid fa-plus text-white"></i>
         </button>
     </div>
 
     <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
-        <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
-            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center italic">Lanzar Puja</h2>
+        <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4 border-t border-blue-500/30">
+            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center">Publicar</h2>
             <div class="space-y-3">
-                <input type="text" id="in-det" placeholder="📦 ¿Qué enviamos? (Ej: Heladera / Burger)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-ori" placeholder="📍 Retiro (Ej: Palermo / Madrid)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Entrega (Ciudad / País)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 ¿Cuánto pagás? $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
-                <input type="number" id="in-tel" placeholder="📱 WhatsApp (con prefijo)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5">
+                <input type="text" id="in-det" placeholder="📦 ¿Qué enviás o qué ofrecés?" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5 text-white">
+                <input type="text" id="in-ori" placeholder="📍 Origen / Retiro" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5 text-white">
+                <input type="text" id="in-des" placeholder="🏁 Destino / Entrega" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5 text-white">
+                <input type="number" id="in-pre" placeholder="💰 Precio por bulto/viaje $" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5 text-white">
+                <input type="number" id="in-tel" placeholder="📱 WhatsApp (ej: 3364652349)" class="w-full p-4 bg-white/5 rounded-2xl outline-none text-sm border border-white/5 text-white">
             </div>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest italic mt-2 text-white">Publicar Subasta</button>
+            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs tracking-widest mt-2">Publicar en la Red</button>
             <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase italic text-center">Cancelar</button>
         </div>
     </div>
@@ -133,15 +124,15 @@
         });
 
         window.ofertar = (det, ori, des, pre) => {
-            const ticket = `🔨 *OFERTA LUMERS EN VIVO*\n--------------------------\n📦 *ARTÍCULO:* ${det}\n📍 *DESDE:* ${ori}\n🏁 *HASTA:* ${des}\n💰 *PAGO:* $${pre} pesos\n--------------------------\n_Hola! Estoy listo para el viaje. ¿Me pasás foto del paquete y coordinamos la custodia?_`;
+            const ticket = `🔨 *OFERTA LOGÍSTICA LUMERS*\n--------------------------\n📦 *DETALLE:* ${det}\n📍 *ORIGEN:* ${ori}\n🏁 *DESTINO:* ${des}\n💰 *VALOR:* $${pre}\n--------------------------\n_Hola! Me interesa esta publicación. ¿Coordinamos los detalles y la custodia del pago?_`;
             window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent(ticket)}`;
         };
 
         window.adminHack = () => {
             clickCount++;
             if(clickCount >= 5) {
-                const pass = prompt("Gestión:");
-                if(pass === "lumers2026") { isAdmin = true; alert("Gestión ON"); cargarDrops(); }
+                const pass = prompt("Acceso Gestión:");
+                if(pass === "lumers2026") { isAdmin = true; alert("Modo Gestión ON"); cargarDrops(); }
                 clickCount = 0;
             }
         };
@@ -151,14 +142,11 @@
         document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
 
         window.crearDrop = async () => {
-            const det = document.getElementById('in-det').value;
-            const ori = document.getElementById('in-ori').value;
-            const des = document.getElementById('in-des').value;
-            const pre = document.getElementById('in-pre').value;
-            const tel = document.getElementById('in-tel').value;
+            const det = document.getElementById('in-det').value, ori = document.getElementById('in-ori').value, des = document.getElementById('in-des').value, pre = document.getElementById('in-pre').value, tel = document.getElementById('in-tel').value;
             if(!det || !ori || !des || !pre || !tel) return alert("Faltan datos");
             await addDoc(collection(db, "viajes"), { detalle: det, origen: ori, destino: des, precio: parseFloat(pre), whatsapp: tel, creado: Date.now() });
             toggleModal(false);
+            document.getElementById('in-det').value = ''; document.getElementById('in-ori').value = ''; document.getElementById('in-des').value = ''; document.getElementById('in-pre').value = ''; document.getElementById('in-tel').value = '';
         };
 
         function cargarDrops() {
@@ -170,28 +158,29 @@
                     const d = documento.data(), id = documento.id;
                     lista.innerHTML += `
                         <div class="glass p-7 rounded-[2.5rem] relative border-b-2 border-blue-500/20">
-                            ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/20"><i class="fa-solid fa-trash"></i></button>` : ''}
+                            ${isAdmin ? `<button onclick="borrarDrop('${id}')" class="absolute top-4 right-4 text-red-500/40"><i class="fa-solid fa-trash"></i></button>` : ''}
                             <div class="mb-4">
-                                <p class="text-[10px] font-black text-blue-400 uppercase italic leading-none mb-1">📦 Envío de:</p>
+                                <p class="text-[10px] font-black text-blue-400 uppercase italic mb-1">📦 Publicación:</p>
                                 <p class="text-[16px] font-black uppercase text-white">${d.detalle}</p>
                             </div>
-                            <div class="flex justify-between items-start mb-5">
+                            <div class="flex justify-between items-start mb-5 text-[11px] font-bold uppercase text-white/90">
                                 <div class="space-y-3">
-                                    <div><p class="text-[9px] font-black text-blue-500 uppercase italic">📍 Retiro</p><p class="text-[12px] font-bold uppercase">${d.origen}</p></div>
-                                    <div><p class="text-[9px] font-black text-blue-500 uppercase italic">🏁 Entrega</p><p class="text-[12px] font-bold uppercase">${d.destino}</p></div>
+                                    <div><p class="text-[9px] font-black text-blue-500 italic">📍 Desde</p><p>${d.origen}</p></div>
+                                    <div><p class="text-[9px] font-black text-blue-500 italic">🏁 Hasta</p><p>${d.destino}</p></div>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-[18px] font-black text-blue-400">$${d.precio}</p>
-                                    <p class="text-[7px] font-bold text-white/30 uppercase italic">Pesos</p>
+                                    <p class="text-[8px] font-black text-blue-500 italic mb-1">Valor Sugerido</p>
+                                    <p class="text-[20px] font-black text-blue-400">$${d.precio}</p>
+                                    <p class="text-[7px] text-white/30 italic">Pesos</p>
                                 </div>
                             </div>
-                            <button onclick="ofertar('${d.detalle}', '${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest text-blue-400 italic">PUJAR AHORA</button>
+                            <button onclick="ofertar('${d.detalle}', '${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest text-blue-400 italic">CONSULTAR / PUJAR</button>
                         </div>
                     `;
                 });
             });
         }
-        window.borrarDrop = async (id) => { if(confirm("¿Borrar?")) await deleteDoc(doc(db, "viajes", id)); };
+        window.borrarDrop = async (id) => { if(confirm("¿Eliminar?")) await deleteDoc(doc(db, "viajes", id)); };
     </script>
 </body>
 </html>
