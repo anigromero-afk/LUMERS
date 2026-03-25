@@ -30,6 +30,20 @@ margin:auto;
 padding:15px;
 }
 
+.navbar{
+text-align:center;
+font-weight:800;
+margin-bottom:10px;
+}
+
+.card{
+background:var(--card);
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
+}
+
 .header{
 background:linear-gradient(135deg,#1d4ed8,#1e3a8a);
 padding:20px;
@@ -47,44 +61,6 @@ font-size:0.75rem;
 color:var(--sub);
 }
 
-.card{
-background:var(--card);
-border-radius:18px;
-padding:15px;
-margin-bottom:12px;
-box-shadow:0 8px 25px rgba(0,0,0,0.3);
-}
-
-.btn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:12px;
-font-weight:700;
-cursor:pointer;
-}
-
-.btn-main{
-background:var(--accent);
-color:white;
-}
-
-.btn-green{
-background:var(--green);
-color:white;
-}
-
-input{
-width:100%;
-padding:12px;
-margin-top:8px;
-margin-bottom:10px;
-border-radius:10px;
-border:none;
-background:#1f2937;
-color:white;
-}
-
 .secure{
 background:rgba(34,197,94,0.1);
 border:1px solid rgba(34,197,94,0.3);
@@ -100,15 +76,42 @@ color:#fbbf24;
 margin-top:8px;
 }
 
-.view{display:none;}
-.active{display:block;}
-
-.navbar{
-text-align:center;
-font-weight:800;
-margin-bottom:10px;
+.btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
 }
 
+.btn-main{background:var(--accent);color:white;}
+.btn-green{background:var(--green);color:white;}
+
+input{
+width:100%;
+padding:12px;
+margin-top:8px;
+margin-bottom:10px;
+border-radius:10px;
+border:none;
+background:#1f2937;
+color:white;
+}
+
+.contract{
+max-height:120px;
+overflow:auto;
+font-size:0.7rem;
+color:#9ca3af;
+margin-bottom:10px;
+border:1px solid #374151;
+padding:10px;
+border-radius:10px;
+}
+
+.view{display:none;}
+.active{display:block;}
 </style>
 </head>
 
@@ -127,31 +130,60 @@ margin-bottom:10px;
 </div>
 
 <div class="secure">
-🛡️ Tu dinero se libera solo cuando confirmás entrega
+🛡️ Tu dinero se libera solo cuando confirmás la entrega
 </div>
 
-<div class="card" onclick="goClient()">
+<div class="card" onclick="toggle('home','client-legal')">
 👤 <b>Enviar paquete</b><br>
 <span class="small">Publicás y recibís ofertas</span>
 </div>
 
-<div class="card" onclick="goRaider()">
+<div class="card" onclick="toggle('home','raider-legal')">
 🏍️ <b>Ganar dinero</b><br>
 <span class="small">Aceptá viajes y cobrá</span>
 </div>
 
 </div>
 
-<!-- CLIENT -->
+<!-- CLIENT LEGAL -->
+<div id="client-legal" class="view">
+
+<div class="card">
+
+<h3>🛡️ Condiciones</h3>
+
+<div class="secure">
+💰 Si no recibís → NO pagás
+</div>
+
+<div class="contract">
+<b>Contrato de Adhesión LUMERS®</b><br><br>
+El usuario declara que la carga es lícita.<br>
+LUMERS® actúa como intermediario.<br>
+El dinero queda retenido hasta confirmación.<br>
+El Raider es responsable del traslado.<br>
+El cliente libera el pago al recibir.<br>
+</div>
+
+<label>
+<input type="checkbox" id="checkClient"> Acepto términos
+</label>
+
+<button class="btn btn-main" onclick="enterClient()">Continuar</button>
+
+</div>
+</div>
+
+<!-- CLIENT APP -->
 <div id="client" class="view">
 
 <div class="header">
-<div class="small">Estado del pedido</div>
+<div class="small">Estado</div>
 <div id="status">Esperando publicación</div>
 </div>
 
 <div class="secure">
-💰 Si no recibís → NO pagás
+🛡️ Pago protegido
 </div>
 
 <div class="card">
@@ -166,7 +198,36 @@ margin-bottom:10px;
 
 </div>
 
-<!-- RAIDER -->
+<!-- RAIDER LEGAL -->
+<div id="raider-legal" class="view">
+
+<div class="card">
+
+<h3>📄 Condiciones Raider</h3>
+
+<div class="secure">
+💸 Cobrás cuando el cliente confirma
+</div>
+
+<div class="contract">
+<b>Contrato Raider</b><br><br>
+Prestador independiente.<br>
+Debe contar con seguro.<br>
+Responsable por la carga.<br>
+LUMERS® intermedia y cobra comisión.<br>
+Pago liberado tras confirmación.<br>
+</div>
+
+<label>
+<input type="checkbox" id="checkRaider"> Acepto condiciones
+</label>
+
+<button class="btn btn-green" onclick="enterRaider()">Continuar</button>
+
+</div>
+</div>
+
+<!-- RAIDER APP -->
 <div id="raider" class="view">
 
 <div class="header">
@@ -182,9 +243,9 @@ margin-bottom:10px;
 
 <input id="bid" placeholder="Tu oferta">
 
-<button class="btn btn-green" onclick="offer()">Ofertar ahora</button>
+<button class="btn btn-green" onclick="offer()">Ofertar</button>
 
-<div class="live">🔥 3 Raiders ofertando ahora</div>
+<div class="live">🔥 3 Raiders ofertando</div>
 </div>
 
 </div>
@@ -195,17 +256,25 @@ margin-bottom:10px;
 
 const tel="3364652349";
 
-function goClient(){
-toggle("home","client");
-}
-
-function goRaider(){
-toggle("home","raider");
-}
-
 function toggle(hide,show){
 document.getElementById(hide).classList.remove("active");
 document.getElementById(show).classList.add("active");
+}
+
+function enterClient(){
+if(!document.getElementById("checkClient").checked){
+alert("Debes aceptar condiciones");
+return;
+}
+toggle("client-legal","client");
+}
+
+function enterRaider(){
+if(!document.getElementById("checkRaider").checked){
+alert("Debes aceptar condiciones");
+return;
+}
+toggle("raider-legal","raider");
 }
 
 function send(){
@@ -215,8 +284,8 @@ let live=document.getElementById("liveStatus");
 status.innerText="Subasta activa";
 live.innerText="⏳ Raiders viendo tu pedido...";
 
-setTimeout(()=>{live.innerText="🔥 2 ofertas recibidas";},2000);
-setTimeout(()=>{live.innerText="💸 Precio bajando...";},4000);
+setTimeout(()=>{live.innerText="🔥 Ofertas llegando";},2000);
+setTimeout(()=>{live.innerText="💸 Precio bajando";},4000);
 
 window.location.href=`https://wa.me/${tel}?text=Nuevo pedido LUMERS`;
 }
