@@ -3,264 +3,361 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Profesional & Rayos de Velocidad</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>LUMERS | Logística Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #0f172a; /* Azul Oxford */
-            --accent: #2563eb;  /* Azul Eléctrico */
-            --success: #10b981; /* Esmeralda */
-            --warning: #f59e0b; /* Ámbar */
-            --bg: #f8fafc;
-            --text: #1e293b;
+            --brand-color: #005ef7; /* Azul Ualá/NaranjaX */
+            --bg-gray: #f0f2f5;    /* Gris Mercado Libre */
+            --surface: #ffffff;
+            --text-main: #1a1e23;
+            --text-muted: #6e7781;
+            --success: #00a650;    /* Verde MP */
+            --warning: #ffcc00;    /* Amarillo Lumers */
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Public Sans', sans-serif;
+            background-color: var(--bg-gray);
             margin: 0;
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HEADER CON RAYO --- */
-        header {
-            background: white;
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 1px solid #e2e8f0;
+        /* --- NAV ESTILO FINTECH --- */
+        nav {
+            background-color: var(--surface);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-main);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid #eaecef;
         }
 
-        .header-content {
+        nav h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .header-logo {
-            font-size: 2.2rem;
-            color: var(--accent);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--primary);
-            text-transform: uppercase;
+            gap: 8px;
         }
 
         .container {
-            max-width: 480px;
-            margin: 20px auto;
-            padding: 0 20px;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        /* --- CARDS --- */
+        /* --- TARJETAS ESTILO APP --- */
         .card {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid #f1f5f9;
-        }
-
-        .badge-security {
-            display: inline-block;
-            background: #dcfce7;
-            color: #166534;
-            padding: 6px 14px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            background: var(--surface);
+            border-radius: 20px;
+            padding: 24px;
             margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid #eaecef;
         }
 
-        h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: var(--primary); }
-        p { font-size: 0.95rem; color: #64748b; }
+        .welcome-card {
+            background: linear-gradient(135deg, #005ef7 0%, #003da5 100%);
+            color: white;
+            border-radius: 24px;
+            border: none;
+        }
 
-        /* --- CONTRATO DE ADHESIÓN (SCROLLABLE) --- */
-        .contrato-box {
-            height: 120px;
-            overflow-y: scroll;
-            background: #f1f5f9;
-            padding: 15px;
+        .welcome-card h2 { color: white; margin: 0 0 8px; font-size: 1.25rem; }
+        .welcome-card p { color: rgba(255,255,255,0.8); margin: 0; font-size: 0.9rem; }
+
+        /* --- CONTRATO / LEGAL --- */
+        .legal-container {
+            background: #f8f9fa;
             border-radius: 12px;
+            padding: 12px;
             font-size: 0.75rem;
-            color: #475569;
+            color: var(--text-muted);
+            height: 100px;
+            overflow-y: auto;
             margin: 15px 0;
-            border: 1px solid #e2e8f0;
-            text-align: left;
+            border: 1px solid #eaecef;
         }
 
-        /* --- BOTONES --- */
+        /* --- BOTONES PREMIUM --- */
         .btn {
             width: 100%;
-            padding: 18px;
-            border-radius: 16px;
+            padding: 16px;
+            border-radius: 50px; /* Redondeado total estilo Ualá */
             font-size: 1rem;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
             border: none;
+            cursor: pointer;
+            transition: 0.2s;
             display: block;
             text-align: center;
             text-decoration: none;
         }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
-        .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .btn-main { background: var(--brand-color); color: white; }
+        .btn-main:active { opacity: 0.8; transform: scale(0.98); }
+        .btn-outline { background: transparent; border: 2px solid var(--brand-color); color: var(--brand-color); }
 
-        /* --- CHECKBOX --- */
-        .checkbox-group {
+        /* --- CHECKBOX FINTECH --- */
+        .checkbox-row {
             display: flex;
             align-items: flex-start;
             gap: 12px;
-            margin: 20px 0;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
             text-align: left;
         }
-        .checkbox-group input { width: 20px; height: 20px; cursor: pointer; }
-        .checkbox-group label { font-size: 0.85rem; color: #334155; cursor: pointer; }
+        .checkbox-row input { width: 18px; height: 18px; accent-color: var(--brand-color); margin-top: 3px; }
 
-        /* --- ZONA PRIVADA --- */
-        #private-zone { display: none; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .price-card {
-            background: #eff6ff;
-            border: 2px solid #dbeafe;
-            padding: 24px;
-            border-radius: 20px;
-            text-align: center;
-            margin: 20px 0;
+        /* --- SECCIÓN TRACKING DE ENVÍO --- */
+        .tracking-card {
+            border: 1px solid #eaecef;
         }
-        .price-value { font-size: 3rem; font-weight: 800; color: var(--accent); margin: 0; }
-        
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            color: #94a3b8;
+
+        .tracking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tracking-status {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .shipment-id {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .tracking-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tracking-step {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: 700;
             font-size: 0.8rem;
-            border-top: 1px solid #e2e8f0;
         }
+
+        /* Colores para los iconos de tracking */
+        .step-icon-success {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .step-icon-warning {
+            background-color: var(--warning);
+            color: white;
+        }
+
+        .step-icon-gray {
+            background-color: #e2e8f0;
+            color: var(--text-muted);
+        }
+
+        .step-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+
+        .step-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* --- ZONA SUBASTAS (PARA RAIDER) --- */
+        #private-zone { display: none; }
+        
+        .auction-card {
+            border: 1px solid #eef0f2;
+        }
+
+        .status-dot {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: #ff4d4d;
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .price-chip {
+            background: #f0fdf4;
+            color: var(--success);
+            font-size: 2.2rem;
+            font-weight: 800;
+            text-align: center;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 15px 0;
+        }
+
+        .footer-legal {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid #eaecef;
+        }
+
+        /* --- ICONO RAYO --- */
+        .bolt { color: #ffcc00; font-size: 1.5rem; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-content">
-        <span class="header-logo">⚡</span>
-        <h1>LUMERS</h1>
-    </div>
-</header>
+<nav>
+    <h1><span class="bolt">⚡</span> LUMERS</h1>
+    <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted);">Admin</div>
+</nav>
 
 <div class="container">
 
     <section id="public-view">
-        <div class="card">
-            <div class="badge-security">🛡️ PAGO PROTEGIDO</div>
+        <div class="card welcome-card">
             <h2>Logística Profesional para Todos</h2>
-            <p>Sumate como <b>RAIDER</b> a la red de transporte más segura de San Nicolás. El pago se retiene y solo se libera al confirmarse la entrega.</p>
+            <p>Hacé envíos o sumate como Raider. Seguro, rápido y con pago garantizado hasta la entrega.</p>
         </div>
 
-        <div class="card" style="border: 2px solid var(--accent);">
-            <h2>Validación de Identidad</h2>
-            <p>Para garantizar la seguridad jurídica de <b>LUMERS</b>, leé y aceptá el contrato para iniciar tu registro.</p>
+        <div class="card">
+            <h3 style="margin-top:0; font-size: 1.1rem;">¡Sumate a la red como Raider!</h3>
+            <p>Para ofertar en subastas y ganar dinero, realizá tu validación de identidad manual.</p>
             
-            <div class="contrato-box">
-                <strong>CONTRATO DE ADHESIÓN LUMERS</strong><br><br>
-                1. OBJETO: El RAIDER accede al sistema de subastas de fletes de forma independiente.<br>
-                2. RETENCIÓN DE PAGO: El RAIDER acepta que LUMERS retendrá el pago hasta que se confirme la llegada al lugar de entrega.<br>
-                3. INDEPENDENCIA: No existe relación de dependencia laboral. El RAIDER utiliza sus propios medios.<br>
-                4. BIOMETRÍA: El RAIDER autoriza el cotejo de su DNI y rostro con registros oficiales.<br>
-                5. RESPONSABILIDAD: El RAIDER responde por la integridad de la carga.
+            <div class="legal-container">
+                <strong>CONTRATO DE ADHESIÓN - LUMERS</strong><br>
+                • El RAIDER opera de forma independiente.<br>
+                • <strong>RETENCIÓN DE PAGO:</strong> Los fondos se liberan únicamente cuando el Raider confirma la entrega en destino.<br>
+                • Validación obligatoria mediante DNI y Biometría Facial.<br>
+                • Responsabilidad total sobre la carga durante el trayecto.
             </div>
 
-            <div class="checkbox-group">
-                <input type="checkbox" id="acepto-contrato">
-                <label for="acepto-contrato">
-                    He leído y acepto los términos del <b>Contrato de Adhesión</b> y la cláusula de retención de pago.
-                </label>
+            <div class="checkbox-row">
+                <input type="checkbox" id="acepto-legal">
+                <label for="acepto-legal">Acepto los términos y la retención de pago hasta la entrega confirmada.</label>
             </div>
 
-            <button class="btn btn-primary" onclick="irAWhatsApp()">
+            <button class="btn btn-main" onclick="validarYRegistrar()">
                 REGISTRARME COMO RAIDER
             </button>
         </div>
 
-        <button onclick="simularAcceso()" style="background:none; border:none; color:#cbd5e1; font-size:0.7rem; cursor:pointer; width:100%;">
-            (Acceso de Prueba a Subastas)
+        <button onclick="verApp()" style="background:none; border:none; color:#adb5bd; font-size:0.7rem; cursor:pointer; width:100%; margin-top:10px;">
+            (Ver Panel de Subastas Raider)
         </button>
     </section>
 
     <section id="private-zone">
-        <div style="background: #ecfdf5; color: #065f46; padding: 15px; border-radius: 16px; text-align: center; margin-bottom: 25px; font-weight: 700; border: 1px solid #a7f3d0;">
-            ✓ RAIDER Verificado por LUMERS
+        <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+            <div style="width: 40px; height: 40px; background: #e0e7ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--brand-color);">U</div>
+            <div>
+                <div style="font-size: 0.9rem; font-weight: 700;">Hola, Cliente</div>
+                <div style="font-size: 0.7rem; color: var(--success); font-weight: 700;">✓ Pago Protegido</div>
+            </div>
         </div>
 
-        <div class="card">
-            <div style="color: #ef4444; font-weight: 800; font-size: 0.75rem; text-transform: uppercase;">🔴 Subasta en Vivo</div>
-            <h3 style="margin: 10px 0 5px; font-weight: 800;">Flete: Insumos Somisa</h3>
-            <p style="margin: 0; font-size: 0.85rem;">📍 Retiro: Planta Somisa</p>
-            <p style="margin: 0; font-size: 0.85rem;">🏁 Entrega: Centro San Nicolás</p>
-
-            <div class="price-card">
-                <p style="font-size: 0.7rem; color: #3b82f6; font-weight: 800; margin: 0; text-transform: uppercase;">Oferta Actual</p>
-                <p class="price-value">$9.800</p>
+        <div class="card tracking-card">
+            <div class="tracking-header">
+                <div class="tracking-status">Estado de tu Envío</div>
+                <div class="shipment-id">ID: <strong>LUM336</strong></div>
             </div>
 
-            <p style="font-size: 0.8rem; color: #94a3b8; text-align: center; margin-bottom: 20px;">
-                <i>* Pago garantizado bajo retención hasta entrega.</i>
-            </p>
+            <div class="tracking-steps">
+                <div class="tracking-step">
+                    <div class="step-icon step-icon-success">1</div>
+                    <div class="step-details">
+                        <span class="step-title">Validación Raider</span>
+                        <span class="step-desc">El Raider [RG] ha sido validado biométricamente por LUMERS.</span>
+                    </div>
+                </div>
 
-            <button class="btn btn-primary" style="background: var(--success);" onclick="pujarWhatsApp('Insumos Somisa')">
-                MEJORAR OFERTA
-            </button>
+                <div class="tracking-step">
+                    <div class="step-icon step-icon-success">2</div>
+                    <div class="step-details">
+                        <span class="step-title">Pago Retenido</span>
+                        <span class="step-desc">Tu pago de $9.500 está retenido de forma segura en LUMERS.</span>
+                    </div>
+                </div>
+
+                <div class="tracking-step">
+                    <div class="step-icon step-icon-warning">3</div>
+                    <div class="step-details">
+                        <span class="step-title">En Tránsito (B° Somisa)</span>
+                        <span class="step-desc">El Raider está en viaje hacia el lugar de entrega (Terminal SN).</span>
+                    </div>
+                </div>
+
+                <div class="tracking-step">
+                    <div class="step-icon step-icon-gray">4</div>
+                    <div class="step-details">
+                        <span class="step-title">Entrega Confirmada</span>
+                        <span class="step-desc">A la espera de la confirmación de entrega para liberar el pago.</span>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <button class="btn btn-outline" style="width:100%; margin-top:10px;" onclick="document.getElementById('private-zone').style.display='none'; document.getElementById('public-view').style.display='block';">
+            (Cerrar Sesión Cliente)
+        </button>
     </section>
 
 </div>
 
-<footer>
-    <p>⚡ <b>LUMERS</b> | San Nicolás de los Arroyos, Argentina<br>
+<footer class="footer-legal">
+    ⚡ <strong>LUMERS</strong> - San Nicolás de los Arroyos<br>
     Seguridad Jurídica y Tecnológica<br>
-    Operado por Aníbal Gabriel Romero - Abogado</p>
+    Operado por Aníbal Gabriel Romero - Abogado
 </footer>
 
 <script>
-    function irAWhatsApp() {
-        const checkbox = document.getElementById('acepto-contrato');
-        if (!checkbox.checked) {
-            alert("Por favor, debés aceptar el contrato de adhesión para continuar.");
+    function validarYRegistrar() {
+        if (!document.getElementById('acepto-legal').checked) {
+            alert("Para continuar, aceptá los términos y la retención de pago.");
             return;
         }
-
-        const mensaje = encodeURIComponent(
+        
+        const tel = "3364652349";
+        const msg = encodeURIComponent(
             "¡Hola Aníbal! He leído y acepto el Contrato de Adhesión de LUMERS.\n" +
-            "Quiero registrarme como RAIDER.\n\n" +
-            "Adjunto mi documentación (DNI + Selfie) para la validación manual."
+            "Acepto la retención de pago hasta la entrega.\n\n" +
+            "Adjunto mi documentación (DNI + Selfie) para validación."
         );
-        window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
+        window.location.href = `https://wa.me/${tel}?text=${msg}`;
     }
 
-    function pujarWhatsApp(viaje) {
-        const mensaje = encodeURIComponent(
-            `¡Hola Aníbal! Soy RAIDER verificado de LUMERS.\n` +
-            `Deseo mejorar la oferta para el envío: ${viaje}.\n` +
-            `ACEPTO RETENCIÓN DE PAGO HASTA LLEGAR AL LUGAR DE ENTREGA.\n\n` +
-            `MI PRECIO ES: $`
-        );
-        window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
-    }
-
-    function simularAcceso() {
+    function verApp() {
         document.getElementById('public-view').style.display = 'none';
         document.getElementById('private-zone').style.display = 'block';
     }
