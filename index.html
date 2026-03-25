@@ -1,49 +1,332 @@
-<div style="background: #1e293b; padding: 25px; border-radius: 28px; text-align: center; color: white; margin-top: 30px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-    <div style="font-size: 2rem; margin-bottom: 10px;">👤</div>
-    <h3 style="margin: 0; font-weight: 800; letter-spacing: -0.5px;">Registro Seguro LUMERS</h3>
-    <p style="font-size: 0.85rem; color: #94a3b8; margin: 10px 0 20px;">
-        Para garantizar la seguridad de los envíos, el registro requiere **validación de identidad biométrica**.
-    </p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMERS | Logística Segura en San Nicolás</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     
-    <button onclick="registrarLumer()" style="width: 100%; background: linear-gradient(90deg, #3b82f6, #2563eb); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
-        <span>🔍</span> INICIAR ESCANEO BIOMÉTRICO
-    </button>
+    <style>
+        :root {
+            --primary: #1d4ed8; /* Azul Profundo LUMERS */
+            --accent: #3b82f6;
+            --success: #10b981;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --slate: #94a3b8;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            color: var(--dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HEADER --- */
+        header {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin-top: 20px;
+            margin-bottom: 50px;
+        }
+
+        /* --- ZONA PÚBLICA (LANDING) --- */
+        .landing-hero {
+            background: white;
+            padding: 30px;
+            border-radius: 28px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid #eee;
+            margin-bottom: 25px;
+        }
+
+        .landing-hero h2 { font-size: 1.6rem; font-weight: 800; margin-top: 0; }
+        .landing-hero p { color: var(--slate); font-size: 0.95rem; line-height: 1.5; }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .feature-item { background: #f1f5f9; padding: 15px; border-radius: 15px; font-size: 0.85rem; font-weight: 600; }
+
+        /* --- ZONA PRIVADA (SUBASTAS - OCULTA POR DEFECTO) --- */
+        #zona-subastas { display: none; }
+
+        .auction-card {
+            background: white;
+            border-radius: 28px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .badge-live {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fee2e2;
+            color: var(--danger);
+            padding: 6px 12px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .dot { width: 8px; height: 8px; background: var(--danger); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        .trip-info h3 { font-size: 1.3rem; margin: 15px 0 5px; font-weight: 800; }
+        .trip-info p { margin: 2px 0; color: #64748b; font-size: 0.9rem; }
+
+        /* PRECIO PÚBLICO (REEMPLAZO) */
+        .price-locked {
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 15px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* PRECIO REAL (OCULTO HASTA VALIDAR) */
+        .price-live {
+            display: none;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .price-value { font-size: 2.8rem; font-weight: 800; color: var(--success); margin: 0; }
+
+        /* --- MURO BIOMÉTRICO (MODAL AL INICIO O AL CLICKEAR) --- */
+        .biometric-wall {
+            background: var(--dark);
+            padding: 30px;
+            border-radius: 28px;
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .btn-biometric {
+            width: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+        }
+        .btn-biometric:active { transform: scale(0.97); }
+
+        /* PANTALLA DE ESCANEO (SIMULACIÓN) */
+        #scan-screen {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--dark);
+            color: white;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .scanner-circle {
+            width: 150px;
+            height: 150px;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        .scanner-bar {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            top: -10px;
+            animation: scan 2s infinite linear;
+            box-shadow: 0 0 15px var(--accent);
+        }
+        @keyframes scan {
+            0% { top: -10px; }
+            50% { top: 160px; }
+            100% { top: -10px; }
+        }
+
+        footer { margin-top: auto; padding: 20px; text-align: center; color: var(--slate); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>LUMERS</h1>
+</header>
+
+<div class="container">
+    
+    <div class="landing-hero" id="zona-publica">
+        <h2>Envíos Seguros y Subastas en Vivo</h2>
+        <p>LUMERS conecta la necesidad de envío de San Nicolás con choferes validados biométricamente.</p>
+        
+        <div class="feature-list">
+            <div class="feature-item">🛡️ Choferes Verificados</div>
+            <div class="feature-item">⏱️ Subasta en Tiempo Real</div>
+            <div class="feature-item">📦 Pago Protegido</div>
+            <div class="feature-item">🗺️ Cobertura Local y Zonal</div>
+        </div>
+
+        <p style="font-size: 0.8rem; margin-top: 20px;">
+            Para ver los viajes disponibles y ofertar, debés validar tu identidad biométrica.
+        </p>
+    </div>
+
+    <div class="biometric-wall" id="muro-entrada">
+        <div style="font-size: 2.5rem; margin-bottom: 15px;">🔒</div>
+        <h3 style="margin: 0; font-weight: 800; letter-spacing: -0.5px;">Acceso Exclusivo</h3>
+        <p style="font-size: 0.85rem; color: var(--slate); margin: 10px 0 25px;">
+            Solo los Lumers verificados biométricamente pueden ver los precios y pujar en los remates.
+        </p>
+        
+        <button class="btn-biometric" onclick="iniciarEscaneo()">
+            <span>👤</span> INGRESAR CON BIOMETRÍA
+        </button>
+    </div>
+
+    <div id="zona-subastas">
+        <h2 style="text-align: center; margin: 30px 0 20px;">🔥 Subastas en Vivo</h2>
+
+        <div class="auction-card">
+            <div class="badge-live"><div class="dot"></div> Remate Activo</div>
+            
+            <div class="trip-info">
+                <h3>Mudanza Somisa ➡️ Rosario</h3>
+                <p>📍 Retiro: B° Somisa</p>
+                <p>🏁 Entrega: Rosario (Centro)</p>
+            </div>
+
+            <div class="price-locked" id="precio-bloqueado-01">
+                Precio actual oculto. Registrate para verlo.
+            </div>
+
+            <div class="price-live" id="precio-real-01">
+                <p style="font-size: 0.8rem; color: var(--slate); margin:0;">OFERTA LÍDER</p>
+                <p class="price-value">$15.000</p>
+            </div>
+
+            <button class="btn-biometric" style="display:none;" id="btn-pujar-01" onclick="submitBid('Mudanza Rosario')">
+                MEJORAR OFERTA
+            </button>
+        </div>
+    </div>
+
 </div>
 
-<script>
-    // --- NUEVAS FUNCIONES DE REGISTRO ---
+<div id="scan-screen">
+    <div class="scanner-circle">
+        <div class="scanner-bar"></div>
+        <span style="font-size: 5rem; position: absolute; top: 25px; left: 35px;">👤</span>
+    </div>
+    <h3 style="letter-spacing: 1px; font-weight: 800;">VALIDANDO IDENTIDAD</h3>
+    <p style="color: var(--slate);">No muevas el rostro...</p>
+</div>
 
-    function registrarLumer() {
-        // Efecto visual de inicio de proceso
-        alert("Iniciando sistema de validación facial y DNI de LUMERS...");
-        
-        // El mensaje de WhatsApp ahora incluye la solicitud de datos biométricos
-        const mensajeBiometrico = encodeURIComponent(
-            "¡Hola Aníbal! Quiero registrarme en LUMERS.\n\n" +
-            "Estoy listo para enviar mis datos biométricos:\n" +
-            "1. Foto de DNI (Frente y Dorso)\n" +
-            "2. Selfie de validación facial\n" +
-            "3. Documentación del vehículo"
-        );
-        
-        window.location.href = `https://wa.me/3364652349?text=${mensajeBiometrico}`;
+<footer>
+    <p>© 2026 LUMERS - San Nicolás de los Arroyos</p>
+    <p>Operado por Aníbal Gabriel Romero</p>
+</footer>
+
+<script>
+    // --- LÓGICA DE FLUJO DE SEGURIDAD ---
+
+    function iniciarEscaneo() {
+        // Mostramos la pantalla de escaneo
+        document.getElementById("scan-screen").style.display = "flex";
+
+        // Simulamos 3 segundos de validación
+        setTimeout(() => {
+            document.getElementById("scan-screen").style.display = "none";
+            validarExito();
+        }, 3000);
+    }
+
+    function validarExito() {
+        alert("¡Validación Biométrica Exitosa! Bienvenido a LUMERS.");
+
+        // Ocultamos la zona pública y el muro
+        document.getElementById("zona-publica").style.display = "none";
+        document.getElementById("muro-entrada").style.display = "none";
+
+        // Desbloqueamos la zona privada (Subastas)
+        document.getElementById("zona-subastas").style.display = "block";
+
+        // Cambiamos el precio bloqueado por el precio real en las tarjetas
+        document.getElementById("precio-bloqueado-01").style.display = "none";
+        document.getElementById("precio-real-01").style.display = "block";
+        document.getElementById("btn-pujar-01").style.display = "flex";
     }
 
     // --- ACTUALIZACIÓN DE LA FUNCIÓN DE OFERTA ---
-    function submitBid() {
-        const bidValue = document.getElementById("bidInput").value;
+    function submitBid(nombreViaje) {
+        // Precio a superar (esto vendrá de Firebase)
         const currentPrice = 15000; 
-
-        if(bidValue >= currentPrice || bidValue <= 0) {
-            alert("Tu oferta debe ser menor al precio actual para competir.");
-            return;
-        }
-
-        // Mensaje de WhatsApp corregido con "Lumers"
+        
+        // Mensaje de WhatsApp profesional
         const msg = encodeURIComponent(
-            `¡Hola Aníbal! Soy un Lumer y quiero ganar este remate en LUMERS.\n` +
-            `Mi oferta final para este envío es: $${bidValue}`
+            `¡Hola Aníbal! Soy un Lumer VERIFICADO biométricamente.\n\n` +
+            `Quiero ganar el remate [${nombreViaje}].\n` +
+            `Mi oferta para este envío es: $[PRECIO_QUE_VAS_A_ESCRIBIR]`
         );
         window.location.href = `https://wa.me/3364652349?text=${msg}`;
     }
 </script>
+
+</body>
+</html>
