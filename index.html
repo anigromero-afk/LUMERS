@@ -3,400 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Digital & Pagos Protegidos</title>
+    <title>LUMERS | Logística Digital San Nicolás</title>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --brand-color: #005ef7; /* Azul Fintech */
-            --bg-gray: #f2f4f7;    
+            --brand: #005ef7; 
+            --bg: #f4f7fa;    
             --surface: #ffffff;
-            --text-main: #1a1e23;
-            --text-muted: #6e7781;
-            --success: #00a650;    /* Verde Mercado Pago */
-            --warning: #ffcc00;    /* Amarillo Rayo */
-            --dark-card: #0f172a;  /* Slate oscuro para credencial */
+            --text: #1e293b;
+            --muted: #64748b;
+            --success: #00a650;
+            --warning: #ffcc00;
         }
 
-        body {
-            font-family: 'Public Sans', sans-serif;
-            background-color: var(--bg-gray);
-            margin: 0;
-            color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
-        }
+        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); }
 
-        /* --- NAV PREMIUM --- */
-        nav {
-            background-color: var(--surface);
-            padding: 18px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid #e5e7eb;
-        }
+        /* --- NAVEGACIÓN --- */
+        nav { background: var(--surface); padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
+        nav h1 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
-        nav h1 {
-            margin: 0;
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--brand-color);
-        }
+        .container { max-width: 450px; margin: 0 auto; padding: 20px; }
 
-        .container {
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        /* --- SELECTOR DE ROL (EL "HOME") --- */
+        .role-selector { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+        .role-card { background: var(--surface); padding: 25px; border-radius: 24px; border: 2px solid transparent; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .role-card:active { transform: scale(0.98); border-color: var(--brand); }
+        .role-icon { font-size: 2.5rem; }
+        .role-text b { display: block; font-size: 1.1rem; }
+        .role-text span { font-size: 0.85rem; color: var(--muted); }
 
-        /* --- CARDS TIPO APP --- */
-        .card {
-            background: var(--surface);
-            border-radius: 24px;
-            padding: 28px;
-            margin-bottom: 18px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-            border: 1px solid #e5e7eb;
-        }
+        /* --- VISTAS --- */
+        .view { display: none; animation: fadeIn 0.3s ease; }
+        .view-active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .welcome-card {
-            background: linear-gradient(135deg, #005ef7 0%, #002d7a 100%);
-            color: white;
-            border: none;
-        }
-
-        .welcome-card h2 { color: white; margin: 0 0 10px; font-size: 1.4rem; font-weight: 800; }
-        .welcome-card p { color: rgba(255,255,255,0.9); margin: 0; font-size: 0.95rem; }
-
-        /* --- BOTONES ESTILO UALÁ/NARANJA X --- */
-        .btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 50px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            border: none;
-            cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: block;
-            text-align: center;
-            text-decoration: none;
-        }
-        .btn-main { background: var(--brand-color); color: white; }
-        .btn-main:active { transform: scale(0.96); opacity: 0.9; }
-        
+        /* --- COMPONENTES --- */
+        .card { background: var(--surface); border-radius: 24px; padding: 25px; margin-bottom: 18px; border: 1px solid #e2e8f0; }
+        .btn { width: 100%; padding: 18px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; text-decoration: none; margin-top: 10px; }
+        .btn-brand { background: var(--brand); color: white; }
         .btn-success { background: var(--success); color: white; }
+        .btn-outline { background: none; border: 1px solid #cbd5e1; color: var(--muted); margin-top: 20px; font-size: 0.8rem; }
 
-        /* --- CREDENCIAL DIGITAL RAIDER (NUEVO) --- */
-        .raider-credential {
-            background: linear-gradient(135deg, var(--dark-card) 0%, #1e293b 100%);
-            color: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #334155;
-        }
+        /* --- CREDENCIAL --- */
+        .credential { background: #0f172a; color: white; border-radius: 20px; padding: 20px; position: relative; border-left: 5px solid var(--warning); }
+        .cred-top { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--warning); margin-bottom: 15px; }
+        .cred-info { display: flex; gap: 15px; align-items: center; }
+        .cred-photo { width: 60px; height: 60px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
 
-        .credential-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+        /* --- TRACKING --- */
+        .step { display: flex; gap: 15px; margin-bottom: 20px; position: relative; }
+        .step:not(:last-child)::after { content: ''; position: absolute; left: 11px; top: 25px; bottom: -15px; width: 2px; background: #e2e8f0; }
+        .dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; z-index: 1; background: #e2e8f0; color: white; }
+        .dot-done { background: var(--success); }
+        .dot-active { background: var(--brand); box-shadow: 0 0 0 4px rgba(0, 94, 247, 0.1); }
 
-        .credential-header h3 { margin: 0; font-weight: 800; font-size: 1.1rem; color: var(--warning); text-transform: uppercase; letter-spacing: 1px; }
-        .verificado-badge { background: var(--success); color: white; padding: 4px 10px; border-radius: 99px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-
-        .credential-body {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .raider-photo-frame {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            border: 3px solid #334155;
-            background-color: #f1f5f9;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .raider-photo-frame span { font-size: 3rem; color: #94a3b8; }
-
-        .raider-info b { display: block; font-size: 1.1rem; font-weight: 700; color: white; margin-bottom: 2px; }
-        .raider-info span { font-size: 0.85rem; color: #94a3b8; }
-
-        .credential-footer {
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid #334155;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .qr-placeholder {
-            width: 50px;
-            height: 50px;
-            background-color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--dark-card);
-        }
-
-        .valid-date {
-            font-size: 0.7rem;
-            color: #94a3b8;
-            text-align: right;
-        }
-
-        /* --- TRACKING VISUAL --- */
-        .tracking-list {
-            margin-top: 25px;
-            position: relative;
-        }
-
-        .tracking-item {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 24px;
-            position: relative;
-        }
-
-        /* Línea conectora entre puntos */
-        .tracking-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 13px;
-            top: 28px;
-            bottom: -20px;
-            width: 2px;
-            background: #e5e7eb;
-        }
-
-        .dot {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 800;
-            z-index: 1;
-        }
-
-        .dot-done { background: var(--success); color: white; }
-        .dot-active { background: var(--brand-color); color: white; box-shadow: 0 0 0 4px rgba(0, 94, 247, 0.2); }
-        .dot-pending { background: #e5e7eb; color: #9ca3af; }
-
-        .item-info b { display: block; font-size: 0.95rem; color: var(--text-main); }
-        .item-info span { font-size: 0.82rem; color: var(--text-muted); }
-
-        /* --- LEGAL BOX --- */
-        .legal-scroll {
-            background: #f9fafb;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            padding: 15px;
-            height: 100px;
-            overflow-y: auto;
-            font-size: 0.75rem;
-            color: #4b5563;
-            margin: 15px 0;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid #e5e7eb;
-        }
-
-        .bolt { color: var(--warning); filter: drop-shadow(0 0 2px rgba(255,204,0,0.5)); }
+        footer { text-align: center; padding: 40px 20px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid #e2e8f0; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <nav>
-    <h1><span class="bolt">⚡</span> LUMERS</h1>
+    <h1><span style="color:var(--warning)">⚡</span> LUMERS</h1>
 </nav>
 
 <div class="container">
 
-    <section id="view-registration">
-        <div class="card welcome-card">
-            <h2>Logística Profesional</h2>
-            <p>Unimos San Nicolás con envíos seguros. Sumate como Raider o gestioná tu carga con confianza.</p>
-        </div>
-
-        <div class="card">
-            <h3 style="margin-top:0;">Registro de Identidad</h3>
-            <p style="font-size: 0.9rem;">Para garantizar la seguridad del sistema, validamos tu identidad bajo estándares legales.</p>
-            
-            <div class="legal-scroll">
-                <strong>CONTRATO DE ADHESIÓN LUMERS</strong><br><br>
-                1. <strong>RETENCIÓN DE PAGO:</strong> LUMERS actúa como depositario de garantía. El pago se libera al Raider únicamente tras la confirmación de entrega en destino.<br>
-                2. BIOMETRÍA: Se requiere cotejo de DNI y prueba de vida facial (SID RENAPER).<br>
-                3. INDEPENDENCIA: El Raider opera con medios propios sin relación de dependencia laboral.
+    <section id="view-home" class="view view-active">
+        <h2 style="text-align: center; font-weight: 800;">¿Qué querés hacer hoy?</h2>
+        <div class="role-selector">
+            <div class="role-card" onclick="showView('view-client')">
+                <div class="role-icon">📦</div>
+                <div class="role-text"><b>Soy Cliente</b><span>Quiero enviar o seguir mi carga</span></div>
             </div>
-
-            <div style="display: flex; gap: 10px; align-items: flex-start; margin-bottom: 20px;">
-                <input type="checkbox" id="check-legal" style="width: 20px; height: 20px; accent-color: var(--brand-color); margin-top: 3px;">
-                <label for="check-legal" style="font-size: 0.85rem; color: #374151;">Acepto el contrato y la cláusula de pago retenido hasta la entrega.</label>
+            <div class="role-card" onclick="showView('view-raider')">
+                <div class="role-icon">🚚</div>
+                <div class="role-text"><b>Soy Raider</b><span>Quiero trabajar y ver mis remates</span></div>
             </div>
-
-            <button class="btn btn-main" onclick="registrarRaider()">
-                REGISTRARME COMO RAIDER
-            </button>
         </div>
-
-        <button onclick="verTrackingRaider()" style="background:none; border:none; color:#cbd5e1; font-size:0.7rem; cursor:pointer; width:100%;">
-            (Simular Vista Privada de Raider Validado)
-        </button>
     </section>
 
-    <section id="view-tracking-raider" style="display: none;">
+    <section id="view-client" class="view">
+        <div class="card" style="background: var(--brand); color: white; border: none;">
+            <h3 style="margin:0">Seguimiento en Vivo</h3>
+            <p style="font-size: 0.9rem; opacity: 0.9;">Tu pago está protegido por LUMERS hasta que confirmes la entrega.</p>
+        </div>
         
-        <div class="raider-credential">
-            <div class="credential-header">
-                <h3>LUMERS RAIDER</h3>
-                <span class="verificado-badge">✓ Verificado</span>
-            </div>
-            
-            <div class="credential-body">
-                <div class="raider-photo-frame">
-                    <span>👤</span>
-                </div>
-                <div class="raider-info">
-                    <b>Aníbal G. Romero</b>
-                    <span>DNI: XX.XXX.X49</span>
-                    <span>San Nicolás de los Arroyos</span>
-                </div>
-            </div>
-            
-            <div class="credential-footer">
-                <div class="qr-placeholder">
-                    📱
-                </div>
-                <div class="valid-date">
-                    Válido hasta: Mar 2027<br>
-                    ID: LM-AGR-49
-                </div>
-            </div>
-        </div>
         <div class="card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <span style="font-weight: 800; font-size: 1.1rem; color: var(--success);">Estado del Remate</span>
-                <span style="color: var(--brand-color); font-size: 0.75rem; font-weight: 700;">Remate #LM-336</span>
+            <div style="display:flex; justify-content: space-between; margin-bottom: 20px;">
+                <b>Envío #LM-2026</b>
+                <span style="color: var(--success); font-weight: 800; font-size: 0.8rem;">PAGO RETENIDO ✓</span>
             </div>
-
-            <div class="tracking-list">
-                <div class="tracking-item">
-                    <div class="dot dot-done">✓</div>
-                    <div class="item-info">
-                        <b>Carga Retirada</b>
-                        <span>Insumos médicos en Planta Somisa.</span>
-                    </div>
-                </div>
-
-                <div class="tracking-item">
-                    <div class="dot dot-done">✓</div>
-                    <div class="item-info">
-                        <b>En Viaje Zonal</b>
-                        <span>Punto de control: Ruta 188 (Km 5).</span>
-                    </div>
-                </div>
-
-                <div class="tracking-item">
-                    <div class="dot dot-active">⚡</div>
-                    <div class="item-info">
-                        <b>Por Llegar al Destino</b>
-                        <span>Ingresando a Rosario (Centro).</span>
-                    </div>
-                </div>
-
-                <div class="tracking-item">
-                    <div class="dot dot-pending">4</div>
-                    <div class="item-info">
-                        <b>Cobro de Servicio</b>
-                        <span>A la espera de confirmación del cliente.</span>
-                    </div>
-                </div>
-            </div>
-
-            <hr style="border: 0; border-top: 1px solid #f3f4f6; margin: 25px 0;">
-
-            <p style="font-size: 0.85rem; text-align: center; color: var(--text-muted); margin-bottom: 20px;">
-                ¿Llegaste al destino?<br>Mostrá tu Credencial Digital al retirar y entregar.
-            </p>
-
-            <button class="btn btn-success" onclick="solicitarLiberacionPago()">
-                INFORMAR ENTREGA & SOLICITAR PAGO
-            </button>
+            <div class="step"><div class="dot dot-done">✓</div><div><b>Recolección</b><span>Carga retirada en origen</span></div></div>
+            <div class="step"><div class="dot dot-active">⚡</div><div><b>En Camino</b><span>Raider en viaje hacia el destino</span></div></div>
+            <div class="step"><div class="dot">3</div><div><b>Confirmación</b><span>A la espera de tu recepción</span></div></div>
+            
+            <button class="btn btn-success" onclick="confirmarRecibo()">CONFIRMAR RECEPCIÓN</button>
+            <p style="font-size: 0.7rem; text-align: center; color: var(--muted); margin-top: 10px;">Al confirmar, se libera el pago al transportista.</p>
         </div>
+        <button class="btn btn-outline" onclick="showView('view-home')">← VOLVER AL INICIO</button>
+    </section>
+
+    <section id="view-raider" class="view">
+        <div class="credential">
+            <div class="cred-top"><span>LUMERS RAIDER</span> <span>ID: LM-336</span></div>
+            <div class="cred-info">
+                <div class="cred-photo">👤</div>
+                <div>
+                    <b>Raider Verificado</b>
+                    <div style="font-size: 0.75rem; color: var(--success);">✓ BIOMETRÍA SID APROBADA</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top: 20px;">
+            <h3>Subastas Disponibles</h3>
+            <div style="padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 15px;">
+                <b style="font-size: 0.9rem;">Flete: Insumos de Planta</b>
+                <p style="font-size: 0.8rem; margin: 5px 0;">📍 Somisa -> Terminal</p>
+                <div style="color: var(--brand); font-weight: 800; font-size: 1.2rem;">$12.500</div>
+            </div>
+            <button class="btn btn-brand" onclick="ofertar()">OFERTAR EN WHATSAPP</button>
+        </div>
+        <button class="btn btn-outline" onclick="showView('view-home')">← VOLVER AL INICIO</button>
     </section>
 
 </div>
 
 <footer>
-    ⚡ <b>LUMERS</b> | San Nicolás de los Arroyos<br>
-    Logística Profesional y Respaldo Jurídico<br>
-    Operado por Aníbal Gabriel Romero - Abogado
+    ⚡ <b>LUMERS</b> | Logística y Respaldo Jurídico<br>
+    San Nicolás de los Arroyos, Buenos Aires<br>
+    Admin: Aníbal Gabriel Romero - Abogado
 </footer>
 
 <script>
-    // --- LÓGICA DE REGISTRO MANUAL ---
-    function registrarRaider() {
-        if (!document.getElementById('check-legal').checked) {
-            alert("Por favor, aceptá los términos de LUMERS para continuar.");
-            return;
-        }
-        const tel = "3364652349";
-        const msg = encodeURIComponent(
-            "¡Hola Aníbal! He leído y acepto el Contrato de Adhesión de LUMERS.\n" +
-            "Acepto la retención de pago hasta la entrega.\n\n" +
-            "Adjunto mi documentación (DNI Frente/Dorso + Selfie con DNI) para la validación manual."
-        );
-        window.location.href = `https://wa.me/${tel}?text=${msg}`;
-    }
-
-    // --- LÓGICA DE SOLICITUD DE PAGO ---
-    function solicitarLiberacionPago() {
-        const tel = "3364652349";
-        const msg = encodeURIComponent(
-            "¡Hola Aníbal! Confirmo que entregué la mercadería del Remate #LM-336.\n" +
-            "Adjunto foto del remito firmado por el cliente.\n\n" +
-            "Deseo solicitar la liberación de los fondos retenidos."
-        );
-        window.location.href = `https://wa.me/${tel}?text=${msg}`;
-    }
-
-    // --- SIMULACIÓN DE FLUJO ---
-    function verTrackingRaider() {
-        document.getElementById('view-registration').style.display = 'none';
-        document.getElementById('view-tracking-raider').style.display = 'block';
+    function showView(id) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('view-active'));
+        document.getElementById(id).classList.add('view-active');
         window.scrollTo(0,0);
+    }
+
+    function confirmarRecibo() {
+        window.location.href = "https://wa.me/3364652349?text=CONFIRMO que recibí mi envío satisfactoriamente. Pueden liberar el pago al Raider.";
+    }
+
+    function ofertar() {
+        window.location.href = "https://wa.me/3364652349?text=Quiero ofertar por el flete Insumos de Planta.";
     }
 </script>
 
