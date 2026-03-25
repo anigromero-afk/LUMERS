@@ -3,62 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Digital San Nicolás</title>
+    <title>LUMERS | Logística & Seguridad Jurídica</title>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --brand: #005ef7; 
-            --bg: #f4f7fa;    
-            --surface: #ffffff;
-            --text: #1e293b;
-            --muted: #64748b;
-            --success: #00a650;
-            --warning: #ffcc00;
+            --brand: #005ef7; --bg: #f4f7fa; --surface: #ffffff;
+            --text: #1e293b; --muted: #64748b; --success: #00a650;
+            --warning: #ffcc00; --danger: #ef4444; --dark: #0f172a;
         }
 
-        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); }
+        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); -webkit-font-smoothing: antialiased; }
 
-        /* --- NAVEGACIÓN --- */
+        /* --- NAV --- */
         nav { background: var(--surface); padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
         nav h1 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 8px; }
 
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
 
-        /* --- SELECTOR DE ROL (EL "HOME") --- */
-        .role-selector { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
-        .role-card { background: var(--surface); padding: 25px; border-radius: 24px; border: 2px solid transparent; transition: 0.2s; cursor: pointer; display: flex; align-items: center; gap: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .role-card:active { transform: scale(0.98); border-color: var(--brand); }
-        .role-icon { font-size: 2.5rem; }
-        .role-text b { display: block; font-size: 1.1rem; }
-        .role-text span { font-size: 0.85rem; color: var(--muted); }
-
         /* --- VISTAS --- */
         .view { display: none; animation: fadeIn 0.3s ease; }
         .view-active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        /* --- COMPONENTES --- */
-        .card { background: var(--surface); border-radius: 24px; padding: 25px; margin-bottom: 18px; border: 1px solid #e2e8f0; }
-        .btn { width: 100%; padding: 18px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; text-decoration: none; margin-top: 10px; }
+        /* --- CARDS & BOTONES --- */
+        .card { background: var(--surface); border-radius: 24px; padding: 22px; margin-bottom: 18px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .btn { width: 100%; padding: 18px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; text-decoration: none; margin-top: 10px; transition: 0.2s; }
         .btn-brand { background: var(--brand); color: white; }
         .btn-success { background: var(--success); color: white; }
-        .btn-outline { background: none; border: 1px solid #cbd5e1; color: var(--muted); margin-top: 20px; font-size: 0.8rem; }
+        .btn-outline { background: none; border: 1px solid #cbd5e1; color: var(--muted); margin-top: 15px; }
+
+        /* --- DOCUMENTACIÓN (NUEVO) --- */
+        .doc-item { display: flex; align-items: center; gap: 12px; background: #f8fafc; padding: 12px; border-radius: 12px; margin-bottom: 10px; border: 1px solid #edf2f7; font-size: 0.85rem; }
+        .doc-status { margin-left: auto; font-size: 0.7rem; font-weight: 800; padding: 4px 8px; border-radius: 20px; }
+
+        /* --- LEGAL BOX --- */
+        .legal-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; font-size: 0.78rem; color: #475569; margin: 15px 0; max-height: 120px; overflow-y: auto; text-align: left; }
+        .check-group { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 15px; font-size: 0.85rem; }
+        .check-group input { width: 22px; height: 22px; accent-color: var(--brand); margin-top: 2px; }
 
         /* --- CREDENCIAL --- */
-        .credential { background: #0f172a; color: white; border-radius: 20px; padding: 20px; position: relative; border-left: 5px solid var(--warning); }
-        .cred-top { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 800; color: var(--warning); margin-bottom: 15px; }
+        .credential { background: var(--dark); color: white; border-radius: 20px; padding: 20px; border-left: 5px solid var(--warning); margin-bottom: 20px; position: relative; }
         .cred-info { display: flex; gap: 15px; align-items: center; }
-        .cred-photo { width: 60px; height: 60px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        .cred-photo { width: 55px; height: 55px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 2px solid var(--warning); }
 
-        /* --- TRACKING --- */
-        .step { display: flex; gap: 15px; margin-bottom: 20px; position: relative; }
-        .step:not(:last-child)::after { content: ''; position: absolute; left: 11px; top: 25px; bottom: -15px; width: 2px; background: #e2e8f0; }
-        .dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; z-index: 1; background: #e2e8f0; color: white; }
-        .dot-done { background: var(--success); }
-        .dot-active { background: var(--brand); box-shadow: 0 0 0 4px rgba(0, 94, 247, 0.1); }
-
-        footer { text-align: center; padding: 40px 20px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid #e2e8f0; margin-top: 20px; }
+        footer { text-align: center; padding: 30px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
@@ -70,70 +59,90 @@
 <div class="container">
 
     <section id="view-home" class="view view-active">
-        <h2 style="text-align: center; font-weight: 800;">¿Qué querés hacer hoy?</h2>
-        <div class="role-selector">
-            <div class="role-card" onclick="showView('view-client')">
-                <div class="role-icon">📦</div>
-                <div class="role-text"><b>Soy Cliente</b><span>Quiero enviar o seguir mi carga</span></div>
+        <h2 style="text-align: center; font-weight: 800; margin-bottom: 25px;">Plataforma Logística</h2>
+        <div class="card" onclick="showView('view-client-legal')" style="cursor:pointer; border-left: 6px solid var(--brand);">
+            <div style="display:flex; gap:15px; align-items:center;">
+                <span style="font-size:2rem;">📦</span>
+                <div><b>Soy Cliente</b><br><span style="font-size:0.8rem; color:var(--muted);">Enviar o seguir mi carga</span></div>
             </div>
-            <div class="role-card" onclick="showView('view-raider')">
-                <div class="role-icon">🚚</div>
-                <div class="role-text"><b>Soy Raider</b><span>Quiero trabajar y ver mis remates</span></div>
+        </div>
+        <div class="card" onclick="showView('view-raider-legal')" style="cursor:pointer; border-left: 6px solid var(--success);">
+            <div style="display:flex; gap:15px; align-items:center;">
+                <span style="font-size:2rem;">🚚</span>
+                <div><b>Soy Raider</b><br><span style="font-size:0.8rem; color:var(--muted);">Trabajar y ver remates</span></div>
             </div>
         </div>
     </section>
 
-    <section id="view-client" class="view">
-        <div class="card" style="background: var(--brand); color: white; border: none;">
-            <h3 style="margin:0">Seguimiento en Vivo</h3>
-            <p style="font-size: 0.9rem; opacity: 0.9;">Tu pago está protegido por LUMERS hasta que confirmes la entrega.</p>
-        </div>
-        
+    <section id="view-raider-legal" class="view">
         <div class="card">
-            <div style="display:flex; justify-content: space-between; margin-bottom: 20px;">
-                <b>Envío #LM-2026</b>
-                <span style="color: var(--success); font-weight: 800; font-size: 0.8rem;">PAGO RETENIDO ✓</span>
-            </div>
-            <div class="step"><div class="dot dot-done">✓</div><div><b>Recolección</b><span>Carga retirada en origen</span></div></div>
-            <div class="step"><div class="dot dot-active">⚡</div><div><b>En Camino</b><span>Raider en viaje hacia el destino</span></div></div>
-            <div class="step"><div class="dot">3</div><div><b>Confirmación</b><span>A la espera de tu recepción</span></div></div>
+            <h3 style="margin-top:0;">Validación de Seguridad</h3>
+            <p style="font-size:0.85rem;">Para operar en <b>LUMERS</b>, debés presentar la siguiente documentación vigente:</p>
             
-            <button class="btn btn-success" onclick="confirmarRecibo()">CONFIRMAR RECEPCIÓN</button>
-            <p style="font-size: 0.7rem; text-align: center; color: var(--muted); margin-top: 10px;">Al confirmar, se libera el pago al transportista.</p>
+            <div class="doc-item">
+                📄 <b>Seguro de Carga/RC</b>
+                <span class="doc-status" style="background:#fef3c7; color:#92400e;">OBLIGATORIO</span>
+            </div>
+            <div class="doc-item">
+                🪪 <b>Cédula del Vehículo</b>
+                <span class="doc-status" style="background:#fef3c7; color:#92400e;">OBLIGATORIO</span>
+            </div>
+
+            <div class="legal-box">
+                <b>CONTRATO DE ADHESIÓN RAIDER:</b> El transportista (Raider) declara que posee seguro vigente y que LUMERS no asume responsabilidad por daños derivados del transporte. La liberación del pago está sujeta a la confirmación de entrega del cliente.
+            </div>
+
+            <div class="check-group">
+                <input type="checkbox" id="check-r">
+                <label for="check-r">Acepto los términos y me comprometo a enviar mi póliza de seguro vigente.</label>
+            </div>
+
+            <button class="btn btn-success" onclick="validarRaider()">SUBIR SEGURO Y ENTRAR</button>
+            <button class="btn btn-outline" onclick="showView('view-home')">VOLVER</button>
         </div>
-        <button class="btn btn-outline" onclick="showView('view-home')">← VOLVER AL INICIO</button>
     </section>
 
-    <section id="view-raider" class="view">
+    <section id="view-raider-app" class="view">
         <div class="credential">
-            <div class="cred-top"><span>LUMERS RAIDER</span> <span>ID: LM-336</span></div>
+            <div style="font-size:0.7rem; color:var(--warning); font-weight:800; margin-bottom:10px;">ID RAIDER: LM-336</div>
             <div class="cred-info">
                 <div class="cred-photo">👤</div>
                 <div>
-                    <b>Raider Verificado</b>
-                    <div style="font-size: 0.75rem; color: var(--success);">✓ BIOMETRÍA SID APROBADA</div>
+                    <b>Aníbal G. Romero</b><br>
+                    <span style="font-size:0.75rem; color:var(--success);">✓ SEGURO VALIDADO</span>
                 </div>
             </div>
         </div>
-
-        <div class="card" style="margin-top: 20px;">
-            <h3>Subastas Disponibles</h3>
-            <div style="padding: 15px; background: #f8fafc; border-radius: 12px; margin-bottom: 15px;">
-                <b style="font-size: 0.9rem;">Flete: Insumos de Planta</b>
-                <p style="font-size: 0.8rem; margin: 5px 0;">📍 Somisa -> Terminal</p>
-                <div style="color: var(--brand); font-weight: 800; font-size: 1.2rem;">$12.500</div>
+        <div class="card">
+            <h3 style="margin-top:0;">Remates Disponibles</h3>
+            <div style="padding:15px; background:#f8fafc; border-radius:15px; border:1px solid #e2e8f0;">
+                <div style="font-size:0.75rem; color:var(--brand); font-weight:800; margin-bottom:5px;">PLANTA SIDERAR</div>
+                <b>Flete: Bobinas de Acero</b><br>
+                <span style="font-size:1.4rem; font-weight:800; color:var(--text);">$22.000</span>
             </div>
-            <button class="btn btn-brand" onclick="ofertar()">OFERTAR EN WHATSAPP</button>
+            <button class="btn btn-brand" onclick="location.href='https://wa.me/3364652349?text=OFERTA POR BOBINAS'">OFERTAR AHORA</button>
         </div>
-        <button class="btn btn-outline" onclick="showView('view-home')">← VOLVER AL INICIO</button>
+    </section>
+
+    <section id="view-client-legal" class="view">
+        <div class="card">
+            <h3>Seguimiento de Carga</h3>
+            <p style="font-size:0.85rem;">Ingresá el ID de tu envío o confirmá la recepción para liberar el pago.</p>
+            <div class="card" style="background:var(--brand); color:white; border:none; margin-top:20px;">
+                <b>Envío #LM-2026</b><br>
+                <small>Estado: PAGO PROTEGIDO ✓</small>
+            </div>
+            <button class="btn btn-success" onclick="location.href='https://wa.me/3364652349?text=CONFIRMO RECIBO'">CONFIRMAR RECEPCIÓN</button>
+            <button class="btn btn-outline" onclick="showView('view-home')">VOLVER</button>
+        </div>
     </section>
 
 </div>
 
 <footer>
-    ⚡ <b>LUMERS</b> | Logística y Respaldo Jurídico<br>
-    San Nicolás de los Arroyos, Buenos Aires<br>
-    Admin: Aníbal Gabriel Romero - Abogado
+    ⚡ <b>LUMERS</b> | San Nicolás de los Arroyos<br>
+    Gestión Jurídica: Aníbal Gabriel Romero<br>
+    Abogado (Mat. SCBA)
 </footer>
 
 <script>
@@ -143,12 +152,18 @@
         window.scrollTo(0,0);
     }
 
-    function confirmarRecibo() {
-        window.location.href = "https://wa.me/3364652349?text=CONFIRMO que recibí mi envío satisfactoriamente. Pueden liberar el pago al Raider.";
-    }
-
-    function ofertar() {
-        window.location.href = "https://wa.me/3364652349?text=Quiero ofertar por el flete Insumos de Planta.";
+    function validarRaider() {
+        if (!document.getElementById('check-r').checked) {
+            alert("Debés aceptar los términos para continuar.");
+            return;
+        }
+        // Simulamos el envío del seguro por WhatsApp
+        const tel = "3364652349";
+        const msg = encodeURIComponent("¡Hola Aníbal! Acepto los términos de LUMERS. Adjunto PDF de mi SEGURO VIGENTE y Cédula para habilitar mi cuenta Raider.");
+        window.location.href = `https://wa.me/${tel}?text=${msg}`;
+        
+        // Luego del click, lo llevamos a la app (simulación)
+        setTimeout(() => showView('view-raider-app'), 1000);
     }
 </script>
 
