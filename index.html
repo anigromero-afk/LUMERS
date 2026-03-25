@@ -3,188 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Profesional para Todos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>LUMERS | Logística Profesional & Rayos de Velocidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #0056b3; 
-            --accent: #007bff;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
-            --dark: #333;
-            --light: #f8f9fa;
+            --primary: #0f172a; /* Azul Oxford */
+            --accent: #2563eb;  /* Azul Eléctrico */
+            --success: #10b981; /* Esmeralda */
+            --warning: #f59e0b; /* Ámbar */
+            --bg: #f8fafc;
+            --text: #1e293b;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--light);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
             margin: 0;
-            color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
         }
 
+        /* --- HEADER CON RAYO --- */
         header {
-            background-color: var(--primary);
-            color: white;
-            padding: 25px;
+            background: white;
+            padding: 20px 0;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .header-logo {
+            font-size: 2.2rem;
+            color: var(--accent);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.2rem;
-            font-weight: 900;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--primary);
             text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
         .container {
-            max-width: 500px;
-            margin: 30px auto;
-            padding: 0 15px;
+            max-width: 480px;
+            margin: 20px auto;
+            padding: 0 20px;
         }
 
-        /* --- TARJETAS --- */
+        /* --- CARDS --- */
         .card {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid #eee;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
         }
 
-        .trust-badge {
-            background: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border: 1px solid #ffeeba;
-            text-align: center;
+        .badge-security {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 6px 14px;
+            border-radius: 99px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
 
-        h2 { color: var(--primary); margin-top: 0; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; }
-        p { color: #666; line-height: 1.5; font-size: 0.95rem; }
+        h2 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; color: var(--primary); }
+        p { font-size: 0.95rem; color: #64748b; }
+
+        /* --- CONTRATO DE ADHESIÓN (SCROLLABLE) --- */
+        .contrato-box {
+            height: 120px;
+            overflow-y: scroll;
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            color: #475569;
+            margin: 15px 0;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+        }
 
         /* --- BOTONES --- */
         .btn {
             width: 100%;
-            border: none;
             padding: 18px;
-            border-radius: 10px;
+            border-radius: 16px;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            border: none;
             display: block;
-            text-decoration: none;
             text-align: center;
+            text-decoration: none;
         }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-success { background: var(--success); color: white; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-        /* --- SECCIÓN VALIDACIÓN --- */
-        .validation-steps {
-            background: #f1f8ff;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
+        /* --- CHECKBOX --- */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 20px 0;
             text-align: left;
-            border-left: 4px solid var(--accent);
         }
-        .step { font-size: 0.85rem; margin-bottom: 8px; color: #444; }
+        .checkbox-group input { width: 20px; height: 20px; cursor: pointer; }
+        .checkbox-group label { font-size: 0.85rem; color: #334155; cursor: pointer; }
 
         /* --- ZONA PRIVADA --- */
-        #private-zone { display: none; }
+        #private-zone { display: none; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .price-display {
-            background: #f0fdf4;
-            border: 2px solid #dcfce7;
-            padding: 20px;
-            border-radius: 12px;
+        .price-card {
+            background: #eff6ff;
+            border: 2px solid #dbeafe;
+            padding: 24px;
+            border-radius: 20px;
             text-align: center;
             margin: 20px 0;
         }
-        .price-value { font-size: 2.8rem; font-weight: 900; color: var(--success); margin: 0; }
+        .price-value { font-size: 3rem; font-weight: 800; color: var(--accent); margin: 0; }
         
         footer {
             text-align: center;
-            padding: 40px 20px;
-            color: #888;
+            padding: 50px 20px;
+            color: #94a3b8;
             font-size: 0.8rem;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #e2e8f0;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>LUMERS</h1>
+    <div class="header-content">
+        <span class="header-logo">⚡</span>
+        <h1>LUMERS</h1>
+    </div>
 </header>
 
 <div class="container">
 
     <section id="public-view">
         <div class="card">
+            <div class="badge-security">🛡️ PAGO PROTEGIDO</div>
             <h2>Logística Profesional para Todos</h2>
-            <p>En <b>LUMERS</b>, cualquier persona con un vehículo puede sumarse a nuestra red de trabajo. Ofrecemos una oportunidad abierta para generar ingresos de forma independiente y profesional.</p>
-        </div>
-
-        <div class="trust-badge">
-            🛡️ SEGURIDAD GARANTIZADA:<br>
-            El pago se retiene de forma segura y solo se libera cuando el RAIDER llega al lugar de entrega.
+            <p>Sumate como <b>RAIDER</b> a la red de transporte más segura de San Nicolás. El pago se retiene y solo se libera al confirmarse la entrega.</p>
         </div>
 
         <div class="card" style="border: 2px solid var(--accent);">
-            <h2>¡Sumate como RAIDER!</h2>
-            <p>Para empezar a ofertar en viajes y ganar dinero, realizá tu validación de identidad obligatoria.</p>
+            <h2>Validación de Identidad</h2>
+            <p>Para garantizar la seguridad jurídica de <b>LUMERS</b>, leé y aceptá el contrato para iniciar tu registro.</p>
             
-            <div class="validation-steps">
-                <div class="step">📸 Foto de DNI (Frente y Dorso)</div>
-                <div class="step">🤳 Selfie con tu DNI</div>
-                <div class="step">📱 Captura de Mi Argentina Validado</div>
+            <div class="contrato-box">
+                <strong>CONTRATO DE ADHESIÓN LUMERS</strong><br><br>
+                1. OBJETO: El RAIDER accede al sistema de subastas de fletes de forma independiente.<br>
+                2. RETENCIÓN DE PAGO: El RAIDER acepta que LUMERS retendrá el pago hasta que se confirme la llegada al lugar de entrega.<br>
+                3. INDEPENDENCIA: No existe relación de dependencia laboral. El RAIDER utiliza sus propios medios.<br>
+                4. BIOMETRÍA: El RAIDER autoriza el cotejo de su DNI y rostro con registros oficiales.<br>
+                5. RESPONSABILIDAD: El RAIDER responde por la integridad de la carga.
             </div>
 
-            <button class="btn btn-primary" onclick="enviarValidacion()">
-                REGISTRARME POR WHATSAPP
+            <div class="checkbox-group">
+                <input type="checkbox" id="acepto-contrato">
+                <label for="acepto-contrato">
+                    He leído y acepto los términos del <b>Contrato de Adhesión</b> y la cláusula de retención de pago.
+                </label>
+            </div>
+
+            <button class="btn btn-primary" onclick="irAWhatsApp()">
+                REGISTRARME COMO RAIDER
             </button>
         </div>
-        
-        <button onclick="document.getElementById('public-view').style.display='none'; document.getElementById('private-zone').style.display='block';" 
-                style="background:none; border:none; color:#ccc; font-size:0.6rem; cursor:pointer; width:100%; margin-top:10px;">
-            (Ver panel de subastas)
+
+        <button onclick="simularAcceso()" style="background:none; border:none; color:#cbd5e1; font-size:0.7rem; cursor:pointer; width:100%;">
+            (Acceso de Prueba a Subastas)
         </button>
     </section>
 
     <section id="private-zone">
-        <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 25px; font-weight: bold; font-size: 0.9rem;">
+        <div style="background: #ecfdf5; color: #065f46; padding: 15px; border-radius: 16px; text-align: center; margin-bottom: 25px; font-weight: 700; border: 1px solid #a7f3d0;">
             ✓ RAIDER Verificado por LUMERS
         </div>
 
         <div class="card">
-            <div style="color: var(--danger); font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;">
-                🔴 SUBASTA ACTIVA
-            </div>
-            <h3 style="margin: 15px 0 5px; font-weight: 900;">Envío: Repuestos Automotor</h3>
-            <p style="margin: 0;">📍 Retiro: B° Somisa</p>
-            <p style="margin: 0;">🏁 Entrega: San Nicolás (Terminal)</p>
+            <div style="color: #ef4444; font-weight: 800; font-size: 0.75rem; text-transform: uppercase;">🔴 Subasta en Vivo</div>
+            <h3 style="margin: 10px 0 5px; font-weight: 800;">Flete: Insumos Somisa</h3>
+            <p style="margin: 0; font-size: 0.85rem;">📍 Retiro: Planta Somisa</p>
+            <p style="margin: 0; font-size: 0.85rem;">🏁 Entrega: Centro San Nicolás</p>
 
-            <div class="price-display">
-                <p style="font-size: 0.75rem; color: #15803d; font-weight: bold; margin: 0;">OFERTA ACTUAL</p>
-                <p class="price-value">$9.500</p>
+            <div class="price-card">
+                <p style="font-size: 0.7rem; color: #3b82f6; font-weight: 800; margin: 0; text-transform: uppercase;">Oferta Actual</p>
+                <p class="price-value">$9.800</p>
             </div>
 
-            <p style="font-size: 0.8rem; color: #777; text-align: center; margin-bottom: 15px;">
-                <i>* Pago retenido por LUMERS hasta confirmación de entrega.</i>
+            <p style="font-size: 0.8rem; color: #94a3b8; text-align: center; margin-bottom: 20px;">
+                <i>* Pago garantizado bajo retención hasta entrega.</i>
             </p>
 
-            <button class="btn btn-success" onclick="realizarOferta('Repuestos Somisa')">
+            <button class="btn btn-primary" style="background: var(--success);" onclick="pujarWhatsApp('Insumos Somisa')">
                 MEJORAR OFERTA
             </button>
         </div>
@@ -193,31 +229,40 @@
 </div>
 
 <footer>
-    <p><b>LUMERS</b> | San Nicolás de los Arroyos, Argentina<br>
-    Logística Segura con Pago Retenido<br>
+    <p>⚡ <b>LUMERS</b> | San Nicolás de los Arroyos, Argentina<br>
+    Seguridad Jurídica y Tecnológica<br>
     Operado por Aníbal Gabriel Romero - Abogado</p>
 </footer>
 
 <script>
-    function enviarValidacion() {
+    function irAWhatsApp() {
+        const checkbox = document.getElementById('acepto-contrato');
+        if (!checkbox.checked) {
+            alert("Por favor, debés aceptar el contrato de adhesión para continuar.");
+            return;
+        }
+
         const mensaje = encodeURIComponent(
-            "¡Hola Aníbal! Quiero ser RAIDER de LUMERS.\n" +
-            "Envío documentación para validación:\n" +
-            "- DNI Frente y Dorso\n" +
-            "- Selfie con DNI\n" +
-            "- Validación Mi Argentina"
+            "¡Hola Aníbal! He leído y acepto el Contrato de Adhesión de LUMERS.\n" +
+            "Quiero registrarme como RAIDER.\n\n" +
+            "Adjunto mi documentación (DNI + Selfie) para la validación manual."
         );
         window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
     }
 
-    function realizarOferta(viaje) {
+    function pujarWhatsApp(viaje) {
         const mensaje = encodeURIComponent(
             `¡Hola Aníbal! Soy RAIDER verificado de LUMERS.\n` +
             `Deseo mejorar la oferta para el envío: ${viaje}.\n` +
-            `ACEPTO RETENCIÓN DE PAGO HASTA ENTREGA.\n` +
+            `ACEPTO RETENCIÓN DE PAGO HASTA LLEGAR AL LUGAR DE ENTREGA.\n\n` +
             `MI PRECIO ES: $`
         );
         window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
+    }
+
+    function simularAcceso() {
+        document.getElementById('public-view').style.display = 'none';
+        document.getElementById('private-zone').style.display = 'block';
     }
 </script>
 
