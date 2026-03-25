@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Segura y Subastas en Vivo</title>
+    <title>LUMERS | Logística Profesional para Todos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -11,6 +11,7 @@
             --primary: #0056b3; 
             --accent: #007bff;
             --success: #28a745;
+            --warning: #ffc107;
             --danger: #dc3545;
             --dark: #333;
             --light: #f8f9fa;
@@ -55,6 +56,18 @@
             border: 1px solid #eee;
         }
 
+        .trust-badge {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #ffeeba;
+            text-align: center;
+        }
+
         h2 { color: var(--primary); margin-top: 0; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; }
         p { color: #666; line-height: 1.5; font-size: 0.95rem; }
 
@@ -75,7 +88,6 @@
         }
         .btn-primary { background: var(--primary); color: white; }
         .btn-success { background: var(--success); color: white; }
-        .btn:active { transform: scale(0.98); }
 
         /* --- SECCIÓN VALIDACIÓN --- */
         .validation-steps {
@@ -88,7 +100,7 @@
         }
         .step { font-size: 0.85rem; margin-bottom: 8px; color: #444; }
 
-        /* --- ZONA PRIVADA (OCULTA) --- */
+        /* --- ZONA PRIVADA --- */
         #private-zone { display: none; }
 
         .price-display {
@@ -101,15 +113,6 @@
         }
         .price-value { font-size: 2.8rem; font-weight: 900; color: var(--success); margin: 0; }
         
-        .timer {
-            color: var(--danger);
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-        }
-
-        /* --- FOOTER --- */
         footer {
             text-align: center;
             padding: 40px 20px;
@@ -129,59 +132,59 @@
 
     <section id="public-view">
         <div class="card">
-            <h2>Logística Profesional</h2>
-            <p><b>LUMERS</b> es la plataforma líder en San Nicolás para el transporte de cargas con seguridad garantizada.</p>
+            <h2>Logística Profesional para Todos</h2>
+            <p>En <b>LUMERS</b>, cualquier persona con un vehículo puede sumarse a nuestra red de trabajo. Ofrecemos una oportunidad abierta para generar ingresos de forma independiente y profesional.</p>
+        </div>
+
+        <div class="trust-badge">
+            🛡️ SEGURIDAD GARANTIZADA:<br>
+            El pago se retiene de forma segura y solo se libera cuando el RAIDER llega al lugar de entrega.
         </div>
 
         <div class="card" style="border: 2px solid var(--accent);">
-            <div style="background: var(--accent); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; display: inline-block; margin-bottom: 15px;">
-                REQUISITO DE SEGURIDAD
-            </div>
-            <h2>Validación de Identidad</h2>
-            <p>Para visualizar remates y ofertar, debés completar el proceso de validación biométrica manual.</p>
+            <h2>¡Sumate como RAIDER!</h2>
+            <p>Para empezar a ofertar en viajes y ganar dinero, realizá tu validación de identidad obligatoria.</p>
             
             <div class="validation-steps">
-                <div class="step">✅ Foto DNI (Frente y Dorso)</div>
-                <div class="step">✅ Selfie con DNI en mano</div>
-                <div class="step">✅ Captura de "Mi Argentina" validado</div>
+                <div class="step">📸 Foto de DNI (Frente y Dorso)</div>
+                <div class="step">🤳 Selfie con tu DNI</div>
+                <div class="step">📱 Captura de Mi Argentina Validado</div>
             </div>
 
             <button class="btn btn-primary" onclick="enviarValidacion()">
-                ENVIAR DATOS POR WHATSAPP
+                REGISTRARME POR WHATSAPP
             </button>
-            
-            <p style="font-size: 0.7rem; color: #999; margin-top: 15px;">
-                Una vez verificado por nuestro equipo legal, se te otorgará acceso a la zona de subastas.
-            </p>
         </div>
         
         <button onclick="document.getElementById('public-view').style.display='none'; document.getElementById('private-zone').style.display='block';" 
-                style="background:none; border:none; color:#ccc; font-size:0.6rem; cursor:pointer; width:100%;">
-            (Simular acceso verificado)
+                style="background:none; border:none; color:#ccc; font-size:0.6rem; cursor:pointer; width:100%; margin-top:10px;">
+            (Ver panel de subastas)
         </button>
     </section>
 
     <section id="private-zone">
         <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 25px; font-weight: bold; font-size: 0.9rem;">
-            ✓ Identidad LUMERS Verificada
+            ✓ RAIDER Verificado por LUMERS
         </div>
 
         <div class="card">
             <div style="color: var(--danger); font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;">
-                <span style="height: 8px; width: 8px; background: red; border-radius: 50%;"></span> EN VIVO
+                🔴 SUBASTA ACTIVA
             </div>
-            <h3 style="margin: 15px 0 5px; font-weight: 900;">Flete: Insumos Somisa</h3>
-            <p style="margin: 0;">📍 Retiro: Planta Somisa</p>
-            <p style="margin: 0;">🏁 Destino: San Nicolás (Centro)</p>
+            <h3 style="margin: 15px 0 5px; font-weight: 900;">Envío: Repuestos Automotor</h3>
+            <p style="margin: 0;">📍 Retiro: B° Somisa</p>
+            <p style="margin: 0;">🏁 Entrega: San Nicolás (Terminal)</p>
 
             <div class="price-display">
-                <p style="font-size: 0.75rem; color: #15803d; font-weight: bold; margin: 0;">OFERTA LÍDER</p>
-                <p class="price-value">$11.800</p>
+                <p style="font-size: 0.75rem; color: #15803d; font-weight: bold; margin: 0;">OFERTA ACTUAL</p>
+                <p class="price-value">$9.500</p>
             </div>
 
-            <div class="timer" id="reloj-subasta">⏳ Cierra en: 14:59</div>
+            <p style="font-size: 0.8rem; color: #777; text-align: center; margin-bottom: 15px;">
+                <i>* Pago retenido por LUMERS hasta confirmación de entrega.</i>
+            </p>
 
-            <button class="btn btn-success" onclick="realizarOferta('Insumos Somisa')">
+            <button class="btn btn-success" onclick="realizarOferta('Repuestos Somisa')">
                 MEJORAR OFERTA
             </button>
         </div>
@@ -191,44 +194,31 @@
 
 <footer>
     <p><b>LUMERS</b> | San Nicolás de los Arroyos, Argentina<br>
-    Sistema de Logística con Validación de Identidad<br>
+    Logística Segura con Pago Retenido<br>
     Operado por Aníbal Gabriel Romero - Abogado</p>
 </footer>
 
 <script>
-    // --- LÓGICA DE REGISTRO ---
     function enviarValidacion() {
         const mensaje = encodeURIComponent(
-            "¡Hola Aníbal! Quiero ser conductor de LUMERS.\n" +
-            "Adjunto mi documentación para la validación manual:\n" +
-            "- Fotos DNI\n" +
-            "- Selfie de seguridad\n" +
+            "¡Hola Aníbal! Quiero ser RAIDER de LUMERS.\n" +
+            "Envío documentación para validación:\n" +
+            "- DNI Frente y Dorso\n" +
+            "- Selfie con DNI\n" +
             "- Validación Mi Argentina"
         );
         window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
     }
 
-    // --- LÓGICA DE OFERTA ---
     function realizarOferta(viaje) {
         const mensaje = encodeURIComponent(
-            `¡Hola Aníbal! Soy conductor verificado de LUMERS.\n` +
-            `Deseo mejorar la oferta para el remate: ${viaje}.\n` +
+            `¡Hola Aníbal! Soy RAIDER verificado de LUMERS.\n` +
+            `Deseo mejorar la oferta para el envío: ${viaje}.\n` +
+            `ACEPTO RETENCIÓN DE PAGO HASTA ENTREGA.\n` +
             `MI PRECIO ES: $`
         );
         window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
     }
-
-    // --- RELOJ DINÁMICO ---
-    let tiempo = 15 * 60; 
-    const display = document.getElementById('reloj-subasta');
-
-    setInterval(() => {
-        let minutos = Math.floor(tiempo / 60);
-        let segundos = tiempo % 60;
-        segundos = segundos < 10 ? '0' + segundos : segundos;
-        display.innerText = `⏳ Cierra en: ${minutos}:${segundos}`;
-        if (tiempo > 0) tiempo--;
-    }, 1000);
 </script>
 
 </body>
