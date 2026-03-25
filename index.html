@@ -1,297 +1,49 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Subastas Logísticas en Vivo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+<div style="background: #1e293b; padding: 25px; border-radius: 28px; text-align: center; color: white; margin-top: 30px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
+    <div style="font-size: 2rem; margin-bottom: 10px;">👤</div>
+    <h3 style="margin: 0; font-weight: 800; letter-spacing: -0.5px;">Registro Seguro LUMERS</h3>
+    <p style="font-size: 0.85rem; color: #94a3b8; margin: 10px 0 20px;">
+        Para garantizar la seguridad de los envíos, el registro requiere **validación de identidad biométrica**.
+    </p>
     
-    <style>
-        :root {
-            --primary: #2563eb;
-            --accent: #3b82f6;
-            --success: #10b981;
-            --danger: #ef4444;
-            --bg: #f8fafc;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg);
-            margin: 0;
-            color: #1e293b;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* HEADER MODERNO */
-        header {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 1.8rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 480px;
-            margin-top: 20px;
-        }
-
-        /* TARJETA DE SUBASTA ESTILO APP */
-        .auction-card {
-            background: white;
-            border-radius: 28px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
-            border: 1px solid rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-        }
-
-        .auction-card:hover { transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06); }
-
-        .badge-live {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #fee2e2;
-            color: var(--danger);
-            padding: 6px 12px;
-            border-radius: 99px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .dot { width: 8px; height: 8px; background: var(--danger); border-radius: 50%; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        .trip-info h2 { font-size: 1.4rem; margin: 15px 0 5px; font-weight: 800; }
-        .trip-info p { margin: 2px 0; color: #64748b; font-size: 0.95rem; }
-
-        /* BOX DE PRECIO DINÁMICO */
-        .price-engine {
-            background: #f1f5f9;
-            border-radius: 20px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .price-engine.bid-update {
-            background: #dcfce7;
-            transform: scale(1.05);
-            border: 2px solid var(--success);
-        }
-
-        .current-bid-label { font-size: 0.8rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; }
-        .current-bid-value { font-size: 3rem; font-weight: 800; color: var(--success); margin: 0; }
-
-        /* RELOJ */
-        .timer-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-            color: #475569;
-            margin-bottom: 15px;
-        }
-
-        /* BOTONES */
-        .btn-bid {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 18px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
-            transition: all 0.2s;
-        }
-
-        .btn-bid:hover { background: #1d4ed8; }
-        .btn-bid:active { transform: scale(0.97); }
-        .btn-bid:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
-
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(4px);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 30px;
-            width: 85%;
-            max-width: 380px;
-            text-align: center;
-        }
-
-        .modal-content input {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.5rem;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        footer { margin-top: 40px; padding: 20px; text-align: center; color: #94a3b8; font-size: 0.85rem; }
-    </style>
-</head>
-<body>
-
-<header>
-    <h1>LUMERS</h1>
-</header>
-
-<div class="container">
-    
-    <div class="auction-card">
-        <div class="badge-live">
-            <div class="dot"></div> Remate en Vivo
-        </div>
-
-        <div class="trip-info">
-            <h2>Flete: Heladera y Lavarropas</h2>
-            <p>📍 B° Somisa, San Nicolás</p>
-            <p>🏁 Rosario (Centro)</p>
-        </div>
-
-        <div class="price-engine" id="price-box">
-            <p class="current-bid-label">Oferta Líder</p>
-            <p class="current-bid-value" id="price-val">$15.000</p>
-            <p style="font-size: 0.75rem; color: #64748b; margin: 5px 0 0;">(Bajá el precio para ganar el viaje)</p>
-        </div>
-
-        <div class="timer-row">
-            <span id="timer-label">⏳ Cierra en:</span>
-            <span id="timer-val" style="color: var(--danger);">14:59</span>
-        </div>
-
-        <button class="btn-bid" onclick="openBidModal()">MEJORAR OFERTA</button>
-        
-        <p style="text-align: center; font-size: 0.8rem; color: #94a3b8; margin-top: 15px;">
-             👁️ <span id="viewers">6</span> personas viendo ahora
-        </p>
-    </div>
-
-    <div style="background: #e0f2fe; padding: 20px; border-radius: 25px; text-align: center; border: 1px dashed var(--primary);">
-        <p style="font-weight: 700; color: #0369a1; margin: 0;">¿Tenés un vehículo propio?</p>
-        <p style="font-size: 0.9rem; margin: 5px 0 15px;">Ganá dinero haciendo repartos en San Nicolás.</p>
-        <button onclick="location.href='https://wa.me/3364652349?text=Hola!%20Quiero%20ser%20Lumer'" style="background: white; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 12px; font-weight: 700; cursor: pointer;">Ser un Lumer</button>
-    </div>
-
+    <button onclick="registrarLumer()" style="width: 100%; background: linear-gradient(90deg, #3b82f6, #2563eb); color: white; border: none; padding: 15px; border-radius: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;">
+        <span>🔍</span> INICIAR ESCANEO BIOMÉTRICO
+    </button>
 </div>
-
-<div id="bidModal" class="modal">
-    <div class="modal-content">
-        <h3 style="margin-top:0;">Tu Mejor Precio</h3>
-        <p style="font-size: 0.9rem; color: #64748b;">Ingresá el monto por el que harías este viaje.</p>
-        <input type="number" id="bidInput" placeholder="$ 0.00">
-        <button class="btn-bid" style="background: var(--success);" onclick="submitBid()">CONFIRMAR Y ENVIAR</button>
-        <button onclick="closeBidModal()" style="margin-top:15px; border:none; background:none; color:#94a3b8; font-weight:600; cursor:pointer;">Cancelar</button>
-    </div>
-</div>
-
-<footer>
-    <p>© 2026 LUMERS - San Nicolás de los Arroyos</p>
-    <p>Operado por Aníbal Gabriel Romero</p>
-</footer>
 
 <script>
-    // --- LÓGICA DE TIEMPO REAL ---
-    let timeEnd = new Date().getTime() + (15 * 60 * 1000); 
+    // --- NUEVAS FUNCIONES DE REGISTRO ---
 
-    function startTimer() {
-        const timerTask = setInterval(() => {
-            const now = new Date().getTime();
-            const diff = timeEnd - now;
-
-            const min = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const sec = Math.floor((diff % (1000 * 60)) / 1000);
-
-            document.getElementById("timer-val").innerText = `${min}:${sec < 10 ? '0' : ''}${sec}`;
-
-            if (diff < 0) {
-                clearInterval(timerTask);
-                document.getElementById("timer-val").innerText = "REMATADO";
-                document.getElementById("timer-label").innerText = "⚠️";
-                document.querySelector(".btn-bid").disabled = true;
-                document.querySelector(".btn-bid").innerText = "SUBASTA CERRADA";
-            }
-        }, 1000);
+    function registrarLumer() {
+        // Efecto visual de inicio de proceso
+        alert("Iniciando sistema de validación facial y DNI de LUMERS...");
+        
+        // El mensaje de WhatsApp ahora incluye la solicitud de datos biométricos
+        const mensajeBiometrico = encodeURIComponent(
+            "¡Hola Aníbal! Quiero registrarme en LUMERS.\n\n" +
+            "Estoy listo para enviar mis datos biométricos:\n" +
+            "1. Foto de DNI (Frente y Dorso)\n" +
+            "2. Selfie de validación facial\n" +
+            "3. Documentación del vehículo"
+        );
+        
+        window.location.href = `https://wa.me/3364652349?text=${mensajeBiometrico}`;
     }
 
-    // --- MANEJO DE OFERTAS ---
-    function openBidModal() { document.getElementById("bidModal").style.display = "flex"; }
-    function closeBidModal() { document.getElementById("bidModal").style.display = "none"; }
-
+    // --- ACTUALIZACIÓN DE LA FUNCIÓN DE OFERTA ---
     function submitBid() {
         const bidValue = document.getElementById("bidInput").value;
-        const currentPrice = 15000; // Esto vendrá de tu Firebase
+        const currentPrice = 15000; 
 
         if(bidValue >= currentPrice || bidValue <= 0) {
             alert("Tu oferta debe ser menor al precio actual para competir.");
             return;
         }
 
-        // Simular extensión de tiempo si es al final
-        const now = new Date().getTime();
-        if ((timeEnd - now) < (2 * 60 * 1000)) {
-            timeEnd += (2 * 60 * 1000);
-            alert("¡Guerra de ofertas! Tiempo extendido 2 minutos.");
-        }
-
-        const msg = encodeURIComponent(`¡Hola Aníbal! Soy un Lumer y quiero el viaje. Mi oferta final es: $${bidValue}`);
+        // Mensaje de WhatsApp corregido con "Lumers"
+        const msg = encodeURIComponent(
+            `¡Hola Aníbal! Soy un Lumer y quiero ganar este remate en LUMERS.\n` +
+            `Mi oferta final para este envío es: $${bidValue}`
+        );
         window.location.href = `https://wa.me/3364652349?text=${msg}`;
     }
-
-    // Iniciar funciones
-    window.onload = startTimer;
-
-    // --- EFECTO VISUAL DE ACTUALIZACIÓN (Para cuando cambies el precio en Firebase) ---
-    function updateLivePrice(newPrice) {
-        const box = document.getElementById("price-box");
-        const val = document.getElementById("price-val");
-        val.innerText = `$${newPrice}`;
-        box.classList.add("bid-update");
-        setTimeout(() => box.classList.remove("bid-update"), 1500);
-    }
 </script>
-
-</body>
-</html>
