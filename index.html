@@ -8,14 +8,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
---bg:#0b0f1a;
---card:#121826;
---accent:#3b82f6;
+--bg:#0a0f1f;
+--card:#111827;
+--accent:#2563eb;
 --green:#22c55e;
---text:#e5e7eb;
---sub:#94a3b8;
+--text:#f3f4f6;
+--sub:#9ca3af;
 }
 
 body{
@@ -28,64 +27,51 @@ color:var(--text);
 .container{
 max-width:420px;
 margin:auto;
-padding:20px;
+padding:15px;
 }
 
-h1{
-text-align:center;
+.header{
+background:linear-gradient(135deg,#1d4ed8,#1e3a8a);
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.balance{
+font-size:2rem;
 font-weight:800;
-letter-spacing:-1px;
+}
+
+.small{
+font-size:0.75rem;
+color:var(--sub);
 }
 
 .card{
 background:var(--card);
-border-radius:20px;
-padding:20px;
-margin-bottom:15px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.3);
 }
 
 .btn{
 width:100%;
-padding:16px;
-border-radius:14px;
+padding:14px;
 border:none;
+border-radius:12px;
 font-weight:700;
 cursor:pointer;
 }
 
-.btn-primary{
+.btn-main{
 background:var(--accent);
 color:white;
 }
 
-.btn-success{
+.btn-green{
 background:var(--green);
 color:white;
-}
-
-.secure{
-background:rgba(34,197,94,0.1);
-border:1px solid rgba(34,197,94,0.3);
-padding:12px;
-border-radius:12px;
-font-size:0.8rem;
-margin-bottom:15px;
-}
-
-.steps{
-display:flex;
-justify-content:space-between;
-font-size:0.65rem;
-text-align:center;
-margin-bottom:15px;
-}
-
-.step{
-width:30%;
-background:#1f2937;
-padding:10px;
-border-radius:10px;
 }
 
 input{
@@ -99,26 +85,29 @@ background:#1f2937;
 color:white;
 }
 
-.wallet{
-background:linear-gradient(135deg,#1e293b,#020617);
-padding:20px;
-border-radius:20px;
-margin-bottom:15px;
-}
-
-.price{
-font-size:1.6rem;
-font-weight:800;
-color:var(--green);
-}
-
-.small{
+.secure{
+background:rgba(34,197,94,0.1);
+border:1px solid rgba(34,197,94,0.3);
+padding:10px;
+border-radius:10px;
 font-size:0.75rem;
-color:var(--sub);
+margin-bottom:10px;
+}
+
+.live{
+font-size:0.7rem;
+color:#fbbf24;
+margin-top:8px;
 }
 
 .view{display:none;}
 .active{display:block;}
+
+.navbar{
+text-align:center;
+font-weight:800;
+margin-bottom:10px;
+}
 
 </style>
 </head>
@@ -127,29 +116,28 @@ color:var(--sub);
 
 <div class="container">
 
-<h1>⚡ LUMERS®</h1>
+<div class="navbar">⚡ LUMERS®</div>
 
 <!-- HOME -->
 <div id="home" class="view active">
 
-<div class="secure">
-🛡️ Dinero protegido hasta confirmar entrega
+<div class="card">
+<b>Logística inteligente</b><br>
+<span class="small">Subastas en tiempo real</span>
 </div>
 
-<div class="steps">
-<div class="step">📦 Publicás</div>
-<div class="step">🚚 Compiten</div>
-<div class="step">💰 Pagás seguro</div>
+<div class="secure">
+🛡️ Tu dinero se libera solo cuando confirmás entrega
 </div>
 
 <div class="card" onclick="goClient()">
-<b>👤 Soy Cliente</b><br>
-<span class="small">Enviar paquete</span>
+👤 <b>Enviar paquete</b><br>
+<span class="small">Publicás y recibís ofertas</span>
 </div>
 
 <div class="card" onclick="goRaider()">
-<b>🏍️ Soy Raider</b><br>
-<span class="small">Ganar dinero</span>
+🏍️ <b>Ganar dinero</b><br>
+<span class="small">Aceptá viajes y cobrá</span>
 </div>
 
 </div>
@@ -157,18 +145,23 @@ color:var(--sub);
 <!-- CLIENT -->
 <div id="client" class="view">
 
-<div class="secure">💰 Si no recibís → NO pagás</div>
+<div class="header">
+<div class="small">Estado del pedido</div>
+<div id="status">Esperando publicación</div>
+</div>
+
+<div class="secure">
+💰 Si no recibís → NO pagás
+</div>
 
 <div class="card">
-<input placeholder="Qué enviás">
-<input placeholder="Origen → destino">
-<input placeholder="Tu presupuesto">
+<input id="c1" placeholder="Qué enviás">
+<input id="c2" placeholder="Origen → destino">
+<input id="c3" placeholder="Presupuesto">
 
-<button class="btn btn-primary" onclick="send()">Iniciar subasta</button>
+<button class="btn btn-main" onclick="send()">Iniciar subasta</button>
 
-<div class="small" style="margin-top:10px;">
-⏳ Raiders ofertando ahora...
-</div>
+<div class="live" id="liveStatus"></div>
 </div>
 
 </div>
@@ -176,20 +169,22 @@ color:var(--sub);
 <!-- RAIDER -->
 <div id="raider" class="view">
 
-<div class="wallet">
+<div class="header">
 <div class="small">Ganancias hoy</div>
-<div style="font-size:2rem;font-weight:800;">$18.000</div>
+<div class="balance">$18.000</div>
 </div>
 
 <div class="card">
-<b>📦 Pedido activo</b><br>
+<b>📦 Pedido disponible</b><br>
 <span class="small">Centro → Somisa</span>
 
-<div class="price">$4.500</div>
+<div style="font-size:1.5rem;color:var(--green);font-weight:800;">$4.500</div>
 
-<input placeholder="Tu oferta">
+<input id="bid" placeholder="Tu oferta">
 
-<button class="btn btn-success" onclick="offer()">Ofertar</button>
+<button class="btn btn-green" onclick="offer()">Ofertar ahora</button>
+
+<div class="live">🔥 3 Raiders ofertando ahora</div>
 </div>
 
 </div>
@@ -214,11 +209,20 @@ document.getElementById(show).classList.add("active");
 }
 
 function send(){
-window.location.href=`https://wa.me/${tel}?text=Pedido LUMERS`;
+let status=document.getElementById("status");
+let live=document.getElementById("liveStatus");
+
+status.innerText="Subasta activa";
+live.innerText="⏳ Raiders viendo tu pedido...";
+
+setTimeout(()=>{live.innerText="🔥 2 ofertas recibidas";},2000);
+setTimeout(()=>{live.innerText="💸 Precio bajando...";},4000);
+
+window.location.href=`https://wa.me/${tel}?text=Nuevo pedido LUMERS`;
 }
 
 function offer(){
-window.location.href=`https://wa.me/${tel}?text=Oferta LUMERS`;
+window.location.href=`https://wa.me/${tel}?text=Oferta Raider LUMERS`;
 }
 
 </script>
