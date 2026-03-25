@@ -3,196 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística & Subastas Oficial</title>
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>LUMERS | Logística Digital San Nicolás</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --brand-blue: #005ef7; --brand-green: #00a650; --bg: #f4f7fa; 
-            --surface: #ffffff; --text: #1e293b; --muted: #64748b; 
-            --warning: #ffcc00; --dark: #0f172a; 
+            --blue: #005ef7; --green: #00a650; --dark: #0f172a; 
+            --bg: #f1f5f9; --white: #ffffff; --warn: #ffcc00; 
         }
-        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Public Sans', sans-serif; background: var(--bg); margin: 0; color: var(--dark); overflow-x: hidden; }
         
-        /* NAVEGACIÓN CORPORATIVA */
-        nav { background: var(--surface); padding: 15px; text-align: center; border-bottom: 3px solid #e2e8f0; position: sticky; top: 0; z-index: 100; transition: 0.3s; }
-        .nav-client { border-bottom-color: var(--brand-blue); }
-        .nav-raider { border-bottom-color: var(--brand-green); }
-        nav h1 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        /* HEADER CORPORATIVO */
+        nav { background: var(--white); padding: 18px; text-align: center; border-bottom: 4px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        nav h1 { margin: 0; font-size: 1.6rem; font-weight: 900; color: var(--blue); letter-spacing: -1px; }
 
-        .container { max-width: 450px; margin: 0 auto; padding: 20px; }
-        .view { display: none; animation: fadeIn 0.3s ease; }
+        .container { max-width: 480px; margin: 0 auto; padding: 20px; box-sizing: border-box; }
+        
+        /* TRANSICIONES */
+        .view { display: none; animation: slideIn 0.3s ease-out; }
         .view-active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* TARJETAS Y BOTONES */
-        .card { background: var(--surface); border-radius: 24px; padding: 22px; margin-bottom: 18px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .btn { width: 100%; padding: 16px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; text-align: center; display: block; margin-top: 10px; transition: 0.2s; text-decoration: none; }
-        .btn-client { background: var(--brand-blue); color: white; }
-        .btn-raider { background: var(--brand-green); color: white; }
-        .btn-outline { background: none; border: 1px solid #cbd5e1; color: var(--muted); margin-top: 15px; font-size: 0.85rem; }
-
-        /* INPUTS */
-        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--muted); margin-top: 12px; }
-        input { width: 100%; padding: 12px; border-radius: 12px; border: 2px solid #edf2f7; box-sizing: border-box; font-size: 1rem; outline: none; }
-
-        /* PANEL DE GANANCIAS (NUEVO) */
-        .wallet-card { background: var(--dark); color: white; border-radius: 20px; padding: 20px; margin-bottom: 15px; border-top: 4px solid var(--brand-green); }
-        .wallet-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #334155; font-size: 0.85rem; }
-
-        /* SUBASTAS */
-        .auction-card { border-left: 6px solid var(--brand-green); background: #f0fdf4; padding: 18px; border-radius: 20px; margin-bottom: 15px; border: 1px solid #dcfce7; }
-        .price-max { font-size: 1.4rem; font-weight: 800; color: var(--brand-green); margin: 8px 0; }
-        .bid-input { border: 2px solid var(--brand-green) !important; text-align: center; font-weight: 800; color: var(--brand-green); background: white; }
-
-        /* LEGAL */
-        .legal-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 12px; font-size: 0.75rem; color: #475569; margin: 10px 0; max-height: 80px; overflow-y: auto; }
+        /* TARJETAS DINÁMICAS */
+        .card { background: var(--white); border-radius: 28px; padding: 24px; margin-bottom: 20px; border: 1px solid #e2e8f0; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05); }
         
-        footer { text-align: center; padding: 30px; font-size: 0.7rem; color: var(--muted); border-top: 1px solid #e2e8f0; margin-top: 20px; }
+        /* BOTONES DE ACCIÓN RÁPIDA */
+        .btn { width: 100%; padding: 18px; border-radius: 50px; font-size: 1.1rem; font-weight: 800; border: none; cursor: pointer; transition: 0.2s; display: block; text-align: center; text-decoration: none; box-sizing: border-box; }
+        .btn-blue { background: var(--blue); color: white; }
+        .btn-green { background: var(--green); color: white; }
+        .btn-dark { background: var(--dark); color: white; }
+        .btn-outline { background: transparent; border: 2px solid #cbd5e1; color: var(--muted); margin-top: 15px; font-size: 0.9rem; }
+        .btn:active { transform: scale(0.96); }
+
+        /* INPUTS MODERNOS */
+        label { display: block; font-size: 0.85rem; font-weight: 800; margin-bottom: 8px; color: #64748b; text-transform: uppercase; margin-top: 15px; }
+        input { width: 100%; padding: 16px; border-radius: 16px; border: 2px solid #e2e8f0; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
+        input:focus { border-color: var(--blue); outline: none; background: #f8fafc; }
+
+        /* PIZARRA DE SUBASTAS */
+        .auction-box { border-left: 8px solid var(--green); background: #f0fdf4; padding: 20px; border-radius: 24px; margin-bottom: 15px; position: relative; }
+        .price-tag { font-size: 1.8rem; font-weight: 900; color: var(--green); margin: 10px 0; }
+        .bid-box { background: white; padding: 15px; border-radius: 18px; margin-top: 10px; border: 2px solid #dcfce7; }
+
+        /* PANEL FINANCIERO RAIDER */
+        .wallet { background: var(--dark); color: white; border-radius: 24px; padding: 25px; margin-bottom: 25px; position: relative; overflow: hidden; }
+        .wallet::after { content: 'L'; position: absolute; right: -20px; bottom: -30px; font-size: 12rem; color: rgba(255,255,255,0.05); font-weight: 900; }
+        .balance-label { font-size: 0.8rem; color: var(--green); font-weight: 800; letter-spacing: 1px; }
+        .balance-amount { font-size: 2.2rem; font-weight: 900; margin: 5px 0; }
+
+        /* LEGAL COMPACTO */
+        .legal { font-size: 0.75rem; color: #64748b; background: #f8fafc; padding: 15px; border-radius: 15px; margin: 15px 0; line-height: 1.4; border: 1px solid #e2e8f0; }
+        
+        footer { text-align: center; padding: 40px 20px; font-size: 0.75rem; color: #94a3b8; }
     </style>
 </head>
 <body>
 
-<nav id="main-nav">
-    <h1 id="nav-title"><span style="color:var(--warning)">⚡</span> LUMERS</h1>
+<nav id="navbar">
+    <h1><span style="color:var(--warn)">⚡</span> LUMERS®</h1>
 </nav>
 
 <div class="container">
 
     <section id="view-home" class="view view-active">
-        <h2 style="text-align: center; font-weight: 800; margin-bottom: 25px;">Plataforma de Logística</h2>
+        <h2 style="text-align: center; font-weight: 900; margin-bottom: 30px; font-size: 1.8rem;">Logística Inteligente</h2>
         
-        <div class="card" onclick="showView('view-client-legal', 'client')" style="cursor:pointer; border-right: 6px solid var(--brand-blue);">
-            <div style="display:flex; gap:15px; align-items:center;">
-                <span style="font-size:2rem;">📦</span>
-                <div><b>Soy Cliente</b><br><span style="font-size:0.8rem; color:var(--muted);">Publicar pedido y seguir flete</span></div>
+        <div class="card" onclick="openClient()" style="cursor:pointer; border-bottom: 6px solid var(--blue);">
+            <div style="display:flex; gap:20px; align-items:center;">
+                <span style="font-size:3rem;">📦</span>
+                <div>
+                    <b style="font-size:1.2rem;">Panel Clientes</b><br>
+                    <span style="color:var(--muted); font-size:0.9rem;">Publicar flete y pagar seguro.</span>
+                </div>
             </div>
         </div>
 
-        <div class="card" onclick="showView('view-raider-legal', 'raider')" style="cursor:pointer; border-right: 6px solid var(--brand-green);">
-            <div style="display:flex; gap:15px; align-items:center;">
-                <span style="font-size:2rem;">🚚</span>
-                <div><b>Soy Raider</b><br><span style="font-size:0.8rem; color:var(--muted);">Ofertar en subastas y ver ganancias</span></div>
+        <div class="card" onclick="openRaider()" style="cursor:pointer; border-bottom: 6px solid var(--green);">
+            <div style="display:flex; gap:20px; align-items:center;">
+                <span style="font-size:3rem;">🚚</span>
+                <div>
+                    <b style="font-size:1.2rem;">Panel Raiders</b><br>
+                    <span style="color:var(--muted); font-size:0.9rem;">Pujar en subastas y cobrar.</span>
+                </div>
             </div>
         </div>
 
-        <div class="card" style="margin-top:10px;">
-            <h3 style="margin-top:0; font-size: 0.9rem;">Centro de Ayuda LUMERS®</h3>
-            <div style="font-size:0.8rem; color:var(--muted); line-height:1.4;">
-                • El cliente propone un pago máximo.<br>
-                • Los Raiders compiten bajando el precio.<br>
-                • El pago se libera al confirmar la recepción.
-            </div>
-        </div>
-    </section>
-
-    <section id="view-client-legal" class="view">
-        <div class="card">
-            <h3>Contrato Cliente</h3>
-            <div class="legal-box"><b>LUMERS®:</b> Garantizamos la custodia del pago (Escrow). El cliente acepta que el flete se realiza por transportistas independientes validados.</div>
-            <div style="display:flex; gap:10px; margin: 15px 0;">
-                <input type="checkbox" id="check-c" style="width:20px; height:20px;">
-                <label for="check-c" style="margin:0; font-size:0.8rem;">Acepto términos de LUMERS®.</label>
-            </div>
-            <button class="btn btn-client" onclick="validarForm('check-c', 'view-client-app')">ENTRAR AL PANEL</button>
-            <button class="btn btn-outline" onclick="showView('view-home', 'none')">VOLVER</button>
+        <div class="legal">
+            <b>SISTEMA OFICIAL LUMERS®</b><br>
+            Intermediación digital con garantía de pago en custodia. Operado en San Nicolás de los Arroyos.
         </div>
     </section>
 
-    <section id="view-client-app" class="view">
+    <section id="view-client" class="view">
         <div class="card">
-            <h3>Publicar Flete</h3>
-            <label>Carga y Ruta:</label>
-            <input type="text" id="c-desc" placeholder="Ej: Bobinas Siderar a Puerto">
-            <label>Presupuesto Máximo ($):</label>
-            <input type="number" id="c-pago" placeholder="Ej: 15000">
-            <button class="btn btn-client" onclick="pedirFlete()">PUBLICAR SUBASTA</button>
+            <h3 style="margin-top:0; color:var(--blue);">Solicitar Envío</h3>
+            <div class="legal"><b>Contrato Cliente:</b> Al publicar, aceptás el depósito en garantía de LUMERS®. El pago se libera al recibir la carga.</div>
             
-            <hr style="margin:20px 0; border:0; border-top:1px solid #eee;">
-            <div style="background:#e0f2fe; padding:15px; border-radius:15px; font-size:0.85rem; border:1px solid var(--brand-blue);">
-                <b>Envío Activo #LM-2026</b><br>Estado: ⚡ Raider en viaje.
+            <label>¿Qué enviamos?</label>
+            <input type="text" id="c-carga" placeholder="Ej: Paquete, Pallet, Mudanza">
+            <label>Ruta (Desde - Hasta)</label>
+            <input type="text" id="c-ruta" placeholder="Ej: Savio 400 a Planta Siderar">
+            <label>Presupuesto Máximo ($)</label>
+            <input type="number" id="c-pago" placeholder="Monto máximo que pagás">
+            
+            <button class="btn btn-blue" style="margin-top:20px;" onclick="sendClientRequest()">PUBLICAR SUBASTA</button>
+            
+            <hr style="margin:30px 0; border:0; border-top:1px solid #e2e8f0;">
+            <b style="display:block; margin-bottom:10px;">SEGUIMIENTO ACTIVO</b>
+            <div style="background:#e0f2fe; padding:15px; border-radius:18px; border:1px solid var(--blue); font-size:0.85rem;">
+                <b>Envío #LM-780</b><br>Raider asignado y en viaje.
             </div>
-            <button class="btn btn-client" style="background:var(--brand-green); margin-top:10px;" onclick="confirmar()">CONFIRMAR RECEPCIÓN</button>
+            <button class="btn btn-green" style="margin-top:15px;" onclick="confirmArrival()">CONFIRMAR RECEPCIÓN ✅</button>
+            <button class="btn btn-outline" onclick="goHome()">VOLVER AL INICIO</button>
         </div>
     </section>
 
-    <section id="view-raider-legal" class="view">
-        <div class="card">
-            <h3>Contrato Raider</h3>
-            <div class="legal-box"><b>LUMERS®:</b> Obligatorio seguro vigente y DNI. El transportista es responsable civil de la carga. El pago es post-entrega.</div>
-            <div style="display:flex; gap:10px; margin: 15px 0;">
-                <input type="checkbox" id="check-r" style="width:20px; height:20px;">
-                <label for="check-r" style="margin:0; font-size:0.8rem;">Acepto contrato y envío de seguro.</label>
+    <section id="view-raider" class="view">
+        <div class="wallet">
+            <div class="balance-label">GANANCIAS ACUMULADAS</div>
+            <div class="balance-amount">$54.200</div>
+            <button class="btn btn-green" style="padding:10px; font-size:0.8rem; width:auto; border-radius:10px;" onclick="requestWithdrawal()">SOLICITAR COBRO</button>
+        </div>
+
+        <h3 style="margin-bottom:15px;">Subastas en Vivo ⚡</h3>
+
+        <div class="auction-box">
+            <b style="color:var(--green); font-size:0.75rem;">OFERTA DISPONIBLE #SUB-402</b>
+            <p style="margin:10px 0; font-weight:800;">📦 Repuestos Industriales<br><small>📍 San Nicolás → Ramallo</small></p>
+            <div class="price-tag">$18.000 <small style="font-size:0.8rem; color:var(--muted);">MÁX</small></div>
+            
+            <div class="bid-box">
+                <label style="margin-top:0;">Tu oferta para ganar:</label>
+                <input type="number" id="bid-amount" placeholder="Ej: 17500" style="border-color:var(--green);">
+                <button class="btn btn-green" style="margin-top:10px;" onclick="sendBid('402', 'SN-Ramallo')">ENVIAR OFERTA</button>
             </div>
-            <button class="btn btn-raider" onclick="validarRaider()">VALIDAR Y VER SUBASTAS</button>
-            <button class="btn btn-outline" onclick="showView('view-home', 'none')">VOLVER</button>
-        </div>
-    </section>
-
-    <section id="view-raider-app" class="view">
-        <div class="wallet-card">
-            <div style="font-size:0.75rem; color:var(--brand-green); font-weight:800;">TOTAL ACUMULADO</div>
-            <div style="font-size:1.8rem; font-weight:800; margin:5px 0;">$42.300</div>
-            <div class="wallet-item"><span>Último flete (#SUB-180)</span><span>$12.500</span></div>
-            <div class="wallet-item"><span>Flete anterior (#SUB-175)</span><span>$9.800</span></div>
         </div>
 
-        <h3 style="margin:20px 0 10px;">Subastas Activas ⚡</h3>
-        <div class="auction-card">
-            <b>#SUB-205: Repuestos Industriales</b><br>
-            <small>📍 Siderar → San Nicolás Centro</small>
-            <div class="price-max">Presupuesto Máximo: $14.000</div>
-            <label>Tu oferta (menor para ganar):</label>
-            <input type="number" id="bid-205" class="bid-input" placeholder="$">
-            <button class="btn btn-raider" style="margin-top:15px;" onclick="ofertar('205', 'Siderar-Centro')">ENVIAR OFERTA</button>
-        </div>
-
-        <button class="btn btn-outline" onclick="showView('view-home', 'none')">CERRAR SESIÓN</button>
+        <button class="btn btn-outline" onclick="goHome()">VOLVER AL INICIO</button>
     </section>
 
 </div>
 
 <footer>
-    ⚡ <b>LUMERS® Logística</b> | Marca Registrada<br>
-    San Nicolás de los Arroyos, Buenos Aires.
+    <b>LUMERS® Marca Registrada</b><br>
+    Logística y Subastas de Precios.<br>
+    San Nicolás, Buenos Aires.
 </footer>
 
 <script>
-    function showView(id, role) {
+    const nav = document.getElementById('navbar');
+
+    function showView(id) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('view-active'));
         document.getElementById(id).classList.add('view-active');
-        const nav = document.getElementById('main-nav');
-        nav.className = ''; 
-        if(role === 'client') nav.classList.add('nav-client');
-        if(role === 'raider') nav.classList.add('nav-raider');
         window.scrollTo(0,0);
     }
 
-    function validarForm(chk, next) {
-        if(!document.getElementById(chk).checked) { alert("Aceptá los términos de Lumers®."); return; }
-        showView(next, 'client');
+    function goHome() {
+        nav.style.borderBottomColor = 'var(--blue)';
+        showView('view-home');
     }
 
-    function validarRaider() {
-        if(!document.getElementById('check-r').checked) { alert("Aceptá el contrato."); return; }
-        window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent('LUMERS®: Acepto contrato. Envío Póliza y DNI.')}`;
-        setTimeout(() => showView('view-raider-app', 'raider'), 1000);
+    function openClient() {
+        nav.style.borderBottomColor = 'var(--blue)';
+        showView('view-client');
     }
 
-    function pedirFlete() {
-        const desc = document.getElementById('c-desc').value;
-        const pago = document.getElementById('c-pago').value;
-        if(!desc || !pago) return alert("Completá los datos");
-        window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent('📦 LUMERS® - NUEVO PEDIDO\nCarga: '+desc+'\nPresupuesto: $'+pago)}`;
+    function openRaider() {
+        nav.style.borderBottomColor = 'var(--green)';
+        showView('view-raider');
     }
 
-    function ofertar(id, ruta) {
-        const monto = document.getElementById('bid-'+id).value;
-        if(!monto) return alert("Ingresá un monto");
-        window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent('🚚 LUMERS® - OFERTA RAIDER\nSubasta: #'+id+'\nMi Precio: $'+monto)}`;
+    // LÓGICA DE WHATSAPP CORPORATIVO
+    const WHATSAPP_NUMBER = "3364652349";
+
+    function sendClientRequest() {
+        const c = document.getElementById('c-carga').value;
+        const r = document.getElementById('c-ruta').value;
+        const p = document.getElementById('c-pago').value;
+        if(!c || !p) return alert("Completá los datos del pedido.");
+        
+        const msg = encodeURIComponent(`📦 LUMERS® CLIENTE\nPedido: ${c}\nRuta: ${r}\nPago Máximo: $${p}\n\n*Deseo publicar este remate.*`);
+        window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     }
 
-    function confirmar() {
-        window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent('✅ LUMERS®: Recepción confirmada. Liberar pago.')}`;
+    function sendBid(id, ruta) {
+        const monto = document.getElementById('bid-amount').value;
+        if(!monto) return alert("Ingresá un monto de oferta.");
+        
+        const msg = encodeURIComponent(`🚚 LUMERS® RAIDER\nSubasta: #${id}\nTramo: ${ruta}\nMi Oferta: $${monto}\n\n*Tengo seguro vigente y DNI validado.*`);
+        window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    }
+
+    function confirmArrival() {
+        const msg = encodeURIComponent("✅ LUMERS® CONFIRMACIÓN\nHe recibido mi carga correctamente.\n*Proceder a liberar el pago al Raider.*");
+        window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+    }
+
+    function requestWithdrawal() {
+        const msg = encodeURIComponent("💰 LUMERS® COBRO\nSolicito el retiro de mis ganancias acumuladas en el sistema.");
+        window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
     }
 </script>
 
