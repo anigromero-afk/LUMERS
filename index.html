@@ -2,186 +2,216 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LUMERS | Una entrega a la vez</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMERS | Subasta de Envíos en Tiempo Real</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #020617; color: white; margin: 0; overflow-x: hidden; }
-        .bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); min-height: 100vh; }
-        .logo-organic { width: 90px; height: 90px; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(59, 130, 246, 0.4); animation: morph 10s ease-in-out infinite; }
-        @keyframes morph { 0%, 100% { border-radius: 40% 60% 70% 30% / 40% 40% 60% 50%; } 50% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; } }
-        .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(15px); }
-        .btn-blue { background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%); transition: all 0.3s; color: white; }
-        .badge { font-size: 8px; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; font-weight: 900; }
-        .status-subasta { background: #3b82f6; color: white; }
-        .status-camino { background: #f59e0b; color: white; animation: pulse 2s infinite; }
-        .status-entregado { background: #10b981; color: white; }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-        .hidden { display: none !important; }
+        :root {
+            --primary: #007bff;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --danger: #d9534f;
+            --success: #28a745;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            margin: 0;
+            color: var(--dark);
+        }
+
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .hero-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid #eee;
+        }
+
+        h2 { color: var(--primary); margin-bottom: 10px; }
+
+        /* ESTILO DE LA TARJETA DE SUBASTA */
+        .subasta-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 8px solid var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .subasta-card:hover { transform: translateY(-5px); }
+
+        .tag-tipo {
+            background: #e7f1ff;
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .timer-box {
+            background: #fff3f3;
+            color: var(--danger);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 15px 0;
+            border: 1px dashed var(--danger);
+        }
+
+        .btn-ofertar {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-ofertar:disabled {
+            background: #ccc !important;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .badge-seguro {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
     </style>
 </head>
-<body class="bg-main">
+<body>
 
-    <div id="view-login" class="hidden min-h-screen flex flex-col items-center p-6 text-center">
-        <div class="logo-organic mt-6 mb-4"><i class="fa-solid fa-box-open text-3xl text-white"></i></div>
-        <h1 class="text-5xl font-black italic text-blue-500 uppercase leading-none tracking-tighter">LUMERS</h1>
+<header>
+    <h1 style="margin:0; letter-spacing: -1px;">LUMERS</h1>
+    <p style="margin:5px 0 0; opacity: 0.9;">Envíos Inteligentes en San Nicolás</p>
+</header>
+
+<div class="container">
+    
+    <div class="hero-card">
+        <h3>🚀 ¡Ganá plata con tu vehículo!</h3>
+        <p>¿Viajás a otra ciudad o tenés tiempo libre? Convertite en un <b>Lumer</b> y aprovechá los viajes disponibles.</p>
+        <a href="https://wa.me/3364652349?text=Hola!%20Quiero%20ser%20un%20Lumer" style="color: var(--primary); text-decoration: none; font-weight: bold;">Registrate aquí →</a>
+    </div>
+
+    <h2 style="text-align: center;">🔥 Subastas Activas</h2>
+
+    <div class="subasta-card" id="viaje-101">
+        <span class="tag-tipo">🚛 Flete / Camioneta</span>
+        <h3 style="margin: 15px 0 5px;">Mudanza Chica (Muebles)</h3>
+        <p style="margin: 0; color: #555;">📍 Origen: B° Somisa, San Nicolás</p>
+        <p style="margin: 5px 0; color: #555;">🏁 Destino: Rosario (Centro)</p>
         
-        <div class="flex gap-4 mt-4 mb-2">
-            <div class="glass px-4 py-2 rounded-2xl border border-blue-500/20">
-                <p id="count-visitas" class="text-lg font-black text-blue-400">0</p>
-                <p class="text-[7px] uppercase font-bold text-white/50 tracking-widest">Visitas</p>
-            </div>
-            <div class="glass px-4 py-2 rounded-2xl border border-blue-500/20">
-                <p id="count-subastas" class="text-lg font-black text-blue-400">0</p>
-                <p class="text-[7px] uppercase font-bold text-white/50 tracking-widest">Subastas</p>
-            </div>
-        </div>
+        <div class="badge-seguro">🛡️ Pago Protegido por LUMERS</div>
 
-        <p class="text-[10px] font-black text-blue-400 uppercase tracking-[0.4em] mt-2 italic">Una entrega a la vez</p>
+        <div class="timer-box" id="timer-101">⏳ Calculando tiempo...</div>
 
-        <div class="w-full max-w-sm glass rounded-[2rem] p-6 my-6 text-left border-t border-blue-500/20">
-            <h2 class="text-[12px] font-black italic text-white uppercase mb-4 border-b border-white/10 pb-2 text-center">Sistema de Confianza</h2>
-            <div class="space-y-4 text-[11px] italic text-white/80">
-                <p><i class="fa-solid fa-shield-halved text-blue-400 mr-2"></i><b>Garantía LUMERS:</b> Retenemos el monto del envío hasta que el pedido llegue a destino.</p>
-                <p><i class="fa-solid fa-gavel text-blue-400 mr-2"></i><b>Subasta Logística:</b> Raiders y fletes compiten para darte el mejor precio.</p>
-            </div>
-        </div>
-
-        <div class="w-full max-w-sm space-y-3 mb-8 text-left text-[11px]">
-            <p class="text-[10px] font-black text-blue-400 uppercase ml-2 italic">💡 Opciones de la Red:</p>
-            <div class="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 italic text-white/90 leading-tight">"<b>Internacional:</b> Traer Tablet de China o EEUU. Pago $60.000."</div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-white/90 leading-tight">"<b>Colaborativo:</b> Viajo a Bs As. Llevo paquetes por $5.000 c/u."</div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-white/90 leading-tight">"<b>Fletes:</b> Traer Heladera de Bs As a San Nicolás. Pago $45.000."</div>
-            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 italic text-white/90 leading-tight">"<b>Delivery:</b> Hamburguesa zona centro. Pago $3.000."</div>
-        </div>
-
-        <button id="btnLogin" class="w-full max-w-xs btn-blue py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest shadow-2xl mb-8">INGRESAR AHORA</button>
-
-        <footer class="mt-auto pb-6 text-[8px] opacity-40 font-black uppercase tracking-widest text-center">© 2026 LUMERS | NIC ARGENTINA | INTI</footer>
+        <button class="btn-ofertar" id="btn-101" onclick="enviarOferta('Mudanza Rosario')">
+            ENVIAR MI OFERTA
+        </button>
     </div>
 
-    <div id="view-app" class="hidden min-h-screen flex flex-col">
-        <header class="p-6 glass flex justify-between items-center sticky top-0 z-50">
-            <div>
-                <h1 onclick="adminHack()" class="text-2xl font-black italic text-blue-500 uppercase cursor-pointer leading-none">LUMERS</h1>
-                <p class="text-[8px] font-bold text-blue-400 uppercase italic mt-1">Nexo de Pago Protegido</p>
-            </div>
-            <button onclick="logout()" class="text-white/30 text-[9px] font-black uppercase italic">Salir</button>
-        </header>
-        <main class="p-6 pb-32"><div id="lista-drops" class="space-y-4"></div></main>
-        <button onclick="toggleModal(true)" class="fixed bottom-10 right-8 btn-blue w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl z-50"><i class="fa-solid fa-plus text-white"></i></button>
+    <div class="subasta-card" id="viaje-102">
+        <span class="tag-tipo">🏍️ Moto / Auto</span>
+        <h3 style="margin: 15px 0 5px;">Envío de Repuestos (Caja chica)</h3>
+        <p style="margin: 0; color: #555;">📍 Origen: Centro, San Nicolás</p>
+        <p style="margin: 5px 0; color: #555;">🏁 Destino: Ramallo</p>
+        
+        <div class="badge-seguro">🛡️ Pago Protegido por LUMERS</div>
+
+        <div class="timer-box" id="timer-102">⏳ Calculando tiempo...</div>
+
+        <button class="btn-ofertar" id="btn-102" onclick="enviarOferta('Repuestos Ramallo')">
+            ENVIAR MI OFERTA
+        </button>
     </div>
 
-    <div id="modal-drop" class="fixed inset-0 bg-slate-950/98 z-[100] hidden flex items-center justify-center p-6">
-        <div class="w-full max-w-sm glass p-8 rounded-[3rem] space-y-4">
-            <h2 class="text-2xl font-black italic text-blue-500 uppercase text-center text-white">Publicar</h2>
-            <div class="space-y-3">
-                <input type="text" id="in-det" placeholder="📦 ¿Qué enviás o qué ofrecés?" class="w-full p-4 bg-white/5 rounded-2xl text-white text-sm outline-none border border-white/5">
-                <input type="text" id="in-ori" placeholder="📍 Origen / Retiro" class="w-full p-4 bg-white/5 rounded-2xl text-white text-sm outline-none border border-white/5">
-                <input type="text" id="in-des" placeholder="🏁 Destino / Entrega" class="w-full p-4 bg-white/5 rounded-2xl text-white text-sm outline-none border border-white/5">
-                <input type="number" id="in-pre" placeholder="💰 Precio Sugerido $" class="w-full p-4 bg-white/5 rounded-2xl text-white text-sm outline-none border border-white/5">
-                <input type="number" id="in-tel" placeholder="📱 WhatsApp (ej: 3364652349)" class="w-full p-4 bg-white/5 rounded-2xl text-white text-sm outline-none border border-white/5">
-            </div>
-            <button onclick="crearDrop()" class="w-full btn-blue py-5 rounded-2xl font-black uppercase text-xs">Publicar</button>
-            <button onclick="toggleModal(false)" class="w-full text-white/20 text-[10px] font-bold uppercase text-center mt-2">Cancelar</button>
-        </div>
-    </div>
+</div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, deleteDoc, doc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<footer>
+    <p>© 2026 LUMERS - San Nicolás de los Arroyos</p>
+    <p>Operado por Aníbal Gabriel Romero</p>
+    <small>Versión 2.0 - Sistema de Subasta Protegida</small>
+</footer>
 
-        const firebaseConfig = { apiKey: "AIzaSyBDWQG6zKK2CDsnHASgE2jtO3DEnU2RsHw", authDomain: "lumers-d1d36.firebaseapp.com", projectId: "lumers-d1d36", storageBucket: "lumers-d1d36.firebasestorage.app", messagingSenderId: "798769127070", appId: "1:798769127070:web:6b591851e4c5c62758258f" };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-        let isAdmin = false, clickCount = 0;
+<script>
+    // CONFIGURACIÓN DE TIEMPOS (Simulando datos de base de datos)
+    // El primer viaje cierra en 15 minutos, el segundo en 45.
+    const cierreViaje1 = new Date().getTime() + (15 * 60 * 1000);
+    const cierreViaje2 = new Date().getTime() + (45 * 60 * 1000);
 
-        async function manejarStats() {
-            const statsRef = doc(db, "config", "stats");
-            await updateDoc(statsRef, { visitas: increment(1) }).catch(async () => { await setDoc(statsRef, { visitas: 1, subastas: 0 }); });
-            onSnapshot(statsRef, (snap) => {
-                if(snap.exists()){
-                    document.getElementById('count-visitas').innerText = snap.data().visitas;
-                    document.getElementById('count-subastas').innerText = snap.data().subastas;
-                }
-            });
-        }
-        manejarStats();
+    function iniciarReloj(idTimer, idBoton, tiempoFinal) {
+        const x = setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = tiempoFinal - ahora;
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) { document.getElementById('view-login').classList.add('hidden'); document.getElementById('view-app').classList.remove('hidden'); cargarDrops(); }
-            else { document.getElementById('view-login').classList.remove('hidden'); document.getElementById('view-app').classList.add('hidden'); }
-        });
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
 
-        window.adminHack = () => { clickCount++; if(clickCount >= 5) { const pass = prompt("Acceso Gestión:"); if(pass === "lumers2026") { isAdmin = true; alert("Modo Gestión"); cargarDrops(); } clickCount = 0; } };
+            document.getElementById(idTimer).innerHTML = `⏱️ CIERRA EN: ${minutos}m ${segundos}s`;
 
-        window.cambiarEstado = async (id, nuevoEstado) => { await updateDoc(doc(db, "viajes", id), { estado: nuevoEstado }); };
+            if (distancia < 0) {
+                clearInterval(x);
+                document.getElementById(idTimer).innerHTML = "❌ SUBASTA FINALIZADA";
+                document.getElementById(idTimer).style.background = "#eee";
+                document.getElementById(idTimer).style.color = "#777";
+                document.getElementById(idTimer).style.border = "1px solid #ccc";
+                
+                const btn = document.getElementById(idBoton);
+                btn.disabled = true;
+                btn.innerHTML = "VIAJE CERRADO";
+            }
+        }, 1000);
+    }
 
-        window.habilitarViaje = (tel, det) => {
-            const msg = `✅ *PAGO CUSTODIADO POR LUMERS*\n\nHola! El cliente ya depositó el monto del envío: *${det}*.\n\nYa podés coordinar el retiro y entrega directamente al WhatsApp del dueño:\n📱 https://wa.me/${tel}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
-        };
+    // Ejecutar relojes
+    iniciarReloj("timer-101", "btn-101", cierreViaje1);
+    iniciarReloj("timer-102", "btn-102", cierreViaje2);
 
-        window.ofertar = async (det, ori, des, pre) => {
-            await updateDoc(doc(db, "config", "stats"), { subastas: increment(1) });
-            const ticket = `🔨 *OFERTA LUMERS*\n📦 *DETALLE:* ${det}\n📍 *ORIGEN:* ${ori}\n🏁 *DESTINO:* ${des}\n💰 *VALOR:* $${pre}\n_Acepto custodia LUMERS._`;
-            window.open(`https://wa.me/3364652349?text=${encodeURIComponent(ticket)}`, '_blank');
-        };
+    // Función para enviar oferta por WhatsApp
+    function enviarOferta(nombreViaje) {
+        const mensaje = encodeURIComponent(`Hola Aníbal! Quiero ofertar para el viaje: ${nombreViaje}. Mi precio es: $`);
+        window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
+    }
+</script>
 
-        window.crearDrop = async () => {
-            const det = document.getElementById('in-det').value, ori = document.getElementById('in-ori').value, des = document.getElementById('in-des').value, pre = document.getElementById('in-pre').value, tel = document.getElementById('in-tel').value;
-            if(!det || !ori || !des || !pre || !tel) return alert("Faltan datos");
-            let cleanTel = tel.toString().replace(/\D/g, "");
-            if (!cleanTel.startsWith("54")) cleanTel = "54" + cleanTel;
-            await addDoc(collection(db, "viajes"), { detalle: det, origen: ori, destino: des, precio: parseFloat(pre), whatsapp: cleanTel, estado: 'subasta', creado: Date.now() });
-            toggleModal(false);
-            document.querySelectorAll('input').forEach(i => i.value = '');
-        };
-
-        function cargarDrops() {
-            const q = query(collection(db, "viajes"), orderBy("creado", "desc"));
-            onSnapshot(q, (snap) => {
-                const lista = document.getElementById('lista-drops');
-                lista.innerHTML = '';
-                snap.forEach((documento) => {
-                    const d = documento.data(), id = documento.id;
-                    const statusText = d.estado === 'subasta' ? 'En Subasta 🔨' : d.estado === 'camino' ? 'En Camino 🚚' : 'Entregado ✅';
-                    lista.innerHTML += `
-                        <div class="glass p-7 rounded-[2.5rem] relative border-b border-white/10">
-                            <div class="flex justify-between items-center mb-4">
-                                <span class="badge status-${d.estado}">${statusText}</span>
-                                ${isAdmin ? `
-                                    <div class="flex items-center space-x-1">
-                                        <button onclick="window.open('https://wa.me/${d.whatsapp}', '_blank')" class="bg-green-600 text-[8px] rounded px-1 font-black">DUEÑO</button>
-                                        ${d.estado === 'camino' ? `<button onclick="habilitarViaje('${d.whatsapp}', '${d.detalle}')" class="bg-blue-600 text-[8px] rounded px-1 font-black">HABILITAR</button>` : ''}
-                                        <select onchange="cambiarEstado('${id}', this.value)" class="bg-white/10 text-[9px] rounded p-1 text-white outline-none">
-                                            <option value="subasta" ${d.estado === 'subasta' ? 'selected' : ''}>Subasta</option>
-                                            <option value="camino" ${d.estado === 'camino' ? 'selected' : ''}>Camino</option>
-                                            <option value="entregado" ${d.estado === 'entregado' ? 'selected' : ''}>Entregado</option>
-                                        </select>
-                                        <button onclick="borrarDrop('${id}')" class="text-red-500/40"><i class="fa-solid fa-trash"></i></button>
-                                    </div>
-                                ` : ''}
-                            </div>
-                            <p class="text-[16px] font-black uppercase text-white mb-4 leading-tight">${d.detalle}</p>
-                            <div class="flex justify-between items-start mb-5 text-[11px] font-bold uppercase text-white/90">
-                                <div><p class="text-[9px] text-blue-500">📍 ${d.origen}</p><p class="text-[9px] text-blue-500">🏁 ${d.destino}</p></div>
-                                <div class="text-right"><p class="text-xl text-blue-400">$${d.precio}</p></div>
-                            </div>
-                            <button onclick="ofertar('${d.detalle}', '${d.origen}', '${d.destino}', '${d.precio}')" class="w-full bg-blue-500/10 border border-blue-500/30 py-4 rounded-xl font-black text-[10px] text-blue-400">ENTRAR EN LA PUJA</button>
-                        </div>`;
-                });
-            });
-        }
-        window.logout = () => signOut(auth);
-        window.toggleModal = (val) => document.getElementById('modal-drop').classList.toggle('hidden', !val);
-        document.getElementById('btnLogin').onclick = () => signInWithPopup(auth, provider);
-        window.borrarDrop = async (id) => { if(confirm("¿Eliminar?")) await deleteDoc(doc(db, "viajes", id)); };
-    </script>
 </body>
 </html>
