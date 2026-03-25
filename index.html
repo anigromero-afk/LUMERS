@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Segura y Validación SID RENAPER</title>
+    <title>LUMERS | Logística Segura y Subastas en Vivo</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --primary: #0056b3; /* Azul Original LUMERS */
-            --accent: #007bff; /* Celeste Original */
+            --primary: #0056b3; 
+            --accent: #007bff;
             --success: #28a745;
             --danger: #dc3545;
             --dark: #333;
-            --light: #f4f4f4;
+            --light: #f8f9fa;
         }
 
         body {
@@ -23,160 +23,99 @@
             color: var(--dark);
         }
 
-        /* --- HEADER ORIGINAL --- */
         header {
             background-color: var(--primary);
             color: white;
-            padding: 20px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
 
         .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 0 20px;
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 0 15px;
         }
 
-        /* --- SECCIÓN PÚBLICA (ESTÉTICA ORIGINAL) --- */
-        .hero-card {
+        /* --- TARJETAS --- */
+        .card {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
         }
 
-        .hero-card h2 { color: var(--primary); margin-top: 0; }
-        .hero-card p { color: #666; line-height: 1.6; }
+        h2 { color: var(--primary); margin-top: 0; font-weight: 900; text-transform: uppercase; font-size: 1.2rem; }
+        p { color: #666; line-height: 1.5; font-size: 0.95rem; }
 
-        /* --- MURO DE SEGURIDAD SID-RENAPER (INTEGRADO) --- */
-        .sid-gate {
-            background: #e7f1ff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            border: 2px solid var(--accent);
-            margin-bottom: 20px;
-        }
-
-        .sid-badge {
-            background: var(--primary);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
-
-        .btn-sid {
-            background-color: var(--primary);
-            color: white;
+        /* --- BOTONES --- */
+        .btn {
+            width: 100%;
             border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            font-size: 1.1rem;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            transition: background 0.3s;
+            transition: 0.3s;
+            display: block;
+            text-decoration: none;
+            text-align: center;
         }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-success { background: var(--success); color: white; }
+        .btn:active { transform: scale(0.98); }
 
-        .btn-sid:hover { background-color: #004494; }
+        /* --- SECCIÓN VALIDACIÓN --- */
+        .validation-steps {
+            background: #f1f8ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: left;
+            border-left: 4px solid var(--accent);
+        }
+        .step { font-size: 0.85rem; margin-bottom: 8px; color: #444; }
 
-        /* --- ZONA PRIVADA (ESTÉTICA ORIGINAL DESBLOQUEADA) --- */
+        /* --- ZONA PRIVADA (OCULTA) --- */
         #private-zone { display: none; }
 
-        .trip-card {
-            background: white;
-            border-radius: 10px;
+        .price-display {
+            background: #f0fdf4;
+            border: 2px solid #dcfce7;
             padding: 20px;
-            margin-bottom: 20px;
-            border-left: 5px solid var(--success);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .trip-card h3 { margin: 0 0 10px; color: var(--dark); }
-        .trip-card p { margin: 5px 0; color: #777; font-size: 0.9rem; }
-
-        /* BOX DE PRECIO DINÁMICO (ESTÉTICA ORIGINAL) */
-        .price-box {
-            background-color: #f8fff9;
-            border: 1px solid #c3e6cb;
-            padding: 15px;
-            border-radius: 5px;
+            border-radius: 12px;
             text-align: center;
-            margin: 15px 0;
+            margin: 20px 0;
         }
-
-        .price-box.update {
-            animation: pricePulse 1s;
-        }
-
-        @keyframes pricePulse {
-            0% { background-color: #f8fff9; }
-            50% { background-color: #d4edda; }
-            100% { background-color: #f8fff9; }
-        }
-
-        .price-label { font-size: 0.8rem; color: #155724; font-weight: bold; margin: 0; }
-        .price-value { font-size: 2.5rem; font-weight: 900; color: var(--success); margin: 5px 0; }
-
-        /* RELOJ (ESTÉTICA ORIGINAL) */
+        .price-value { font-size: 2.8rem; font-weight: 900; color: var(--success); margin: 0; }
+        
         .timer {
             color: var(--danger);
             font-weight: bold;
             text-align: center;
+            font-size: 1.1rem;
             margin-bottom: 15px;
         }
 
-        /* OVERLAY DE PROCESAMIENTO (SIMULACIÓN SID) */
-        #loading-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.9);
-            z-index: 1000;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .spinner {
-            border: 8px solid #f3f3f3;
-            border-top: 8px solid var(--accent);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* --- FOOTER ORIGINAL --- */
+        /* --- FOOTER --- */
         footer {
             text-align: center;
-            padding: 30px;
+            padding: 40px 20px;
             color: #888;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border-top: 1px solid #ddd;
-            margin-top: 40px;
         }
     </style>
 </head>
@@ -189,44 +128,60 @@
 <div class="container">
 
     <section id="public-view">
-        <div class="hero-card">
-            <h2>Envíos Seguros en San Nicolás</h2>
-            <p><b>LUMERS</b> conecta tus necesidades de transporte con conductores verificados mediante el SID del RENAPER.</p>
+        <div class="card">
+            <h2>Logística Profesional</h2>
+            <p><b>LUMERS</b> es la plataforma líder en San Nicolás para el transporte de cargas con seguridad garantizada.</p>
         </div>
 
-        <div class="sid-gate">
-            <div class="sid-badge">SISTEMA SID - RENAPER</div>
-            <h3 style="margin: 0 0 10px; color: var(--primary);">Acceso Exclusivo</h3>
-            <p style="font-size: 0.9rem; color: #555; margin-bottom: 20px;">
-                Para visualizar los remates en vivo y ofertar, debés validar tu identidad biométrica oficial.
-            </p>
-            <button class="btn-sid" onclick="iniciarValidacionSid()">
-                INGRESAR CON BIOMETRÍA
+        <div class="card" style="border: 2px solid var(--accent);">
+            <div style="background: var(--accent); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; display: inline-block; margin-bottom: 15px;">
+                REQUISITO DE SEGURIDAD
+            </div>
+            <h2>Validación de Identidad</h2>
+            <p>Para visualizar remates y ofertar, debés completar el proceso de validación biométrica manual.</p>
+            
+            <div class="validation-steps">
+                <div class="step">✅ Foto DNI (Frente y Dorso)</div>
+                <div class="step">✅ Selfie con DNI en mano</div>
+                <div class="step">✅ Captura de "Mi Argentina" validado</div>
+            </div>
+
+            <button class="btn btn-primary" onclick="enviarValidacion()">
+                ENVIAR DATOS POR WHATSAPP
             </button>
+            
+            <p style="font-size: 0.7rem; color: #999; margin-top: 15px;">
+                Una vez verificado por nuestro equipo legal, se te otorgará acceso a la zona de subastas.
+            </p>
         </div>
+        
+        <button onclick="document.getElementById('public-view').style.display='none'; document.getElementById('private-zone').style.display='block';" 
+                style="background:none; border:none; color:#ccc; font-size:0.6rem; cursor:pointer; width:100%;">
+            (Simular acceso verificado)
+        </button>
     </section>
 
     <section id="private-zone">
-        <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 5px; text-align: center; margin-bottom: 20px; font-weight: bold;">
-            ✓ Identidad validada ante RENAPER
+        <div style="background: #d4edda; color: #155724; padding: 12px; border-radius: 10px; text-align: center; margin-bottom: 25px; font-weight: bold; font-size: 0.9rem;">
+            ✓ Identidad LUMERS Verificada
         </div>
 
-        <h2 style="color: var(--primary); text-align: center;">Remates Activos</h2>
+        <div class="card">
+            <div style="color: var(--danger); font-weight: bold; font-size: 0.8rem; display: flex; align-items: center; gap: 5px;">
+                <span style="height: 8px; width: 8px; background: red; border-radius: 50%;"></span> EN VIVO
+            </div>
+            <h3 style="margin: 15px 0 5px; font-weight: 900;">Flete: Insumos Somisa</h3>
+            <p style="margin: 0;">📍 Retiro: Planta Somisa</p>
+            <p style="margin: 0;">🏁 Destino: San Nicolás (Centro)</p>
 
-        <div class="trip-card">
-            <span style="color: var(--danger); font-weight: bold; font-size: 0.8rem;">● EN VIVO</span>
-            <h3>Flete: Heladera y Cajas</h3>
-            <p>📍 Origen: B° Somisa</p>
-            <p>🏁 Destino: Rosario (Centro)</p>
-            
-            <div class="price-box" id="caja-precio">
-                <p class="price-label">OFERTA LÍDER ACTUAL</p>
-                <p class="price-value" id="precio-db">$12.500</p>
+            <div class="price-display">
+                <p style="font-size: 0.75rem; color: #15803d; font-weight: bold; margin: 0;">OFERTA LÍDER</p>
+                <p class="price-value">$11.800</p>
             </div>
 
-            <div class="timer" id="reloj">⏳ Cierra en: 14:59</div>
+            <div class="timer" id="reloj-subasta">⏳ Cierra en: 14:59</div>
 
-            <button class="btn-sid" style="width: 100%; background-color: var(--accent);" onclick="sendBid('Heladera Rosario')">
+            <button class="btn btn-success" onclick="realizarOferta('Insumos Somisa')">
                 MEJORAR OFERTA
             </button>
         </div>
@@ -234,65 +189,46 @@
 
 </div>
 
-<div id="loading-overlay">
-    <div class="spinner"></div>
-    <h3 id="status-text">Conectando con Servidores SID RENAPER...</h3>
-    <p style="color: #666;">Por favor, no cierre esta ventana.</p>
-</div>
-
 <footer>
     <p><b>LUMERS</b> | San Nicolás de los Arroyos, Argentina<br>
-    Sistema Integrado de Logística con Validación Biométrica Federal<br>
+    Sistema de Logística con Validación de Identidad<br>
     Operado por Aníbal Gabriel Romero - Abogado</p>
 </footer>
 
 <script>
-    // --- LÓGICA DE FLUJO DE SEGURIDAD (MANTENIENDO ESTÉTICA) ---
-
-    function iniciarValidacionSid() {
-        // Mostramos el overlay original de carga
-        document.getElementById("loading-overlay").style.display = "flex";
-        
-        // Simulamos la cadena de comunicación SID
-        setTimeout(() => { document.getElementById("status-text").innerText = "Capturando Biometría Facial..."; }, 1500);
-        setTimeout(() => { document.getElementById("status-text").innerText = "Cotejando con Base de Datos RENAPER..."; }, 3000);
-
-        // Éxito de validación
-        setTimeout(() => {
-            document.getElementById("loading-overlay").style.display = "none";
-            desbloquearLumers();
-        }, 5000);
-    }
-
-    function desbloquearLumers() {
-        document.getElementById("public-view").style.display = "none";
-        document.getElementById("private-zone").style.display = "block";
-    }
-
-    // --- LÓGICA DE RELOJ (ESTÉTICA ORIGINAL) ---
-    let tiempoCierre = new Date().getTime() + (15 * 60 * 1000);
-    setInterval(() => {
-        let ahora = new Date().getTime();
-        let dist = tiempoCierre - ahora;
-        let min = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-        let seg = Math.floor((dist % (1000 * 60)) / 1000);
-        document.getElementById("reloj").innerText = `⏳ Cierra en: ${min}:${seg < 10 ? '0' : ''}${seg}`;
-        
-        if (dist < 0) {
-            document.getElementById("reloj").innerText = "❌ REMATE CERRADO";
-            document.querySelector("#private-zone .btn-sid").disabled = true;
-        }
-    }, 1000);
-
-    // --- FUNCIÓN DE OFERTA A WHATSAPP ---
-    function sendBid(nombreViaje) {
-        const msg = encodeURIComponent(
-            `¡Hola Aníbal! Soy un conductor verificado de LUMERS mediante SID del RENAPER.\n` +
-            `Deseo mejorar la oferta del remate: ${nombreViaje}.\n` +
-            `Mi oferta competitiva es: $`
+    // --- LÓGICA DE REGISTRO ---
+    function enviarValidacion() {
+        const mensaje = encodeURIComponent(
+            "¡Hola Aníbal! Quiero ser conductor de LUMERS.\n" +
+            "Adjunto mi documentación para la validación manual:\n" +
+            "- Fotos DNI\n" +
+            "- Selfie de seguridad\n" +
+            "- Validación Mi Argentina"
         );
-        window.location.href = `https://wa.me/3364652349?text=${msg}`;
+        window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
     }
+
+    // --- LÓGICA DE OFERTA ---
+    function realizarOferta(viaje) {
+        const mensaje = encodeURIComponent(
+            `¡Hola Aníbal! Soy conductor verificado de LUMERS.\n` +
+            `Deseo mejorar la oferta para el remate: ${viaje}.\n` +
+            `MI PRECIO ES: $`
+        );
+        window.location.href = `https://wa.me/3364652349?text=${mensaje}`;
+    }
+
+    // --- RELOJ DINÁMICO ---
+    let tiempo = 15 * 60; 
+    const display = document.getElementById('reloj-subasta');
+
+    setInterval(() => {
+        let minutos = Math.floor(tiempo / 60);
+        let segundos = tiempo % 60;
+        segundos = segundos < 10 ? '0' + segundos : segundos;
+        display.innerText = `⏳ Cierra en: ${minutos}:${segundos}`;
+        if (tiempo > 0) tiempo--;
+    }, 1000);
 </script>
 
 </body>
