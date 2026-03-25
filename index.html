@@ -3,174 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Logística Digital & Respaldo Jurídico</title>
+    <title>LUMERS | Logística Digital & Subastas</title>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-    
     <style>
-        :root {
-            --brand: #005ef7; --bg: #f4f7fa; --surface: #ffffff;
-            --text: #1e293b; --muted: #64748b; --success: #00a650;
-            --warning: #ffcc00; --danger: #ef4444; --dark: #0f172a;
-        }
-
-        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); -webkit-font-smoothing: antialiased; }
-
-        /* --- NAVEGACIÓN --- */
+        :root { --brand: #005ef7; --bg: #f4f7fa; --surface: #ffffff; --text: #1e293b; --muted: #64748b; --success: #00a650; --warning: #ffcc00; --dark: #0f172a; }
+        body { font-family: 'Public Sans', sans-serif; background-color: var(--bg); margin: 0; color: var(--text); }
         nav { background: var(--surface); padding: 15px; text-align: center; border-bottom: 1px solid #e2e8f0; position: sticky; top: 0; z-index: 100; }
         nav h1 { margin: 0; font-size: 1.4rem; font-weight: 800; color: var(--brand); display: flex; align-items: center; justify-content: center; gap: 8px; }
-
         .container { max-width: 450px; margin: 0 auto; padding: 20px; }
-
-        /* --- VISTAS --- */
         .view { display: none; animation: fadeIn 0.3s ease; }
         .view-active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
-
-        /* --- COMPONENTES --- */
+        
+        /* CARDS */
         .card { background: var(--surface); border-radius: 24px; padding: 22px; margin-bottom: 18px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-        .btn { width: 100%; padding: 18px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; display: block; text-align: center; text-decoration: none; margin-top: 10px; transition: 0.2s; }
+        .btn { width: 100%; padding: 16px; border-radius: 50px; font-size: 1rem; font-weight: 700; border: none; cursor: pointer; text-align: center; text-decoration: none; display: block; margin-top: 10px; }
         .btn-brand { background: var(--brand); color: white; }
         .btn-success { background: var(--success); color: white; }
         .btn-outline { background: none; border: 1px solid #cbd5e1; color: var(--muted); margin-top: 15px; font-size: 0.85rem; }
 
-        /* --- LEGAL & FAQ --- */
-        .legal-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 15px; font-size: 0.78rem; color: #475569; margin: 15px 0; max-height: 100px; overflow-y: auto; }
-        .faq-item { border-bottom: 1px solid #edf2f7; padding: 12px 0; cursor: pointer; }
-        .faq-question { font-weight: 700; font-size: 0.85rem; display: flex; justify-content: space-between; }
-        .faq-answer { font-size: 0.8rem; color: var(--muted); margin-top: 5px; display: none; }
-
-        /* --- SUBASTAS (EL MOTOR) --- */
-        .auction-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 15px; margin-bottom: 12px; }
-        .auction-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .tag { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; }
-        .price { font-size: 1.5rem; font-weight: 800; color: var(--brand); }
-
-        /* --- CREDENCIAL & STEPS --- */
-        .credential { background: var(--dark); color: white; border-radius: 20px; padding: 20px; border-left: 5px solid var(--warning); margin-bottom: 20px; }
-        .step { display: flex; gap: 15px; margin-bottom: 20px; position: relative; font-size: 0.85rem; }
-        .step:not(:last-child)::after { content: ''; position: absolute; left: 11px; top: 25px; bottom: -15px; width: 2px; background: #e2e8f0; }
-        .dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 800; z-index: 1; background: #e2e8f0; color: white; }
-        .dot-done { background: var(--success); }
-
-        footer { text-align: center; padding: 30px; font-size: 0.75rem; color: var(--muted); border-top: 1px solid #e2e8f0; }
+        /* INPUTS */
+        label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 5px; color: var(--muted); }
+        input, select, textarea { width: 100%; padding: 12px; border-radius: 12px; border: 1px solid #cbd5e1; margin-bottom: 15px; box-sizing: border-box; font-family: inherit; }
+        
+        /* SUBASTAS */
+        .auction-card { background: #f8fafc; border: 2px solid #edf2f7; border-radius: 20px; padding: 15px; margin-bottom: 15px; border-left: 5px solid var(--brand); }
+        .bid-input { font-size: 1.2rem; font-weight: 800; color: var(--brand); text-align: center; border: 2px solid var(--brand); }
     </style>
 </head>
 <body>
 
-<nav>
-    <h1><span style="color:var(--warning)">⚡</span> LUMERS</h1>
-</nav>
+<nav><h1><span style="color:var(--warning)">⚡</span> LUMERS</h1></nav>
 
 <div class="container">
 
     <section id="view-home" class="view view-active">
-        <h2 style="text-align: center; font-weight: 800; margin-bottom: 25px;">Plataforma Logística</h2>
+        <h2 style="text-align: center; font-weight: 800;">Logística San Nicolás</h2>
         
-        <div class="card" onclick="showView('view-client-legal')" style="cursor:pointer; border-left: 6px solid var(--brand);">
+        <div class="card" onclick="showView('view-client-form')" style="cursor:pointer;">
             <div style="display:flex; gap:15px; align-items:center;">
                 <span style="font-size:2rem;">📦</span>
-                <div><b>Soy Cliente</b><br><span style="font-size:0.8rem; color:var(--muted);">Quiero enviar o seguir una carga</span></div>
+                <div><b>Pedir un Flete</b><br><span style="font-size:0.8rem; color:var(--muted);">Publicar cuánto pagás por un envío</span></div>
             </div>
         </div>
 
-        <div class="card" onclick="showView('view-raider-legal')" style="cursor:pointer; border-left: 6px solid var(--success);">
+        <div class="card" onclick="showView('view-raider-app')" style="cursor:pointer;">
             <div style="display:flex; gap:15px; align-items:center;">
                 <span style="font-size:2rem;">🚚</span>
-                <div><b>Soy Raider</b><br><span style="font-size:0.8rem; color:var(--muted);">Quiero ofertar en subastas</span></div>
+                <div><b>Panel de Subastas</b><br><span style="font-size:0.8rem; color:var(--muted);">Ofertá menos y ganá el viaje</span></div>
             </div>
         </div>
-
-        <div class="card" style="margin-top:20px;">
-            <h3 style="margin-top:0; font-size: 1rem;">Preguntas Frecuentes</h3>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">¿Cómo funciona el pago? <span>+</span></div>
-                <div class="faq-answer">El cliente paga por adelantado a LUMERS. Nosotros retenemos el dinero en garantía y solo lo liberamos al Raider cuando el cliente confirma la recepción.</div>
-            </div>
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-question">¿Qué pasa si la carga se daña? <span>+</span></div>
-                <div class="faq-answer">Cada Raider debe contar con seguro de carga vigente. LUMERS valida la documentación, pero la responsabilidad civil recae sobre el transportista independiente.</div>
-            </div>
-        </div>
+        
+        <p style="text-align:center; font-size:0.75rem; color:var(--muted);">Operado por Aníbal Gabriel Romero - Abogado</p>
     </section>
 
-    <section id="view-raider-legal" class="view">
+    <section id="view-client-form" class="view">
         <div class="card">
-            <h3 style="margin-top:0;">Registro Raider</h3>
-            <p style="font-size:0.85rem;">Para ver las subastas, debés aceptar el contrato y adjuntar tu seguro.</p>
-            <div class="legal-box">
-                <b>CONTRATO DE ADHESIÓN:</b> El transportista reconoce que no existe relación laboral con LUMERS. Es obligatorio presentar póliza de seguro vigente y DNI. El cobro del flete se realiza post-confirmación de entrega.
-            </div>
-            <div style="display:flex; gap:10px; margin-bottom:15px;">
-                <input type="checkbox" id="check-r" style="width:22px; height:22px;">
-                <label for="check-r" style="font-size:0.8rem;">Acepto el contrato y el envío de póliza de seguro.</label>
-            </div>
-            <button class="btn btn-success" onclick="accesoRaider()">VALIDAR & VER SUBASTAS</button>
-            <button class="btn btn-outline" onclick="showView('view-home')">VOLVER AL INICIO</button>
+            <h3 style="margin-top:0;">Publicar Envío</h3>
+            <label>¿Qué hay que llevar/traer?</label>
+            <input type="text" id="c-carga" placeholder="Ej: Paquete repuestos, Documentos">
+            
+            <label>Desde (Origen):</label>
+            <input type="text" id="c-desde" placeholder="Ej: Planta Siderar Portería 1">
+            
+            <label>Hacia (Destino):</label>
+            <input type="text" id="c-hacia" placeholder="Ej: Estudio Jurídico Centro">
+            
+            <label>Pago Máximo Sugerido ($):</label>
+            <input type="number" id="c-pago" placeholder="Ej: 10000">
+            
+            <button class="btn btn-brand" onclick="enviarPedido()">PUBLICAR Y PAGAR GARANTÍA</button>
+            <button class="btn btn-outline" onclick="showView('view-home')">CANCELAR</button>
         </div>
     </section>
 
     <section id="view-raider-app" class="view">
-        <div class="credential">
-            <div style="display:flex; gap:15px; align-items:center;">
-                <div style="width:50px; height:50px; background:#334155; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem; border:2px solid var(--warning);">👤</div>
-                <div><b>Aníbal G. Romero</b><br><span style="font-size:0.75rem; color:var(--success);">✓ RAIDER HABILITADO</span></div>
-            </div>
-        </div>
-
-        <h3 style="margin: 20px 0 10px;">Subastas Activas (San Nicolás)</h3>
+        <h3 style="margin-top:0;">Subastas en Vivo ⚡</h3>
         
-        <div class="auction-item">
-            <div class="auction-header">
-                <span class="tag">INSUMOS MÉDICOS</span>
-                <span style="font-size:0.7rem; color:var(--muted);">Cierra en: 45m</span>
-            </div>
-            <b>Planta Somisa → Centro SN</b>
-            <div class="price">$9.500</div>
-            <button class="btn btn-brand" style="padding:10px; font-size:0.8rem;" onclick="pujar('Insumos Médicos - $9.500')">PUJAR EN WHATSAPP</button>
-        </div>
-
-        <div class="auction-item">
-            <div class="auction-header">
-                <span class="tag">CONSTRUCCIÓN</span>
-                <span style="font-size:0.7rem; color:var(--muted);">Cierra en: 2h</span>
-            </div>
-            <b>Corralón → Barrio Somisa</b>
-            <div class="price">$15.200</div>
-            <button class="btn btn-brand" style="padding:10px; font-size:0.8rem;" onclick="pujar('Construcción - $15.200')">PUJAR EN WHATSAPP</button>
-        </div>
-
-        <button class="btn btn-outline" onclick="showView('view-home')">LOGOUT</button>
-    </section>
-
-    <section id="view-client-legal" class="view">
-        <div class="card">
-            <h3>Seguimiento de Carga</h3>
-            <div class="legal-box">
-                <b>GARANTÍA CLIENTE:</b> Su pago se encuentra depositado en la cuenta de custodia de LUMERS. El Raider solo cobrará cuando usted presione el botón de "Confirmar Recepción".
-            </div>
+        <div class="auction-card">
+            <b style="color:var(--brand);">Remate #LM-501</b>
+            <p style="margin:5px 0;">📦 <b>Carga:</b> Insumos Industriales</p>
+            <p style="margin:5px 0; font-size:0.85rem;">📍 <b>Ruta:</b> Somisa → Savio y Nación</p>
+            <div style="font-size:1.2rem; font-weight:800; margin:10px 0;">Máximo: $12.000</div>
             
-            <div class="card" style="background:var(--brand); color:white; border:none;">
-                <div style="display:flex; justify-content:space-between;">
-                    <b>Envío #LM-2026</b>
-                    <span style="font-size:0.7rem; background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:10px;">EN VIAJE</span>
-                </div>
-            </div>
-
-            <div class="step"><div class="dot dot-done">✓</div><div><b>Validación</b><span>Raider y Seguro verificados</span></div></div>
-            <div class="step"><div class="dot dot-done">✓</div><div><b>Custodia</b><span>Pago de $12.500 en garantía</span></div></div>
-            <div class="step"><div class="dot" style="background:var(--brand)">⚡</div><div><b>Tránsito</b><span>Hacia destino final</span></div></div>
-
-            <button class="btn btn-success" onclick="liberarPago()">CONFIRMAR RECEPCIÓN</button>
-            <button class="btn btn-outline" onclick="showView('view-home')">VOLVER AL INICIO</button>
+            <label>Tu contraoferta para ganar:</label>
+            <input type="number" id="bid-501" class="bid-input" placeholder="$">
+            <button class="btn btn-success" onclick="ofertarRaider('501', 'Somisa-Centro')">ENVIAR OFERTA A ANÍBAL</button>
         </div>
+
+        <button class="btn btn-outline" onclick="showView('view-home')">VOLVER AL INICIO</button>
     </section>
 
 </div>
-
-<footer>
-    ⚡ <b>LUMERS</b> | San Nicolás de los Arroyos<br>
-    Gestión Jurídica: Aníbal Gabriel Romero - Abogado
-</footer>
 
 <script>
     function showView(id) {
@@ -179,34 +103,38 @@
         window.scrollTo(0,0);
     }
 
-    function toggleFaq(element) {
-        const answer = element.querySelector('.faq-answer');
-        answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
-    }
+    // El Cliente te manda los datos para que vos los publiques
+    function enviarPedido() {
+        const carga = document.getElementById('c-carga').value;
+        const desde = document.getElementById('c-desde').value;
+        const hacia = document.getElementById('c-hacia').value;
+        const pago = document.getElementById('c-pago').value;
 
-    function accesoRaider() {
-        if (!document.getElementById('check-r').checked) {
-            alert("Debés aceptar el contrato para continuar.");
-            return;
-        }
-        // Acción de enviar seguro
-        const tel = "3364652349";
-        const msg = encodeURIComponent("¡Hola Aníbal! Acepto el contrato. Adjunto mi SEGURO y DNI para participar de las subastas.");
-        window.location.href = `https://wa.me/${tel}?text=${msg}`;
-        
-        // Simular entrada después de la acción
-        setTimeout(() => showView('view-raider-app'), 1000);
-    }
+        if(!carga || !pago) { alert("Completá los datos"); return; }
 
-    function pujar(item) {
         const tel = "3364652349";
-        const msg = encodeURIComponent(`Hola Aníbal, soy Raider validado y quiero PUJAR por el flete: ${item}`);
+        const msg = encodeURIComponent(
+            `📦 NUEVO PEDIDO LUMERS\n` +
+            `Carga: ${carga}\n` +
+            `Ruta: ${desde} -> ${hacia}\n` +
+            `Presupuesto Máximo: $${pago}\n` +
+            `Deseo publicar este remate.`
+        );
         window.location.href = `https://wa.me/${tel}?text=${msg}`;
     }
 
-    function liberarPago() {
+    // El Raider te manda su oferta para ganar el viaje
+    function ofertarRaider(id, ruta) {
+        const monto = document.getElementById('bid-' + id).value;
+        if(!monto) { alert("Ingresá un monto"); return; }
+
         const tel = "3364652349";
-        const msg = encodeURIComponent("Confirmo que recibí mi carga #LM-2026 correctamente. Por favor, liberen el pago al Raider.");
+        const msg = encodeURIComponent(
+            `🚚 OFERTA RAIDER (#${id})\n` +
+            `Ruta: ${ruta}\n` +
+            `Mi oferta final: $${monto}\n` +
+            `Tengo seguro al día y estoy disponible.`
+        );
         window.location.href = `https://wa.me/${tel}?text=${msg}`;
     }
 </script>
