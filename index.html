@@ -3,170 +3,224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUMERS | Logística San Nicolás</title>
+<title>LUMERS®</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
 <style>
-:root {
---blue:#005ef7;
---green:#00a650;
---dark:#0f172a;
---bg:#f1f5f9;
---white:#ffffff;
---warn:#ffcc00;
+
+:root{
+--bg:#0b0f1a;
+--card:#121826;
+--accent:#3b82f6;
+--green:#22c55e;
+--text:#e5e7eb;
+--sub:#94a3b8;
 }
 
-body {font-family:'Public Sans',sans-serif;background:var(--bg);margin:0;color:var(--dark);}
-nav {background:white;padding:18px;text-align:center;border-bottom:4px solid var(--blue);}
-nav h1 {margin:0;font-size:1.6rem;font-weight:900;color:var(--blue);}
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:var(--bg);
+color:var(--text);
+}
 
-.container {max-width:480px;margin:auto;padding:20px;}
+.container{
+max-width:420px;
+margin:auto;
+padding:20px;
+}
 
-.view{display:none;}
-.view-active{display:block;}
+h1{
+text-align:center;
+font-weight:800;
+letter-spacing:-1px;
+}
 
-.card{background:white;border-radius:24px;padding:20px;margin-bottom:20px;}
+.card{
+background:var(--card);
+border-radius:20px;
+padding:20px;
+margin-bottom:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
 
-.btn{width:100%;padding:16px;border-radius:50px;font-weight:800;border:none;cursor:pointer;}
-.btn-blue{background:var(--blue);color:white;}
-.btn-green{background:var(--green);color:white;}
-.btn-outline{border:2px solid #cbd5e1;background:transparent;}
-
-.how-to{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;}
-.step{background:#e2e8f0;padding:10px;border-radius:12px;font-size:0.7rem;font-weight:700;}
-
-.secure-box{
-background:#ecfdf5;
-border:2px solid var(--green);
-padding:12px;
+.btn{
+width:100%;
+padding:16px;
 border-radius:14px;
-font-size:0.75rem;
+border:none;
 font-weight:700;
+cursor:pointer;
+}
+
+.btn-primary{
+background:var(--accent);
+color:white;
+}
+
+.btn-success{
+background:var(--green);
+color:white;
+}
+
+.secure{
+background:rgba(34,197,94,0.1);
+border:1px solid rgba(34,197,94,0.3);
+padding:12px;
+border-radius:12px;
+font-size:0.8rem;
 margin-bottom:15px;
 }
 
-.live-box{
-background:#fff7ed;
-border:2px dashed #fb923c;
-padding:10px;
-border-radius:12px;
-font-size:0.7rem;
-margin-top:10px;
+.steps{
+display:flex;
+justify-content:space-between;
+font-size:0.65rem;
+text-align:center;
+margin-bottom:15px;
 }
 
-.wallet{background:var(--dark);color:white;padding:15px;border-radius:20px;}
-.price{font-size:1.5rem;font-weight:900;color:var(--green);}
+.step{
+width:30%;
+background:#1f2937;
+padding:10px;
+border-radius:10px;
+}
 
-input,select{
+input{
 width:100%;
 padding:12px;
+margin-top:8px;
 margin-bottom:10px;
 border-radius:10px;
-border:2px solid #e2e8f0;
+border:none;
+background:#1f2937;
+color:white;
 }
+
+.wallet{
+background:linear-gradient(135deg,#1e293b,#020617);
+padding:20px;
+border-radius:20px;
+margin-bottom:15px;
+}
+
+.price{
+font-size:1.6rem;
+font-weight:800;
+color:var(--green);
+}
+
+.small{
+font-size:0.75rem;
+color:var(--sub);
+}
+
+.view{display:none;}
+.active{display:block;}
+
 </style>
 </head>
 
 <body>
 
-<nav><h1>⚡ LUMERS®</h1></nav>
-
 <div class="container">
 
+<h1>⚡ LUMERS®</h1>
+
 <!-- HOME -->
-<section id="home" class="view view-active">
+<div id="home" class="view active">
 
-<h2 style="text-align:center;">Logística Inteligente</h2>
-
-<div class="secure-box">
-🛡️ PAGO 100% PROTEGIDO<br>
-Tu dinero se libera SOLO cuando recibís.
+<div class="secure">
+🛡️ Dinero protegido hasta confirmar entrega
 </div>
 
-<div class="how-to">
-<div class="step">📦 Publicás cuánto pagás</div>
-<div class="step">🚚 Compiten y bajan precio</div>
-<div class="step">💰 Pagás solo si recibís</div>
-</div>
-
-<div class="live-box">
-🔥 5 pedidos activos ahora<br>
-🚚 Raiders ofertando en tiempo real
+<div class="steps">
+<div class="step">📦 Publicás</div>
+<div class="step">🚚 Compiten</div>
+<div class="step">💰 Pagás seguro</div>
 </div>
 
 <div class="card" onclick="goClient()">
-👤 <b>Soy Cliente</b><br>
-<small>Quiero enviar algo</small>
+<b>👤 Soy Cliente</b><br>
+<span class="small">Enviar paquete</span>
 </div>
 
 <div class="card" onclick="goRaider()">
-🏍️ <b>Soy Raider</b><br>
-<small>Quiero ganar dinero</small>
+<b>🏍️ Soy Raider</b><br>
+<span class="small">Ganar dinero</span>
 </div>
 
-</section>
-
-<!-- CLIENTE -->
-<section id="client" class="view">
-
-<div class="secure-box">
-💰 Si no recibís → NO pagás
 </div>
 
+<!-- CLIENT -->
+<div id="client" class="view">
+
+<div class="secure">💰 Si no recibís → NO pagás</div>
+
+<div class="card">
 <input placeholder="Qué enviás">
-<input placeholder="Ruta">
-<input placeholder="Presupuesto">
+<input placeholder="Origen → destino">
+<input placeholder="Tu presupuesto">
 
-<button class="btn btn-blue" onclick="send()">INICIAR SUBASTA</button>
+<button class="btn btn-primary" onclick="send()">Iniciar subasta</button>
 
-<div class="live-box">
-⏳ Raiders viendo tu pedido...
+<div class="small" style="margin-top:10px;">
+⏳ Raiders ofertando ahora...
+</div>
 </div>
 
-</section>
+</div>
 
 <!-- RAIDER -->
-<section id="raider" class="view">
+<div id="raider" class="view">
 
 <div class="wallet">
-💸 Ganancias hoy: $18.000<br>
-🚚 Viajes disponibles: 6
+<div class="small">Ganancias hoy</div>
+<div style="font-size:2rem;font-weight:800;">$18.000</div>
 </div>
 
 <div class="card">
-<b>Pedido activo</b><br>
-📍 Centro → Somisa<br>
+<b>📦 Pedido activo</b><br>
+<span class="small">Centro → Somisa</span>
+
 <div class="price">$4.500</div>
 
 <input placeholder="Tu oferta">
-<button class="btn btn-green" onclick="offer()">OFERTAR</button>
+
+<button class="btn btn-success" onclick="offer()">Ofertar</button>
 </div>
 
-</section>
+</div>
 
 </div>
 
 <script>
+
 const tel="3364652349";
 
 function goClient(){
-document.getElementById('home').classList.remove('view-active');
-document.getElementById('client').classList.add('view-active');
+toggle("home","client");
 }
 
 function goRaider(){
-document.getElementById('home').classList.remove('view-active');
-document.getElementById('raider').classList.add('view-active');
+toggle("home","raider");
+}
+
+function toggle(hide,show){
+document.getElementById(hide).classList.remove("active");
+document.getElementById(show).classList.add("active");
 }
 
 function send(){
-window.location.href=`https://wa.me/${tel}?text=Nuevo pedido LUMERS`;
+window.location.href=`https://wa.me/${tel}?text=Pedido LUMERS`;
 }
 
 function offer(){
-window.location.href=`https://wa.me/${tel}?text=Oferta Raider`;
+window.location.href=`https://wa.me/${tel}?text=Oferta LUMERS`;
 }
+
 </script>
 
 </body>
