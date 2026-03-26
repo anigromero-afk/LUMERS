@@ -3,144 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUMERS | Reputación & Logística</title>
+    <title>LUMERS | Logística & Subastas Oficial</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Public+Sans:wght@300;400;700;900&display=swap');
-        
         :root { --brand-blue: #3b82f6; --brand-orange: #f97316; --dark-bg: #020617; }
-        body { font-family: 'Public Sans', sans-serif; background: var(--dark-bg); color: white; }
+        body { font-family: 'Public Sans', sans-serif; background: var(--dark-bg); color: white; margin:0; }
         .font-logo { font-family: 'Orbitron', sans-serif; }
         .bg-main { background: radial-gradient(circle at 50% -20%, #1e3a8a 0%, #020617 80%); min-height: 100vh; }
         .glass { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); border-radius: 24px; }
-        
-        /* ESTRELLAS DE REPUTACIÓN */
+        .btn-orange { background: linear-gradient(135deg, #f97316, #ea580c); transition: 0.3s; box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3); }
+        .btn-orange:active { transform: scale(0.95); }
+        .legal-scroll { background: rgba(0,0,0,0.4); border-radius: 16px; padding: 15px; font-size: 10px; color: #94a3b8; max-height: 180px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.05); line-height: 1.5; text-align: justify; }
+        .auction-card { border-left: 4px solid var(--brand-orange); transition: 0.3s; }
+        .auction-card:hover { background: rgba(255,255,255,0.05); }
         .star-rating { color: #fbbf24; font-size: 10px; }
-        .badge-verified { background: linear-gradient(90deg, #10b981, #059669); color: white; padding: 2px 8px; border-radius: 20px; font-size: 8px; font-weight: 900; text-transform: uppercase; }
-        
-        .btn-orange { background: linear-gradient(135deg, #f97316, #ea580c); transition: 0.3s; }
-        .btn-orange:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4); }
-        .auction-card { border-left: 4px solid var(--brand-orange); }
     </style>
 </head>
 <body class="bg-main">
 
-<div id="app" class="min-h-screen flex flex-col">
-    <header class="p-5 flex justify-between items-center border-b border-white/5 bg-black/40 sticky top-0 z-40 backdrop-blur-md">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/20">
-                <i class="fa-solid fa-location-dot text-white"></i>
-            </div>
-            <div>
-                <h1 class="font-logo font-black text-lg tracking-tighter">LUMERS®</h1>
-                <div class="flex items-center gap-1">
-                    <span class="badge-verified"><i class="fa-solid fa-check"></i> Oficial</span>
-                </div>
-            </div>
-        </div>
-        <div class="text-right">
-            <p id="userName" class="text-[10px] font-black opacity-80 uppercase tracking-widest"></p>
-            <div class="star-rating">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
-                <span class="text-white opacity-40 ml-1 text-[8px]">4.8 (124)</span>
-            </div>
-        </div>
-    </header>
+<div id="loader" class="fixed inset-0 flex flex-col items-center justify-center bg-[#020617] z-[100]">
+    <div class="relative w-20 h-20 mb-4 border-4 border-blue-500/20 rounded-full flex items-center justify-center">
+        <div class="absolute inset-0 border-4 border-t-orange-500 rounded-full animate-spin"></div>
+        <i class="fa-solid fa-location-dot text-2xl text-orange-500"></i>
+    </div>
+    <h1 class="font-logo text-lg tracking-[0.3em] text-white">LUMERS®</h1>
+</div>
 
-    <main class="p-5 space-y-6 pb-28 max-w-md mx-auto w-full">
-        
-        <div class="grid grid-cols-2 gap-3">
-            <div class="glass p-4 text-center">
-                <p class="text-[8px] uppercase tracking-widest opacity-40 mb-1">Viajes Exitosos</p>
-                <b class="text-xl font-logo text-blue-400">856</b>
-            </div>
-            <div class="glass p-4 text-center border-orange-500/20">
-                <p class="text-[8px] uppercase tracking-widest opacity-40 mb-1">Seguro Validado</p>
-                <b class="text-xl font-logo text-orange-400">100%</b>
-            </div>
-        </div>
-
-        <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400 px-2">Subastas Disponibles</h3>
-
-        <div id="lista" class="space-y-4">
-            <div class="glass p-5 auction-card">
-                <div class="flex justify-between items-start mb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <span class="text-[8px] font-black bg-blue-500/20 text-blue-400 px-2 py-1 rounded-md uppercase tracking-widest">Flete Camioneta</span>
-                            <span class="text-[8px] font-bold text-orange-500">🔥 ALTA DEMANDA</span>
-                        </div>
-                        <p class="text-sm font-bold">📍 De Planta Siderar</p>
-                        <p class="text-sm font-bold opacity-60">🏁 A Puerto San Nicolás</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-xl font-logo font-black text-orange-500">$22.000</p>
-                        <p class="text-[8px] opacity-40 uppercase font-bold">Límite Cliente</p>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-white/5 pt-4 mt-2">
-                    <div class="flex items-center gap-2">
-                        <div class="w-6 h-6 bg-white/10 rounded-full flex items-center justify-center text-[10px]">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div>
-                            <p class="text-[9px] font-bold uppercase">Logística J.R.</p>
-                            <div class="star-rating">
-                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                <span class="opacity-40 text-[7px] ml-1">5.0 (Vendedor Pro)</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="ofertar('Siderar', 22000)" class="btn-orange px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest text-white shadow-lg shadow-orange-500/20">
-                        OFERTAR
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <button onclick="toggleModal(true)" class="fixed bottom-8 right-8 btn-orange w-16 h-16 rounded-2xl shadow-2xl flex items-center justify-center text-2xl z-50">
-        <i class="fa-solid fa-plus text-white"></i>
+<div id="login" class="hidden flex flex-col items-center p-8 text-center min-h-screen justify-center">
+    <div class="w-32 h-32 bg-blue-600 rounded-[40px] flex items-center justify-center shadow-[0_0_50px_rgba(59,130,246,0.4)] mb-8">
+        <i class="fa-solid fa-box-open text-5xl text-white"></i>
+    </div>
+    <h1 class="text-5xl font-logo font-black italic tracking-tighter">LUMERS®</h1>
+    <p class="text-[10px] uppercase tracking-[0.4em] text-orange-400 mt-2 font-bold">Logística San Nicolás & Zona</p>
+    <button id="btnLogin" class="btn-orange mt-12 px-12 py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-white">
+        Entrar con Google
     </button>
 </div>
 
-<div id="modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center p-6">
-    <div class="glass p-8 w-full max-w-sm border-white/10 space-y-4">
-        <h2 class="text-xl font-logo font-black text-orange-400 italic">NUEVO PEDIDO</h2>
-        <div class="space-y-3">
-            <input id="ori" placeholder="📍 Origen" class="w-full p-4 bg-white/5 rounded-2xl border border-white/10 outline-none text-sm">
-            <input id="des" placeholder="🏁 Destino" class="w-full p-4 bg-white/5 rounded-2xl border border-white/10 outline-none text-sm">
+<div id="app" class="hidden min-h-screen flex flex-col">
+    <header class="p-5 glass flex justify-between items-center sticky top-0 z-40 m-2">
+        <div class="flex items-center gap-2">
+            <h1 class="font-logo font-black text-xl tracking-widest">LUMERS</h1>
+        </div>
+        <div class="text-right">
+            <p id="userName" class="text-[10px] font-bold opacity-60"></p>
+            <div class="star-rating"><i class="fa-solid fa-star"></i> 5.0</div>
+        </div>
+    </header>
+
+    <main class="p-4 space-y-6 pb-28 max-w-md mx-auto w-full">
+        <div class="grid grid-cols-3 gap-2 text-center text-[9px] font-bold opacity-60">
+            <div class="glass p-2">📦 PUBLICÁS</div>
+            <div class="glass p-2">🚚 SUBASTAN</div>
+            <div class="glass p-2">🛡️ RECIBÍS</div>
+        </div>
+        
+        <div id="lista" class="space-y-4"></div>
+    </main>
+
+    <button onclick="toggleModal(true)" class="fixed bottom-8 right-8 btn-orange w-16 h-16 rounded-2xl shadow-2xl flex items-center justify-center text-2xl z-50">
+        <i class="fa-solid fa-plus"></i>
+    </button>
+</div>
+
+<div id="modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center p-4">
+    <div class="glass p-8 w-full max-w-md border-white/10 space-y-4 overflow-y-auto max-h-[90vh]">
+        <h2 class="text-xl font-logo font-black text-orange-400 italic">PUBLICAR PEDIDO</h2>
+        
+        <div class="grid grid-cols-1 gap-3">
+            <input id="ori" placeholder="📍 Origen (Ej: Savio 400)" class="w-full p-4 bg-white/5 rounded-2xl border border-white/10 text-sm">
+            <input id="des" placeholder="🏁 Destino (Ej: Planta Siderar)" class="w-full p-4 bg-white/5 rounded-2xl border border-white/10 text-sm">
             <div class="grid grid-cols-2 gap-3">
-                <select id="veh" class="p-4 bg-white/10 rounded-2xl border border-white/10 text-xs font-bold text-blue-400">
-                    <option>Moto</option><option>Camioneta</option><option>Camión</option>
+                <select id="veh" class="p-4 bg-white/10 rounded-2xl text-xs font-bold text-blue-400">
+                    <option>Moto</option><option>Auto</option><option>Flete</option><option>Camión</option>
                 </select>
-                <input id="pre" type="number" placeholder="$ Presupuesto" class="p-4 bg-white/5 rounded-2xl border border-white/10 outline-none">
+                <input id="pre" type="number" placeholder="$ Máximo" class="p-4 bg-white/5 rounded-2xl border border-white/10 text-sm">
             </div>
         </div>
-        <div class="bg-blue-500/5 p-4 rounded-xl border border-blue-500/20 text-[10px] italic leading-tight text-blue-300">
-            <b>BLINDAJE LEGAL:</b> Al publicar, aceptás el pago en custodia de LUMERS®. El dinero se libera al Raider únicamente cuando confirmás la entrega. Es responsabilidad del cliente declarar contenido lícito.
+
+        <div class="space-y-2">
+            <b class="text-[10px] text-orange-400 uppercase tracking-widest font-black">Contrato de Adhesión LUMERS®</b>
+            <div class="legal-scroll">
+                <b>1. INTERMEDIACIÓN:</b> LUMERS® es una plataforma de tecnología logística que conecta Clientes con Raiders independientes. No realiza transporte por cuenta propia.<br><br>
+                <b>2. PAGO EN CUSTODIA (ESCROW):</b> El Cliente acepta que al confirmar una oferta, el monto total será retenido por la administración de LUMERS®. El Raider solo percibirá el pago una vez que el Cliente confirme la recepción satisfactoria en la plataforma.<br><br>
+                <b>3. DECLARACIÓN JURADA:</b> El Cliente declara que la mercadería es lícita, no peligrosa y coincide con la descripción. El Raider declara contar con Cédula, Registro y Seguro de Responsabilidad Civil vigente.<br><br>
+                <b>4. EXENCIÓN DE RESPONSABILIDAD:</b> LUMERS® no responde por daños, pérdidas o demoras causadas por fuerza mayor, siendo la relación contractual de carácter directo entre Cliente y Raider.
+            </div>
+            <div class="flex items-center gap-3 p-2">
+                <input type="checkbox" id="legalCheck" class="w-5 h-5 accent-orange-500">
+                <label for="legalCheck" class="text-[10px] font-bold opacity-60">ACEPTO EL CONTRATO Y LA POLÍTICA DE CUSTODIA</label>
+            </div>
         </div>
-        <button onclick="crear()" class="btn-orange w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest text-white">PUBLICAR SUBASTA</button>
-        <button onclick="toggleModal(false)" class="w-full text-[10px] opacity-40 uppercase tracking-widest pt-2">Cerrar</button>
+
+        <button onclick="crear()" class="btn-orange w-full py-4 rounded-2xl font-black text-xs uppercase tracking-widest">LANZAR SUBASTA</button>
+        <button onclick="toggleModal(false)" class="w-full text-[10px] opacity-40 uppercase pt-2">Cerrar</button>
     </div>
 </div>
 
-<script>
-    // La lógica de Firebase se mantiene igual que la v18.0
-    // Agregamos la función de ofertar con feedback de reputación
-    function ofertar(loc, pre) {
-        const monto = prompt(`El cliente "Logística J.R." (5.0 Estrellas) ofrece un máximo de $${pre}. \n¿Cuál es tu mejor oferta para ganar este viaje?`);
-        if(monto && parseFloat(monto) < pre) {
-            const msg = encodeURIComponent(`🚚 OFERTA LUMERS®\nFlete: ${loc}\nMi Oferta: $${monto}\nEstado de mi cuenta: Póliza de Seguro Validada.`);
-            window.location.href = `https://wa.me/3364652349?text=${msg}`;
-        } else if (monto) {
-            alert("Recordá que es una subasta inversa: tu oferta debe ser menor al presupuesto original.");
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = { apiKey: "TU_API", authDomain: "TU_AUTH", projectId: "TU_ID" };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const provider = new GoogleAuthProvider();
+
+    onAuthStateChanged(auth, user => {
+        document.getElementById("loader").style.display = "none";
+        if (user) {
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("app").classList.remove("hidden");
+            document.getElementById("userName").innerText = user.displayName.split(' ')[0];
+            cargarData();
+        } else {
+            document.getElementById("login").classList.remove("hidden");
+            document.getElementById("app").classList.add("hidden");
         }
+    });
+
+    window.btnLogin.onclick = () => signInWithPopup(auth, provider);
+    window.logout = () => signOut(auth);
+    window.toggleModal = (v) => document.getElementById("modal").classList.toggle("hidden", !v);
+
+    window.crear = async () => {
+        if(!document.getElementById("legalCheck").checked) return alert("Debe aceptar el contrato legal.");
+        const ori = document.getElementById("ori").value;
+        const des = document.getElementById("des").value;
+        const pre = document.getElementById("pre").value;
+        const veh = document.getElementById("veh").value;
+
+        if(!ori || !des || !pre) return alert("Faltan datos.");
+
+        await addDoc(collection(db, "viajes"), {
+            origen: ori, destino: des, precio: parseFloat(pre), vehiculo: veh,
+            user: auth.currentUser.displayName, fecha: Date.now()
+        });
+        toggleModal(false);
+    };
+
+    function cargarData() {
+        const q = query(collection(db, "viajes"), orderBy("fecha", "desc"));
+        onSnapshot(q, snap => {
+            document.getElementById("lista").innerHTML = "";
+            snap.forEach(doc => {
+                const d = doc.data();
+                document.getElementById("lista").innerHTML += `
+                    <div class="glass p-5 auction-card">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-[8px] font-black bg-blue-600/30 text-blue-300 px-2 py-1 rounded uppercase tracking-widest">${d.vehiculo}</span>
+                                <p class="text-sm font-bold mt-2">📍 ${d.origen}</p>
+                                <p class="text-sm font-bold opacity-60">🏁 ${d.destino}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-logo font-black text-orange-500">$${d.precio}</p>
+                                <p class="text-[8px] opacity-40 font-bold tracking-tighter uppercase">Pago Custodiado</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between border-t border-white/5 pt-4">
+                            <div class="star-rating"><i class="fa-solid fa-star"></i> 4.9 <span class="text-white opacity-40 text-[8px]">Reputación</span></div>
+                            <button onclick="ofertar('${d.origen}', ${d.precio})" class="btn-orange px-6 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest text-white">OFERTAR</button>
+                        </div>
+                    </div>
+                `;
+            });
+        });
     }
 
-    function toggleModal(v) { document.getElementById('modal').classList.toggle('hidden', !v); }
+    window.ofertar = (ori, pre) => {
+        const oferta = prompt(`Presupuesto Máximo: $${pre}. Ingresá tu oferta menor para ganar:`);
+        if(oferta && parseFloat(oferta) < pre) {
+            window.location.href = `https://wa.me/3364652349?text=${encodeURIComponent('🚚 OFERTA LUMERS®\nFlete: '+ori+'\nPresupuesto: $'+pre+'\nMI OFERTA: $'+oferta+'\nRaider: '+auth.currentUser.displayName)}`;
+        }
+    };
 </script>
 </body>
 </html>
