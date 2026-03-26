@@ -3,317 +3,201 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LUMERS®</title>
+<title>LUMERS | Envíos colaborativos</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-:root{
---bg:#0b1220;
---card:#111827;
---accent:#3b82f6;
---green:#22c55e;
---text:#f9fafb;
---sub:#9ca3af;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
-body{
-margin:0;
-font-family:'Inter',sans-serif;
-background:linear-gradient(180deg,#0b1220,#020617);
-color:var(--text);
-}
+body { font-family: 'Inter'; background:#020617; color:white; }
 
-.container{
-max-width:420px;
-margin:auto;
-padding:18px;
-}
+.bg-main { background: radial-gradient(circle at top, #1e293b 0%, #020617 100%); min-height:100vh; }
 
-.header-main{
-text-align:center;
-margin-bottom:20px;
-}
+.logo { width:90px;height:90px;background:linear-gradient(135deg,#3b82f6,#1d4ed8);border-radius:30%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 40px rgba(59,130,246,.4); }
 
-.logo{
-font-size:1.8rem;
-font-weight:800;
-letter-spacing:-1px;
-}
+.glass { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(10px); }
 
-.slogan{
-font-size:0.8rem;
-color:var(--sub);
-margin-top:2px;
-}
+.btn { background:linear-gradient(90deg,#3b82f6,#2563eb); }
 
-.card{
-background:rgba(17,24,39,0.8);
-backdrop-filter:blur(10px);
-border-radius:20px;
-padding:16px;
-margin-bottom:14px;
-box-shadow:0 10px 30px rgba(0,0,0,0.4);
-transition:0.2s;
-}
-
-.card:hover{
-transform:scale(1.02);
-}
-
-.header{
-background:linear-gradient(135deg,#1d4ed8,#1e3a8a);
-padding:18px;
-border-radius:20px;
-margin-bottom:15px;
-}
-
-.balance{
-font-size:2rem;
-font-weight:800;
-}
-
-.small{
-font-size:0.75rem;
-color:var(--sub);
-}
-
-.secure{
-background:rgba(34,197,94,0.1);
-border:1px solid rgba(34,197,94,0.3);
-padding:10px;
-border-radius:12px;
-font-size:0.75rem;
-margin-bottom:12px;
-}
-
-.live{
-font-size:0.7rem;
-color:#fbbf24;
-margin-top:8px;
-}
-
-.btn{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-transition:0.2s;
-}
-
-.btn-main{
-background:linear-gradient(135deg,#3b82f6,#2563eb);
-color:white;
-}
-
-.btn-green{
-background:linear-gradient(135deg,#22c55e,#16a34a);
-color:white;
-}
-
-.btn:hover{
-transform:scale(1.02);
-}
-
-input{
-width:100%;
-padding:12px;
-margin-top:8px;
-margin-bottom:10px;
-border-radius:12px;
-border:none;
-background:#1f2937;
-color:white;
-}
-
-.contract{
-max-height:120px;
-overflow:auto;
-font-size:0.7rem;
-color:#9ca3af;
-margin-bottom:10px;
-border:1px solid #374151;
-padding:10px;
-border-radius:12px;
-}
-
-.view{display:none;}
-.active{display:block;}
+.hidden { display:none!important; }
 </style>
 </head>
 
-<body>
+<body class="bg-main">
 
-<div class="container">
-
-<div class="header-main">
-<div class="logo">⚡ LUMERS®</div>
-<div class="slogan">una entrega a la vez</div>
+<!-- LOADER -->
+<div id="loader" class="fixed inset-0 flex items-center justify-center bg-black z-50">
+<div class="logo"><i class="fa-solid fa-box text-xl"></i></div>
 </div>
 
-<!-- HOME -->
-<div id="home" class="view active">
+<!-- LOGIN -->
+<div id="login" class="hidden flex flex-col items-center p-8 text-center min-h-screen">
 
-<div class="card">
-<b>Logística inteligente</b><br>
-<span class="small">Subastas en tiempo real</span>
+<div class="logo mt-10 mb-6"><i class="fa-solid fa-box"></i></div>
+
+<h1 class="text-5xl font-black text-blue-500 italic">LUMERS</h1>
+<p class="text-xs uppercase tracking-widest text-blue-400 mt-2">
+Envíos con subasta y pago protegido
+</p>
+
+<div class="glass p-6 rounded-3xl mt-10 max-w-sm space-y-4 text-left">
+
+<div>
+<b class="text-blue-400 text-xs">Subasta en tiempo real</b>
+<p class="text-xs opacity-60">Recibí ofertas de transportistas y elegí la mejor.</p>
 </div>
 
-<div class="secure">
-🛡️ Tu dinero se libera solo cuando confirmás la entrega
+<div>
+<b class="text-blue-400 text-xs">Pago protegido</b>
+<p class="text-xs opacity-60">El dinero se libera al confirmar entrega.</p>
 </div>
 
-<div class="card" onclick="toggle('home','client-legal')">
-👤 <b>Enviar paquete</b><br>
-<span class="small">Publicás y recibís ofertas</span>
-</div>
-
-<div class="card" onclick="toggle('home','raider-legal')">
-🏍️ <b>Ganar dinero</b><br>
-<span class="small">Aceptá viajes y cobrá</span>
-</div>
-
-</div>
-
-<!-- CLIENT LEGAL -->
-<div id="client-legal" class="view">
-<div class="card">
-
-<h3>🛡️ Condiciones</h3>
-
-<div class="secure">
-💰 Si no recibís → NO pagás
-</div>
-
-<div class="contract">
-<b>Contrato LUMERS®</b><br><br>
-Intermediación digital.<br>
-Pago retenido hasta entrega.<br>
-Responsabilidad del Raider.<br>
-Carga lícita obligatoria.<br>
-</div>
-
-<label>
-<input type="checkbox" id="checkClient"> Acepto términos
-</label>
-
-<button class="btn btn-main" onclick="enterClient()">Continuar</button>
-
-</div>
-</div>
-
-<!-- CLIENT -->
-<div id="client" class="view">
-
-<div class="header">
-<div class="small">Estado del pedido</div>
-<div id="status">Esperando publicación</div>
-</div>
-
-<div class="card">
-<input placeholder="Qué enviás">
-<input placeholder="Origen → destino">
-<input placeholder="Presupuesto">
-
-<button class="btn btn-main" onclick="send()">Iniciar subasta</button>
-
-<div class="live" id="liveStatus"></div>
+<div>
+<b class="text-blue-400 text-xs">Comunidad confiable</b>
+<p class="text-xs opacity-60">Usuarios con reputación visible.</p>
 </div>
 
 </div>
 
-<!-- RAIDER LEGAL -->
-<div id="raider-legal" class="view">
-<div class="card">
+<button id="btnLogin" class="btn mt-10 px-8 py-4 rounded-xl font-bold text-xs uppercase">
+Entrar con Google
+</button>
 
-<h3>📄 Condiciones Raider</h3>
-
-<div class="secure">
-💸 Cobrás cuando el cliente confirma
+<footer class="mt-auto text-xs opacity-40 mt-10 space-y-2">
+<div class="flex gap-3 justify-center">
+<span onclick="verLegal('terminos')" class="cursor-pointer">Términos</span>
+<span onclick="verLegal('privacidad')" class="cursor-pointer">Privacidad</span>
+<span onclick="verLegal('aviso')" class="cursor-pointer">Aviso</span>
 </div>
-
-<div class="contract">
-Prestador independiente.<br>
-Seguro obligatorio.<br>
-Responsable del traslado.<br>
-</div>
-
-<label>
-<input type="checkbox" id="checkRaider"> Acepto condiciones
-</label>
-
-<button class="btn btn-green" onclick="enterRaider()">Continuar</button>
-
-</div>
-</div>
-
-<!-- RAIDER -->
-<div id="raider" class="view">
-
-<div class="header">
-<div class="small">Ganancias hoy</div>
-<div class="balance">$18.000</div>
-</div>
-
-<div class="card">
-<b>📦 Pedido disponible</b><br>
-<span class="small">Centro → Somisa</span>
-
-<div style="font-size:1.5rem;color:var(--green);font-weight:800;">$4.500</div>
-
-<input placeholder="Tu oferta">
-
-<button class="btn btn-green" onclick="offer()">Ofertar</button>
-
-<div class="live">🔥 3 Raiders ofertando</div>
-</div>
+</footer>
 
 </div>
 
+<!-- APP -->
+<div id="app" class="hidden min-h-screen flex flex-col">
+
+<header class="p-4 glass flex justify-between">
+<h1 class="font-black text-blue-500">LUMERS</h1>
+<button onclick="logout()">Salir</button>
+</header>
+
+<main class="p-4 space-y-4 pb-20">
+
+<div class="glass p-4 rounded-xl">
+<p class="text-xs mb-2">Raider Pro (USD 5)</p>
+<button onclick="verPase()" class="btn w-full py-3 rounded-xl text-xs">Suscribirme</button>
 </div>
 
-<script>
-const tel="3364652349";
+<div id="lista"></div>
 
-function toggle(hide,show){
-document.getElementById(hide).classList.remove("active");
-document.getElementById(show).classList.add("active");
+</main>
+
+<button onclick="toggleModal(true)" class="fixed bottom-6 right-6 btn w-14 h-14 rounded-full">
++
+</button>
+
+</div>
+
+<!-- MODAL NUEVO ENVIO -->
+<div id="modal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center p-6">
+
+<div class="glass p-6 rounded-2xl w-full max-w-sm space-y-3">
+
+<input id="ori" placeholder="Origen" class="w-full p-3 bg-black/40 rounded">
+<input id="des" placeholder="Destino" class="w-full p-3 bg-black/40 rounded">
+<input id="pre" placeholder="Precio" class="w-full p-3 bg-black/40 rounded">
+<input id="tel" placeholder="WhatsApp" class="w-full p-3 bg-black/40 rounded">
+
+<button onclick="crear()" class="btn w-full py-3 rounded">Publicar</button>
+<button onclick="toggleModal(false)">Cancelar</button>
+
+</div>
+</div>
+
+<!-- MODAL LEGAL -->
+<div id="legal" class="hidden fixed inset-0 bg-black/90 p-6 overflow-y-auto">
+
+<div class="glass p-6 rounded-xl max-w-2xl mx-auto text-xs space-y-4">
+<h2 id="legalTitle" class="text-blue-400 text-lg font-bold"></h2>
+<div id="legalText"></div>
+<button onclick="cerrarLegal()" class="btn w-full py-3">Cerrar</button>
+</div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const app = initializeApp({
+apiKey: "TU_API",
+authDomain: "TU_AUTH",
+projectId: "TU_ID"
+});
+
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+onAuthStateChanged(auth, (user)=>{
+document.getElementById("loader").style.display="none";
+if(user){
+login.classList.add("hidden");
+appDiv.classList.remove("hidden");
+cargar();
+}else{
+login.classList.remove("hidden");
+appDiv.classList.add("hidden");
+}
+});
+
+btnLogin.onclick=()=>signInWithPopup(auth,provider);
+window.logout=()=>signOut(auth);
+
+window.toggleModal=(v)=>modal.classList.toggle("hidden",!v);
+
+window.crear=async()=>{
+await addDoc(collection(db,"viajes"),{
+origen:ori.value,
+destino:des.value,
+precio:pre.value
+});
+toggleModal(false);
+};
+
+function cargar(){
+onSnapshot(collection(db,"viajes"),snap=>{
+lista.innerHTML="";
+snap.forEach(doc=>{
+const d=doc.data();
+lista.innerHTML+=`<div class="glass p-4 rounded">
+<b>${d.origen}</b> → ${d.destino}
+<p>$${d.precio}</p>
+</div>`;
+});
+});
 }
 
-function enterClient(){
-if(!document.getElementById("checkClient").checked){
-alert("Debes aceptar condiciones");
-return;
-}
-toggle("client-legal","client");
-}
+window.verPase=()=>{
+window.location.href="https://link.mercadopago.com.ar/lumersraiderpro";
+};
 
-function enterRaider(){
-if(!document.getElementById("checkRaider").checked){
-alert("Debes aceptar condiciones");
-return;
-}
-toggle("raider-legal","raider");
-}
+const textos={
+terminos:`LUMERS es plataforma de intermediación...`,
+privacidad:`Se recopilan datos básicos...`,
+aviso:`LUMERS no realiza transporte...`
+};
 
-function send(){
-let status=document.getElementById("status");
-let live=document.getElementById("liveStatus");
+window.verLegal=(t)=>{
+legal.classList.remove("hidden");
+legalTitle.innerText=t;
+legalText.innerHTML=textos[t];
+};
 
-status.innerText="Subasta activa";
-live.innerText="⏳ Raiders viendo tu pedido...";
-
-setTimeout(()=>{live.innerText="🔥 Ofertas llegando";},2000);
-setTimeout(()=>{live.innerText="💸 Precio bajando";},4000);
-
-window.location.href=`https://wa.me/${tel}?text=Nuevo pedido LUMERS`;
-}
-
-function offer(){
-window.location.href=`https://wa.me/${tel}?text=Oferta Raider LUMERS`;
-}
+window.cerrarLegal=()=>legal.classList.add("hidden");
 </script>
 
 </body>
